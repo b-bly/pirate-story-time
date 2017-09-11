@@ -41,7 +41,7 @@ myApp.config(function($routeProvider, $locationProvider) {
       }
     })    .when('/addACard', {
       templateUrl: '/views/templates/addACard.html',
-      controller: 'UserController as uc',
+      controller: 'CardController as cc',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();

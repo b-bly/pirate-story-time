@@ -2,15 +2,14 @@
 <div class="container">
     <h1 class="lead">Add a card</h1>
 
-    <form ng-submit="lc.addCard()">
+    <form ng-submit="cc.addCard()">
         <div>
-                <select ng-model="selectedType" ng-options="x for x in types">
-                    </select>
-                    
+                <select ng-model="cc.type" ng-options="x for x in cc.types">
+                    </select>       
         </div>
         <div>
-          <label for="type">Username:</label>
-          <input type="text" ng-model="lc.user.username" />
+          <label for="description">Description:</label>
+          <input type="text" ng-model="cc.description" />
         </div>
         <div>
   
@@ -19,15 +18,11 @@
             <input type="email" ng-model="lc.user.email" />
           </div> -->
           <div>
-            <label for="password">Password:</label>
-            <input type="password" ng-model="lc.user.password" />
+            <label for="url">Image URL:</label>
+            <input type="url" ng-model="cc.url" />
           </div>
-          <div>
-            <label for="password">Re-enter password:</label>
-            <input type="password" ng-model="lc.user.passwordConfirm" />
-          </div>
-        </div>
-        <input class="btn btn-default" type="submit" name="submit" value="Register" />
-        <a href="#home">Cancel</a>
+     
+        <input class="btn btn-default" type="submit" name="submit" value="New Card" />
+        <a href="#/home" class="btn btn-danger">Cancel</a>
       </form>
 </div>
