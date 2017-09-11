@@ -17,14 +17,23 @@ myApp.config(function($routeProvider, $locationProvider) {
       templateUrl: '/views/templates/user.html',
       controller: 'UserController as uc',
       resolve: {
-        getuser : function(UserService){
+        getuser : function(UserService) {
           return UserService.getuser();
         }
       }
     })
     .when('/about', {
       templateUrl: '/views/templates/about.html',
-      controller: 'AboutController',
+      controller: 'AboutController as ac',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    })
+    .when('/settings', {
+      templateUrl: '/views/templates/settings.html',
+      controller: 'UserController as uc',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();

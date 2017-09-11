@@ -3,7 +3,9 @@ myApp.controller('LoginController', function($http, $location, UserService) {
     var self = this;
     self.user = {
       username: '',
-      password: ''
+      email: '',
+      password: '',
+      passwordConfirm: ''
     };
     self.message = '';
 
@@ -13,6 +15,8 @@ myApp.controller('LoginController', function($http, $location, UserService) {
         self.message = "Enter your username and password, ye scurvy dog!";
       } else if (self.message.length < 6) {
         self.message = "Yer password must be at least 6 characters long, matey."
+      } else if (self.message.password != self.message.passwordConfirm) {
+        self.message = "Arr, the passwords don't match!"
       } else {
         console.log('LoginController -- login -- sending to server...', self.user);
         $http.post('/', self.user).then(function(response) {
