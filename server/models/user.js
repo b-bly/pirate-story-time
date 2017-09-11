@@ -9,7 +9,7 @@ var UserSchema = new Schema({
     password: { type: String, required: true }
 },
     {
-        collection: users
+        collection: 'users'
     });
 
 // Called before adding a new user to the DB. Encrypts password.

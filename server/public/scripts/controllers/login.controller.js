@@ -13,10 +13,10 @@ myApp.controller('LoginController', function($http, $location, UserService) {
       console.log('LoginController -- login');
       if(self.user.username === '' || self.user.password === '') {
         self.message = "Enter your username and password, ye scurvy dog!";
-      } else if (self.message.length < 6) {
+      } else if (self.user.password.length < 6) {
         self.message = "Yer password must be at least 6 characters long, matey."
-      } else if (self.message.password != self.message.passwordConfirm) {
-        self.message = "Arr, the passwords don't match!"
+      // } else if (self.user.password != self.user.passwordConfirm) {
+      //   self.message = "Arr, the passwords don't match!"
       } else {
         console.log('LoginController -- login -- sending to server...', self.user);
         $http.post('/', self.user).then(function(response) {
@@ -32,6 +32,7 @@ myApp.controller('LoginController', function($http, $location, UserService) {
           console.log('LoginController -- registerUser -- failure: ', response);
           self.message = "Wrong!!";
         });
+        self.message = '';
       }
     };
 
