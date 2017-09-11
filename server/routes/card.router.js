@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Card = require('../models/card.js');
+//var Card = require('../models/card.js');
 var path = require('path');
 
 
