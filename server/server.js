@@ -33,7 +33,7 @@ app.use(passport.session());
 // Routes
 app.use('/register', registerRouter);
 app.use('/user', userRouter);
-//app.use('/card', cardRouter);
+app.use('/card', cardRouter);
 
 // Catch all bucket, must be last!
 app.use('/', indexRouter);

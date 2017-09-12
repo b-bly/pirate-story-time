@@ -8,9 +8,11 @@ myApp.factory('CardService', function ($http, $location) {
         types: types,
 
         addACard: function (type, description, url) {
-            console.log('add a card called - card service');
+           
             
             card = new Card(type, description, url);
+            console.log('card', card);
+            
             $http.post('/card', card).then(function (response) {
                 if (response.data) {
                     console.log('card service -- post -- success: ', response.data);
