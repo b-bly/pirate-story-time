@@ -6,6 +6,8 @@ myApp.controller('CardController', function(CardService, UserService) {
     self.userObject = UserService.userObject;
     self.types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];    
     
-    self.addACard = CardService.addACard(self.type, self.description, self.url);
+    self.addACard = function () {
+      return CardService.addACard(self.type, self.description, self.url);
+    } 
   }); //used with settings, about, addAcard, user
   
