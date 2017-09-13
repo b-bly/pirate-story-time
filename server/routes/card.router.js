@@ -24,4 +24,21 @@ router.post('/', function (req, res) {
     };
 });
 
+router.get('/', function(req, res) {
+    console.log('get /cards route');
+    if(req.isAuthenticated()) {
+        Card.find({}, function(err, data) {
+            if (err) {
+                console.log('card find error: ', err);
+                res.sendStatus(500);
+            } else {          
+                res.send(data);
+            }
+        });
+    } else {
+      console.log('not logged in');
+      res.sendStatus(403);
+    }
+  });
+
 module.exports = router;

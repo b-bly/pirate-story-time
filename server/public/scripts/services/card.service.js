@@ -1,7 +1,7 @@
 myApp.factory('CardService', function ($http, $location) {
     console.log('CardServoce Loaded');
     let card = {};
-    let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];    
+    let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     let cards = { list: {} };
 
     return {
@@ -9,11 +9,11 @@ myApp.factory('CardService', function ($http, $location) {
         types: types,
 
         addACard: function (type, description, url) {
-           
-            
+
+
             card = new Card(type, description, url);
             console.log('card', card);
-            
+
             $http.post('/card', card).then(function (response) {
                 if (response.data) {
                     console.log('card service -- post -- success: ', response.data);
@@ -22,20 +22,21 @@ myApp.factory('CardService', function ($http, $location) {
                 } else {
                     console.log('card service addACard error', response);
                     self.message = "Error adding card!!";
-                } 
+                }
             });
         },
 
         getCards: function () {
             console.log('getCards called');
-            
-            $http.get('/card').then(function(response) {
-                if(response.data.type) {
+
+            $http.get('/card').then(function (response) {
+                if (response.data) {
                     //card(s) returned
-cards.list = response.data;
-                    console.log('UserService -- getuser -- User Data: ', userObject.userName);
+                    cards.list = response.data;
+                    console.log('cards.list');
+                    console.log(cards.list);
                 } else {
-                    console.log('UserService -- getuser -- failure');
+                    console.log('CardService -- getCards -- error');
                     //to do: message to users: no cards!
                 }
             });
