@@ -8,7 +8,7 @@ var SALT_WORK_FACTOR = 10;
 var CardSchema = new Schema({
     type: { type: String, required: true },
     description: { type: String, required: true },
-    imageurl: { type: String, required: false } 
+    url: { type: String, required: false } 
 },
     {
         collection: 'cards'

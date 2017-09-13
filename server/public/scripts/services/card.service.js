@@ -2,11 +2,12 @@ myApp.factory('CardService', function ($http, $location) {
     console.log('CardServoce Loaded');
     let card = {};
     let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
-    let cards = { list: {} };
+    let cards = { list: [] };
 
     return {
         card: card,
         types: types,
+        cards: cards,
 
         addACard: function (type, description, url) {
 

@@ -5,6 +5,7 @@ myApp.controller('EditController', function (CardService, UserService) {
     self.cardService = CardService;
     self.userObject = UserService.userObject;
     self.types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
+    self.cards = CardService.cards;
 
     self.updateACard = function () {
         return CardService.updateACard(self.type, self.description, self.url);
