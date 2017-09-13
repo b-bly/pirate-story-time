@@ -1,4 +1,5 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial']);
+
 
 /// Routes ///
 myApp.config(function($routeProvider, $locationProvider) {
@@ -39,12 +40,25 @@ myApp.config(function($routeProvider, $locationProvider) {
           return UserService.getuser();
         }
       }
-    })    .when('/addACard', {
+    })    
+    .when('/addACard', {
       templateUrl: '/views/templates/addACard.html',
       controller: 'CardController as cc',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();
+        }
+      }
+    })
+    .when('/edit', {
+      templateUrl: '/views/templates/edit.html',
+      controller: 'EditController as vm',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        },
+        getCards : function(CardService){
+          return CardService.getCards();
         }
       }
     })

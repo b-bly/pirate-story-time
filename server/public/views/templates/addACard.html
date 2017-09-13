@@ -4,12 +4,13 @@
 
     <form ng-submit="cc.addACard()">
         <div>
+          <label for="type">Type: </label>
                 <select ng-model="cc.type" ng-options="x for x in cc.types">
                     </select>       
         </div>
         <div>
           <label for="description">Description:</label>
-          <input type="text" ng-model="cc.description" />
+          <textarea type="text" ng-model="cc.description" rows="4" cols="60"></textarea>
         </div>
         <div>
   

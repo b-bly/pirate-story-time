@@ -2,6 +2,7 @@ myApp.factory('CardService', function ($http, $location) {
     console.log('CardServoce Loaded');
     let card = {};
     let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];    
+    let cards = { list: {} };
 
     return {
         card: card,
@@ -21,10 +22,24 @@ myApp.factory('CardService', function ($http, $location) {
                 } else {
                     console.log('card service addACard error', response);
                     self.message = "Error adding card!!";
+                } 
+            });
+        },
+
+        getCards: function () {
+            console.log('getCards called');
+            
+            $http.get('/card').then(function(response) {
+                if(response.data.type) {
+                    //card(s) returned
+cards.list = response.data;
+                    console.log('UserService -- getuser -- User Data: ', userObject.userName);
+                } else {
+                    console.log('UserService -- getuser -- failure');
+                    //to do: message to users: no cards!
                 }
             });
-            console.log('addCard called');
-            
+
         }
     }
 });

@@ -1,0 +1,29 @@
+<div ng-include="'views/partials/nav.html'"></div>
+
+<h1 class="lead">Browse cards</h1>
+
+
+<md-content class="md-padding" layout="row">
+  <!-- <div flex> -->
+   
+    <md-card md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">Type: </span>
+          <span class="md-subhead">Description:</span>
+        </md-card-title-text>
+        <md-card-title-media>
+          <div class="md-media-md card-media"></div>
+        </md-card-title-media>
+      </md-card-title>
+      <md-card-actions layout="row" layout-align="end center">
+        <md-button>Edit</md-button>
+        <md-button>Delete</md-button>
+      </md-card-actions>
+    </md-card>
+    <!-- <div layout layout-padding layout-align="center end" style="height:200px">
+      <md-checkbox ng-model="showDarkTheme">Use 'Dark' Themed Cards</md-checkbox>
+    </div> -->
+
+  <!-- </div> -->
+</md-content>
