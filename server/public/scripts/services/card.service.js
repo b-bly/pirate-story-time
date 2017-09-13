@@ -42,6 +42,16 @@ myApp.factory('CardService', function ($http, $location) {
                 }
             });
 
+        },
+
+        deleteCard: function (id) {
+            console.log('deleteCard clicked, id: ');
+            console.log(id);
+
+
+            $http.delete('/card' + id).then(function (response) {
+                $location.path('/edit');
+            });
         }
     }
 });

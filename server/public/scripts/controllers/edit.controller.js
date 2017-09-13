@@ -7,6 +7,10 @@ myApp.controller('EditController', function (CardService, UserService) {
     self.types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     self.cards = CardService.cards;
 
+    self.deleteCard = function (id) {
+        return CardService.deleteCard(id);
+      }
+
     self.updateACard = function () {
         return CardService.updateACard(self.type, self.description, self.url);
     }
