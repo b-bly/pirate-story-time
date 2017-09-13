@@ -1,16 +1,16 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" ng-controller="LoginController as vm">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#/home">Pirate Story Time!</a>
+        <ul><li><a class="navbar-brand" href="#/user"><img src="pirate-icon.png" style="width: 50px"/></a></li></ul>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#/home">Home</a></li>
+        <li class="active"><a href="#/user">Home</a></li>
         <li><a href="#/register">RegistArrr!</a></li>
         <li><a href="#/about">About</a></li>
         <li><a href="#/settings">Settings</a></li>
-        <li><a href="#/addACard">Add a card</a></li>
+        <li><a href="#/addacard">Add a card</a></li>
         <li><a href="#/edit">Browse cards</a></li>
-        
+        <li><md-button class="btn btn-default" ng-click="vm.userService.logout()">Log Out</md-button></li>
         
       </ul>
     </div>

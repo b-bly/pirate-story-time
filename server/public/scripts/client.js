@@ -6,10 +6,15 @@ myApp.config(function($routeProvider, $locationProvider) {
   $locationProvider.hashPrefix('');
   console.log('myApp -- config')
   $routeProvider
-    .when('/home', {
-      templateUrl: '/views/templates/home.html',
-      controller: 'LoginController as lc',
-    })
+  .when('/login', {
+    templateUrl: '/views/templates/logIn.html',
+    controller: 'LoginController as lc',
+    resolve: {
+      getuser : function(UserService) {
+        return UserService.getuser();
+      }
+    }
+  })
     .when('/register', {
       templateUrl: '/views/templates/register.html',
       controller: 'LoginController as lc'
@@ -41,7 +46,7 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })    
-    .when('/addACard', {
+    .when('/addacard', {
       templateUrl: '/views/templates/addACard.html',
       controller: 'CardController as cc',
       resolve: {

@@ -1,6 +1,8 @@
 myApp.controller('LoginController', function($http, $location, UserService) {
     console.log('LoginController created');
+    
     var self = this;
+    self.userService = UserService;
     self.user = {
       username: '',
       email: '',
@@ -50,5 +52,9 @@ myApp.controller('LoginController', function($http, $location, UserService) {
           self.message = "Please try again."
         });
       }
+    }
+
+    self.logout = function() {
+      UserService.logout();
     }
 });
