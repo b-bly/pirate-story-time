@@ -4,9 +4,12 @@
 
 <md-content class="md-padding" layout="row">
   <!-- <div flex> -->
-      <!-- style="height: 200px; max-width: 200px" -->
-    <img  ng-src="{{vm.cards.list[2].url}}"  />
-    <md-card ng-repeat="card in vm.cards.list" md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch>
+  <!-- style="height: 200px; max-width: 200px" -->
+
+  <md-card ng-repeat="card in vm.cards.list" md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch>
+
+    <!-- non edit mode  -->
+    <div ng-show="!editCard">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline">Type: {{ card.type }}</span>
@@ -14,15 +17,53 @@
         </md-card-title-text>
         <md-card-title-media>
           <!-- <div class="md-media-md card-media"></div> -->
-          <img  ng-src="{{card.url}}" style="height: 200px; max-width: 200px" >
+          <img ng-src="{{card.url}}" style="height: 200px; max-width: 200px">
         </md-card-title-media>
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
-        <md-button>Edit</md-button>
-        <md-button ng-click="vm.deleteCard(card._id)">Delete</md-button>
+        <md-button ng-click="editCard = !editCard; vm.selectedCard = card;"><i aria-label="edit" class="material-icons" style="font-size:24px;">mode edit</i></md-button>
+        <md-button class="md-warn" ng-click="vm.deleteCard(card._id)"><i aria-label="delete" class="material-icons" style="font-size:24px;">delete</i></md-button>
       </md-card-actions>
-    </md-card>
-    <!-- <div layout layout-padding layout-align="center end" style="height:200px">
+    </div>
+
+    <!-- edit mode  -->
+    <div ng-show="editCard">
+
+      <form>
+        <md-card-title>
+          <md-card-title-text>
+            <label for="type">Type: </label>
+
+            <!-- to do: https://stackoverflow.com/questions/17815036/setting-default-value-in-select-drop-down-using-angularjs -->
+            <select ng-model="vm.type" ng-options="x for x in vm.types"><option selected="selected">{{card.type}}</option>
+                  </select>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-title>
+          <label for="description">Description:</label>
+          <textarea ng-value="card.description" type="text" ng-model="vm.description" rows="4" cols="60"></textarea>
+        </md-card-title>
+
+
+        <md-card-title>
+          <div>
+            <label for="url">Image URL:</label>
+            <input ng-value="card.url" type="url" ng-model="vm.url" />
+          </div>
+        </md-card-title>
+        <div>
+
+          <md-button ng-click="vm.updateACard(card._id); editListing = !editListing"><i aria-label="submit" class="material-icons" style="font-size:24px;">done</i></md-button>
+          <md-button ng-click="editCard = !editCard"><i aria-label="cancel" class="material-icons" style="font-size:24px;">undo</i></md-button>
+        </div>
+      </form>
+
+    </div>
+  </md-card>
+
+
+
+  <!-- <div layout layout-padding layout-align="center end" style="height:200px">
       <md-checkbox ng-model="showDarkTheme">Use 'Dark' Themed Cards</md-checkbox>
     </div> -->
 

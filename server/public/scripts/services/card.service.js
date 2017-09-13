@@ -5,11 +5,11 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
 
     self.addACard = function (type, description, url) {
         let card = new Card(type, description, url);
-        console.log('card', card);
+        // console.log('card', card);
 
         $http.post('/card', card).then(function (response) {
             if (response.data) {
-                console.log('card service -- post -- success: ', response.data);
+                // console.log('card service -- post -- success: ', response.data);
                 // location works with SPA (ng-route)
                 $location.path('/user'); // http://localhost:5000/#/user
             } else {
@@ -20,14 +20,14 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     }
 
     self.getCards = function () {
-        console.log('getCards called');
+        // console.log('getCards called');
 
         $http.get('/card').then(function (response) {
             if (response.data) {
                 //card(s) returned
                 self.cards.list = response.data;
-                console.log('cards.list');
-                console.log(cards.list);
+                // console.log('cards.list');
+                // console.log(self.cards.list);
             } else {
                 console.log('CardService -- getCards -- error');
                 //to do: message to users: no cards!
@@ -48,4 +48,18 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         });
     }
     
+    self.updateACard = function (currentCardId, type, description, url) {
+        
+        var card = {
+            type: type,
+            description: description,
+            url: url
+        };
+        
+        var id = currentCardId;
+        $http.put('/card/' + id, card).then(function(response){
+            alert('Success! card updated!');
+            self.getCards(); 
+        });
+    }
 }]);

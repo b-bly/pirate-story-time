@@ -61,4 +61,33 @@ router.delete('/:id', function (req, res) {
     }
 });
 
+router.put('/:id', function (req, res) {
+    let card = {
+        type: req.body.type,
+        description: req.body.description,
+        url: req.body.url
+    };
+    let id = req.params.id;
+
+    if (req.isAuthenticated()) {
+
+        Card.findByIdAndUpdate(
+            { _id: id },
+            { $set: card },
+            function (err, data) {
+                if (err) {
+                    console.log('put error: ', err);
+                    res.sendStatus(500);
+                } else {
+                    res.sendStatus(200);
+                }
+            }
+        );
+    } else {
+        console.log('not logged in');
+        res.sendStatus(403);
+    }
+
+});
+
 module.exports = router;
