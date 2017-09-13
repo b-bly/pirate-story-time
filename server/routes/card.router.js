@@ -11,7 +11,7 @@ router.post('/', function (req, res) {
     if (req.isAuthenticated()) {
         //console.log('authenticated user');
         card.username = req.user.username;
-        card.save(function (err, data) { 
+        card.save(function (err, data) {
             if (err) {
                 console.log('error saving item:', err);
                 res.sendStatus(500);
@@ -24,21 +24,41 @@ router.post('/', function (req, res) {
     };
 });
 
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
     console.log('get /cards route');
-    if(req.isAuthenticated()) {
-        Card.find({}, function(err, data) {
+    if (req.isAuthenticated()) {
+        Card.find({}, function (err, data) {
             if (err) {
                 console.log('card find error: ', err);
                 res.sendStatus(500);
-            } else {          
+            } else {
                 res.send(data);
             }
         });
     } else {
-      console.log('not logged in');
-      res.sendStatus(403);
+        console.log('not logged in');
+        res.sendStatus(403);
     }
-  });
+});
+
+router.delete('/:id', function (req, res) {
+    let id = req.params.id;
+    if (req.isAuthenticated()) {
+        Card.findByIdAndRemove(
+            { _id: id },
+            function (err, data) {
+                if (err) {
+                    console.log('delete error: ', err);
+                    res.sendStatus(500);
+                } else {
+                    res.sendStatus(200);
+                }
+            }
+        );
+    } else {
+        console.log('not logged in');
+        res.sendStatus(403);
+    }
+});
 
 module.exports = router;

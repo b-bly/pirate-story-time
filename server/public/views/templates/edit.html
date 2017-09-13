@@ -2,7 +2,6 @@
 
 <h1 class="lead">Browse cards</h1>
 
-{{vm.cards.list[2]}}
 <md-content class="md-padding" layout="row">
   <!-- <div flex> -->
       <!-- style="height: 200px; max-width: 200px" -->
@@ -20,7 +19,7 @@
       </md-card-title>
       <md-card-actions layout="row" layout-align="end center">
         <md-button>Edit</md-button>
-        <md-button ng-click="vm.deleteCard()">Delete</md-button>
+        <md-button ng-click="vm.deleteCard(card._id)">Delete</md-button>
       </md-card-actions>
     </md-card>
     <!-- <div layout layout-padding layout-align="center end" style="height:200px">
