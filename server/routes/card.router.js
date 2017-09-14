@@ -90,4 +90,29 @@ router.put('/:id', function (req, res) {
 
 });
 
+router.get('/userscards', function (req, res) {
+    console.log('get /cards route');
+    if (req.isAuthenticated()) {
+        var userInfo = {
+            username: req.user.username
+        };
+        Card.find(userInfo, function (err, data) {
+            
+            if (err) {
+                console.log('card find error: ', err);
+                res.sendStatus(500);
+            } else {
+                console.log('usercards data');
+                console.log(data);
+                
+                
+                res.send(data);
+            }
+        });
+    } else {
+        console.log('not logged in');
+        res.sendStatus(403);
+    }
+});
+
 module.exports = router;
