@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
+var random = require('./mongoose-simple-random');
 
 // Mongoose Schema
 //match regexp //https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url
@@ -17,5 +18,7 @@ var CardSchema = new Schema({
     }
 );
 
+//plugin from https://github.com/larryprice/mongoose-simple-random
+CardSchema.plugin(random);
 
 module.exports = mongoose.model('cards', CardSchema);

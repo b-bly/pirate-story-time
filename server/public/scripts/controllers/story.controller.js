@@ -6,6 +6,7 @@ myApp.controller('StoryController', function($http, UserService, CardService) {
     // self.types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     self.cards = CardService.cards;
     self.usersCards = CardService.storyCards;
+    self.storyCards = CardService.storyCards;
     
 
 });

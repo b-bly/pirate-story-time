@@ -93,37 +93,99 @@ router.put('/:id', function (req, res) {
 
 router.get('/userscards', function (req, res) {
     console.log('get /cards route');
+    let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
+    // let filter = {
+    //     type: 'Villain'
+    // };
+    let cards = { list: [] };
     if (req.isAuthenticated()) {
-        var userInfo = {
-            username: req.user.username
-        };
-        Card.find(userInfo, function (err, data) {
+        //criteria.username = req.user.username
+        let username = req.user.username;
+
+        types.forEach((type, i) => {
             
-            if (err) {
-                console.log('card find error: ', err);
-                res.sendStatus(500);
-            } else {
-                console.log('usercards data');
-                console.log(data);
-                
-                
-                res.send(data);
-            }
+            console.log('type: ', type);
+
+            Card.findRandom({username: username, type: type }, {}, {}, function (err, data) {
+                if (err) {
+                    res.sendStatus(500);
+                } else {
+                    console.log('findOneRandomCard data loop #', i);
+                    console.log(data);
+                    cards.list.push(data);
+                    if (cards.list.length == 5) {
+                        res.send(cards);
+                    }
+                }
+            });
         });
+
     } else {
         console.log('not logged in');
         res.sendStatus(403);
     }
 });
-//https://stackoverflow.com/questions/14644545/random-document-from-a-collection-in-mongoose
-//QuoteSchema.statics.random = function(callback) {
-    // this.count(function(err, count) {
-    //     if (err) {
-    //       return callback(err);
-    //     }
-    //     var rand = Math.floor(Math.random() * count);
-    //     this.findOne().skip(rand).exec(callback);
-    //   }.bind(this));
-    // };
 
+//OLD GET USERCARDS FUNCTION
+// router.get('/userscards', function (req, res) {
+//     console.log('get /cards route');
+//     let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
+//     let criteria = {
+//         type: ''
+//     };
+//     if (req.isAuthenticated()) {
+//         //criteria.username = req.user.username
+//         let userInfo = {
+//             username: req.user.username
+//         };
+
+//     findOneRandomCard(userInfo, function (err, data) {
+//         if (err) {
+//             res.sendStatus(500);
+//         } else {
+//             console.log('findOneRandomCard data');
+//             console.log(data);
+//             res.send(data);
+//         }
+//     });
+// } else {
+//         console.log('not logged in');
+//         res.sendStatus(403);
+//     }
+// });
+
+//this works searching based on type and username
+// let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
+// let criteria = {
+//     type: 'Environment'
+// };
+// let cards = { list: [] };
+// if (req.isAuthenticated()) {
+//     //criteria.username = req.user.username
+//     criteria.username = req.user.username;
+
+//     Card.findOne(criteria, function (err, data) {
+//         if (err) {
+//             console.log('card find error: ', err);
+//             res.sendStatus(500);
+//         } else {
+//             console.log('USERCARDS data: ', data);
+
+//             res.send(data);
+//         }
+//     });
+
+// started getting promise error when using findOneRandomCard function
+//(node:17920) DeprecationWarning: Mongoose: mpromise (mongoose's default promise library) is deprecated, plug in your own promise library instead: http://mongoosejs.com/docs/promises.html
+// function findOneRandomCard(userInfo, callback) {
+//     Card.count(userInfo, function (err, count) {
+//         if (err) {
+//             return callback(err);
+//         } else {
+//             var random = Math.floor(Math.random() * count);
+//             //skip to a random card
+//             Card.findOne(userInfo).skip(random).exec(callback);
+//         }
+//     });
+// }
 module.exports = router;

@@ -1,26 +1,27 @@
 <div ng-include="'views/partials/nav.html'"></div>
 
 <h2>New Story</h2>
-<md-content class="md-padding" layout="row">
+
+<md-content class="md-padding" layout="row" layout-wrap>
     <md-card ng-repeat="card in vm.storyCards.list" md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch>
 
         <md-card-title>
             <md-card-title-text>
-                <span class="md-headline">Type: {{ card.type }}</span>
-                <span class="md-subhead">Description: {{card.description }}</span>
+                <span class="md-headline">Type: {{ card[0].type }}</span>
+                <span class="md-subhead">Description: {{ card[0].description }}</span>
             </md-card-title-text>
             <md-card-title-media>
                 <!-- <div class="md-media-md card-media"></div> -->
-                <img ng-src="{{card.url}}" style="height: 200px; max-width: 200px">
+                <img ng-src="{{card[0].url}}" style="height: 200px; max-width: 200px">
             </md-card-title-media>
         </md-card-title>
-        <md-card-actions layout="row" layout-align="end center">
-            <md-button ng-click="editCard = !editCard; vm.selectedCard = card;"><i aria-label="edit" class="material-icons" style="font-size:24px;">mode edit</i></md-button>
-            <md-button class="md-warn" ng-click="vm.deleteCard(card._id)"><i aria-label="delete" class="material-icons" style="font-size:24px;">delete</i></md-button>
+        <!-- <md-card-actions layout="row" layout-align="end center">
+            <md-button ng-click="editCard = !editCard; vm.selectedCard = card[0];"><i aria-label="edit" class="material-icons" style="font-size:24px;">mode edit</i></md-button>
+            <md-button class="md-warn" ng-click="vm.deleteCard(card[0]._id)"><i aria-label="delete" class="material-icons" style="font-size:24px;">delete</i></md-button>
         </md-card-actions>
         <md-checkbox ng-model="vm.saveToPirateverse" aria-label="Save to Pirateverse?">
             Save to pirateverse?
-        </md-checkbox>
+        </md-checkbox> -->
 
     </md-card>
 </md-content>

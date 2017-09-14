@@ -11,6 +11,8 @@ if(process.env.MONGODB_URI != undefined) {
     mongoURI = 'mongodb://localhost:27017/solo';
 }
 
+//added this or I get a promise error
+mongoose.Promise = global.Promise;
 // var mongoURI = "mongodb://localhost:27017/passport";
 var mongoDB = mongoose.connect(mongoURI).connection;
 

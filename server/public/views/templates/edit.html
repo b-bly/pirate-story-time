@@ -48,9 +48,10 @@
 
               <label for="description">Description:</label>
               <textarea ng-value="card.description" type="text" ng-model="vm.description" rows="4" cols="60"></textarea>
-              <md-checkbox ng-value="card.savetopirateverse" ng-model="vm.saveToPirateverse" aria-label="Save to Pirateverse?"  ng-init="card.savetopirateverse">
+              <md-checkbox  ng-value="card.savetopirateverse" ng-model="vm.saveToPirateverse" aria-label="Save to Pirateverse?"  ng-init="card.savetopirateverse">
                 Save to pirateverse? {{card.savetopirateverse}}
               </md-checkbox>
+              <!-- Works with input type=checkbox and ng-checked="{{card.savetopirateverse}} === true" -->
             </md-card-title-text>
           </md-card-title>
 

@@ -3,6 +3,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     self.types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     self.cards = { list: [] };
     self.usersCards = { list: [] };
+    self.storyCards = { list: [] };
 
     self.addACard = function (type, description, url, saveToPirateverse) {
         let card = new Card(type, description, url, saveToPirateverse);
@@ -63,13 +64,39 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         });
     }
 
-    self.getUserCards = function () {
+    self.getUsersCards = function () {
          console.log('getUsersCards called');
 
         $http.get('/card/userscards').then(function (response) {
             if (response.data) {
                 //card(s) returned
-                self.storyCards.list = response.data;
+                console.log('getUserCards function response: ');
+                console.log(response);
+                // items = [ 
+                //     ['Anne', 'a'],
+                //     ['Bob', 'b'],
+                //     ['Henry', 'b'],
+                //     ['Andrew', 'd'],
+                //     ['Jason', 'c'],
+                //     ['Thomas', 'b']
+                // ]
+                
+                // sorting = [ 'b', 'c', 'b', 'b', 'c', 'd' ];
+                // result = []
+                // let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];   
+                
+                // sorting.forEach(function(key) {
+                //     var found = false;
+                //     items = items.filter(function(item) {
+                //         if(!found && item[1] == key) {
+                //             result.push(item);
+                //             found = true;
+                //             return false;
+                //         } else 
+                //             return true;
+                //     })
+                // })
+                self.storyCards.list = response.data.list;
 
             } else {
                 console.log('CardService -- getCards -- error');
