@@ -4,6 +4,7 @@ myApp.controller('CardController', function(CardService, UserService) {
     self.userService = UserService;
     self.cardService = CardService;
     self.userObject = UserService.userObject;
+    self.usersCards = CardService.usersCards;
     self.types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];   
     
 

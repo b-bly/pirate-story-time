@@ -19,7 +19,7 @@ myApp.config(function($routeProvider, $locationProvider) {
       templateUrl: '/views/templates/register.html',
       controller: 'LoginController as lc'
     })
-    .when('/user', {
+    .when('/home', {
       templateUrl: '/views/templates/user.html',
       controller: 'UserController as uc',
       resolve: {
@@ -64,6 +64,18 @@ myApp.config(function($routeProvider, $locationProvider) {
         },
         getCards : function(CardService){
           return CardService.getCards();
+        }
+      }
+    })
+    .when('/story', {
+      templateUrl: '/views/templates/story.html',
+      controller: 'StoryController as vm',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        },
+        getCards : function(CardService){
+          return CardService.getUsersCards();
         }
       }
     })

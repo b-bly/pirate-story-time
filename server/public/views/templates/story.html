@@ -1,0 +1,22 @@
+<div ng-include="'views/partials/nav.html'"></div>
+
+<h2>New Story</h2>
+<md-content class="md-padding" layout="row">
+    <md-card ng-repeat="card in vm.usersCards.list" md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch>
+
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Type: {{ card.type }}</span>
+                <span class="md-subhead">Description: {{card.description }}</span>
+            </md-card-title-text>
+            <md-card-title-media>
+                <!-- <div class="md-media-md card-media"></div> -->
+                <img ng-src="{{card.url}}" style="height: 200px; max-width: 200px">
+            </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button ng-click="editCard = !editCard; vm.selectedCard = card;"><i aria-label="edit" class="material-icons" style="font-size:24px;">mode edit</i></md-button>
+            <md-button class="md-warn" ng-click="vm.deleteCard(card._id)"><i aria-label="delete" class="material-icons" style="font-size:24px;">delete</i></md-button>
+        </md-card-actions>
+    </md-card>
+</md-content>

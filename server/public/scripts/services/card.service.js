@@ -2,6 +2,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     let self = this;
     self.types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     self.cards = { list: [] };
+    self.usersCards = { list: [] };
 
     self.addACard = function (type, description, url) {
         let card = new Card(type, description, url);
@@ -60,6 +61,21 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         $http.put('/card/' + id, card).then(function(response){
             alert('Success! card updated!');
             self.getCards(); 
+        });
+    }
+
+    self.getUsersCards = function () {
+         console.log('getUsersCards called');
+
+        $http.get('/card/userscards').then(function (response) {
+            if (response.data) {
+                //card(s) returned
+                self.usersCards.list = response.data;
+
+            } else {
+                console.log('CardService -- getCards -- error');
+                //to do: message to users: no cards!
+            }
         });
     }
 }]);
