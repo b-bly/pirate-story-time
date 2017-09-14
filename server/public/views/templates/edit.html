@@ -14,9 +14,10 @@
           <md-card-title-text>
             <span class="md-headline">Type: {{ card.type }}</span>
             <span class="md-subhead">Description: {{card.description }}</span>
-            <md-checkbox ng-model="cc.saveToPirateverse" aria-label="Save to Pirateverse?">
-              Save to pirateverse?
-            </md-checkbox>
+            
+              <span>Save to pirateverse? <span ng-if="card.savetopirateverse">Of course, matey!</span>
+              <p ng-if="!card.savetopirateverse">Good heavens, no!</p></span>
+      
           </md-card-title-text>
           <md-card-title-media>
             <!-- <div class="md-media-md card-media"></div> -->
@@ -47,8 +48,8 @@
 
               <label for="description">Description:</label>
               <textarea ng-value="card.description" type="text" ng-model="vm.description" rows="4" cols="60"></textarea>
-              <md-checkbox ng-model="cc.saveToPirateverse" aria-label="Save to Pirateverse?">
-                Save to pirateverse?
+              <md-checkbox ng-value="card.savetopirateverse" ng-model="vm.saveToPirateverse" aria-label="Save to Pirateverse?"  ng-init="card.savetopirateverse">
+                Save to pirateverse? {{card.savetopirateverse}}
               </md-checkbox>
             </md-card-title-text>
           </md-card-title>
