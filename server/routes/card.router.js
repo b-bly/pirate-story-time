@@ -65,7 +65,8 @@ router.put('/:id', function (req, res) {
     let card = {
         type: req.body.type,
         description: req.body.description,
-        url: req.body.url
+        url: req.body.url,
+        savetopirateverse: req.body.savetopirateverse
     };
     let id = req.params.id;
 
@@ -114,5 +115,15 @@ router.get('/userscards', function (req, res) {
         res.sendStatus(403);
     }
 });
+//https://stackoverflow.com/questions/14644545/random-document-from-a-collection-in-mongoose
+//QuoteSchema.statics.random = function(callback) {
+    // this.count(function(err, count) {
+    //     if (err) {
+    //       return callback(err);
+    //     }
+    //     var rand = Math.floor(Math.random() * count);
+    //     this.findOne().skip(rand).exec(callback);
+    //   }.bind(this));
+    // };
 
 module.exports = router;

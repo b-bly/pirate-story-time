@@ -13,7 +13,7 @@ myApp.controller('EditController', function (CardService, UserService) {
       }
 
     self.updateACard = function (currentCardId) {
-        return CardService.updateACard(currentCardId, self.type, self.description, self.url);
+        return CardService.updateACard(currentCardId, self.type, self.description, self.url, self.saveToPirateverse);
     }
 }).config(function($mdThemingProvider) {
     $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();

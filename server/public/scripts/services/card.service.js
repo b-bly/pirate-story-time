@@ -4,9 +4,13 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     self.cards = { list: [] };
     self.usersCards = { list: [] };
 
-    self.addACard = function (type, description, url) {
-        let card = new Card(type, description, url);
+    self.addACard = function (type, description, url, saveToPirateverse) {
+        let card = new Card(type, description, url, saveToPirateverse);
         // console.log('card', card);
+        console.log('addACard card services');
+        console.log(card);
+        
+        
 
         $http.post('/card', card).then(function (response) {
             if (response.data) {
@@ -49,14 +53,9 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         });
     }
     
-    self.updateACard = function (currentCardId, type, description, url) {
+    self.updateACard = function (currentCardId, type, description, url, saveToPirateverse) {
         
-        var card = {
-            type: type,
-            description: description,
-            url: url
-        };
-        
+        var card = new Card(currentCardId, type, description, url, saveToPirateverse);
         var id = currentCardId;
         $http.put('/card/' + id, card).then(function(response){
             alert('Success! card updated!');
@@ -64,13 +63,13 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         });
     }
 
-    self.getUsersCards = function () {
+    self.getUserCards = function () {
          console.log('getUsersCards called');
 
         $http.get('/card/userscards').then(function (response) {
             if (response.data) {
                 //card(s) returned
-                self.usersCards.list = response.data;
+                self.storyCards.list = response.data;
 
             } else {
                 console.log('CardService -- getCards -- error');

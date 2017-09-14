@@ -2,7 +2,7 @@
 
 <h2>New Story</h2>
 <md-content class="md-padding" layout="row">
-    <md-card ng-repeat="card in vm.usersCards.list" md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch>
+    <md-card ng-repeat="card in vm.storyCards.list" md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch>
 
         <md-card-title>
             <md-card-title-text>
@@ -18,5 +18,17 @@
             <md-button ng-click="editCard = !editCard; vm.selectedCard = card;"><i aria-label="edit" class="material-icons" style="font-size:24px;">mode edit</i></md-button>
             <md-button class="md-warn" ng-click="vm.deleteCard(card._id)"><i aria-label="delete" class="material-icons" style="font-size:24px;">delete</i></md-button>
         </md-card-actions>
+        <md-checkbox ng-model="vm.saveToPirateverse" aria-label="Save to Pirateverse?">
+            Save to pirateverse?
+        </md-checkbox>
+
     </md-card>
 </md-content>
+
+<!-- I decided to use one variable 'storyCards' for both stories from one user or from the pirateverse. 
+I want to try to clear out data from this variable on page unload eventually, so there
+are no problems if the user reloads the page or something.
+
+Another option would be to use two variable names and an ng-if 
+
+Yet another option would be two views. -->
