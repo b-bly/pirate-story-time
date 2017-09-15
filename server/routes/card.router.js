@@ -91,29 +91,52 @@ router.put('/:id', function (req, res) {
 
 });
 
+//would like to wrap this up in a function because the '/pirateverse' request is nearly identical 
+//it just lacks the username parameter in the mongoose find.
 router.get('/userscards', function (req, res) {
-    console.log('get /cards route');
+    //console.log('get /cards route');
     let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
-    // let filter = {
-    //     type: 'Villain'
-    // };
-    let cards = { list: [] };
+    let cards = [];
     if (req.isAuthenticated()) {
         //criteria.username = req.user.username
         let username = req.user.username;
-
-        types.forEach((type, i) => {
-            
-            console.log('type: ', type);
-
+        types.forEach((type, i) => {           
+           // console.log('type: ', type);
             Card.findRandom({username: username, type: type }, {}, {}, function (err, data) {
                 if (err) {
                     res.sendStatus(500);
                 } else {
                     console.log('findOneRandomCard data loop #', i);
                     console.log(data);
-                    cards.list.push(data);
-                    if (cards.list.length == 5) {
+                    cards.push(data[0]);
+                    if (cards.length == 5) {
+                        res.send(cards);
+                    }
+                }
+            });
+        });
+
+    } else {
+        console.log('not logged in');
+        res.sendStatus(403);
+    }
+});
+
+router.get('/pirateverse', function (req, res) {
+    console.log('get /cards route');
+    let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
+    let cards = [];
+    if (req.isAuthenticated()) {
+        types.forEach((type, i) => {
+            console.log('type: ', type);
+            Card.findRandom({ type: type }, {}, {}, function (err, data) {
+                if (err) {
+                    res.sendStatus(500);
+                } else {
+                    console.log('findOneRandomCard data loop #', i);
+                    console.log(data);
+                    cards.push(data[0]);
+                    if (cards.length == 5) {
                         res.send(cards);
                     }
                 }

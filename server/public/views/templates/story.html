@@ -1,18 +1,18 @@
 <div ng-include="'views/partials/nav.html'"></div>
 
 <h2>New Story</h2>
-
+<h2 ng-show="vm.cardService.pirateverse">You've entered the pirateverse, matey, take care now!</h2>
 <md-content class="md-padding" layout="row" layout-wrap>
     <md-card ng-repeat="card in vm.storyCards.list" md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch>
 
         <md-card-title>
             <md-card-title-text>
-                <span class="md-headline">Type: {{ card[0].type }}</span>
-                <span class="md-subhead">Description: {{ card[0].description }}</span>
+                <span class="md-headline">Type: {{ card.type }}</span>
+                <span class="md-subhead">Description: {{ card.description }}</span>
             </md-card-title-text>
             <md-card-title-media>
                 <!-- <div class="md-media-md card-media"></div> -->
-                <img ng-src="{{card[0].url}}" style="height: 200px; max-width: 200px">
+                <img ng-src="{{card.url}}" style="height: 200px; max-width: 200px">
             </md-card-title-media>
         </md-card-title>
         <!-- <md-card-actions layout="row" layout-align="end center">
