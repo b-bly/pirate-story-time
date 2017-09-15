@@ -6,14 +6,17 @@ myApp.controller('EditController', function (CardService, UserService) {
     self.userObject = UserService.userObject;
     self.types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     self.cards = CardService.cards;
+    console.log('EditController cards');
+    console.log(self.cards);
+    
     
     
     self.deleteCard = function (id) {
         return CardService.deleteCard(id);
       }
 
-    self.updateACard = function (currentCardId) {
-        return CardService.updateACard(currentCardId, self.type, self.description, self.url, self.saveToPirateverse);
+    self.updateACard = function (card) {
+        return CardService.updateACard(card);
     }
 }).config(function($mdThemingProvider) {
     $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();

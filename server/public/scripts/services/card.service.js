@@ -12,8 +12,6 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         console.log('addACard card services');
         console.log(card);
 
-
-
         $http.post('/card', card).then(function (response) {
             if (response.data) {
                 // console.log('card service -- post -- success: ', response.data);
@@ -55,10 +53,14 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         });
     }
 
-    self.updateACard = function (currentCardId, type, description, url, saveToPirateverse) {
+    self.updateACard = function (card) {
 
-        var card = new Card(currentCardId, type, description, url, saveToPirateverse);
-        var id = currentCardId;
+        var card = new Card(card);
+        var id = card._id;
+        console.log('updateACard');
+        console.log(card);
+        
+        
         $http.put('/card/' + id, card).then(function (response) {
             alert('Success! card updated!');
             self.getCards();

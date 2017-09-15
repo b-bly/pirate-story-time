@@ -33,7 +33,7 @@
         </md-card-actions>
       </div>
 
-      <!-- edit mode  -->
+      <!-- *** EDIT mode  *** -->
       <div ng-show="editCard">
 
         <form>
@@ -42,13 +42,15 @@
               <label for="type">Type: </label>
 
               <!-- to do: https://stackoverflow.com/questions/17815036/setting-default-value-in-select-drop-down-using-angularjs -->
-              <select ng-model="vm.type" ng-options="x for x in vm.types"><option selected="selected">{{card.type}}</option>
+              <select ng-selected="card.type" ng-model="card.type" ng-options="x for x in vm.types">
+                <option selected>{{card.type}}</option>
+                <option value="card.type" selected="selected">{{card.type}}</option>
                   </select>
-
+<!-- tried ng-selected and ng-value and value and selected -->
 
               <label for="description">Description:</label>
-              <textarea ng-value="card.description" type="text" ng-model="vm.description" rows="4" cols="60"></textarea>
-              <md-checkbox  ng-value="card.savetopirateverse" ng-model="vm.saveToPirateverse" aria-label="Save to Pirateverse?"  ng-init="card.savetopirateverse">
+              <textarea ng-value="card.description" type="text" ng-model="card.description" rows="4" cols="60"></textarea>
+              <md-checkbox ng-model="card.savetopirateverse" aria-label="Save to Pirateverse?" >
                 Save to pirateverse? {{card.savetopirateverse}}
               </md-checkbox>
               <!-- Works with input type=checkbox and ng-checked="{{card.savetopirateverse}} === true" -->
@@ -59,12 +61,12 @@
           <md-card-title>
             <div>
               <label for="url">Image URL:</label>
-              <input ng-value="card.url" type="url" ng-model="vm.url" />
+              <input ng-value="card.url" type="url" ng-model="card.url" />
             </div>
           </md-card-title>
           <div>
 
-            <md-button ng-click="vm.updateACard(card._id); editListing = !editListing"><i aria-label="submit" class="material-icons" style="font-size:24px;">done</i></md-button>
+            <md-button ng-click="vm.updateACard(card); editListing = !editListing"><i aria-label="submit" class="material-icons" style="font-size:24px;">done</i></md-button>
             <md-button ng-click="editCard = !editCard"><i aria-label="cancel" class="material-icons" style="font-size:24px;">undo</i></md-button>
           </div>
         </form>
