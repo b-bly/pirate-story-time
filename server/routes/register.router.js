@@ -36,5 +36,29 @@ router.post('/', function(req, res, next) {
     });
 });
 
+router.put('/getfrompirateverse', function (req, res) {
+  console.log('getfrompirateverse post, req.body: ', req.body);
+  //this will make sure that the user adding the item IS authenticated
+  
+  if (req.isAuthenticated()) {
+      //console.log('authenticated user');
+      let id = req.user._id;
+      Users.findByIdAndUpdate(
+        { _id: id },
+        { $set: { getfrompirateverse: req.body.getfrompirateverse } },
+        function (err, data) {
+            if (err) {
+                console.log('put error: ', err);
+                res.sendStatus(500);
+            } else {
+                res.sendStatus(200);
+            }
+        }
+    );
+  } else { //user not authenticated
+      res.sendStatus(403);
+  };
+});
+
 
 module.exports = router;

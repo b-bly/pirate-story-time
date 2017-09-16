@@ -4,7 +4,7 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial']);
 /// Routes ///
 myApp.config(function($routeProvider, $locationProvider) {
   $locationProvider.hashPrefix('');
-  console.log('myApp -- config')
+  // console.log('myApp -- config');
   $routeProvider
   .when('/login', {
     templateUrl: '/views/templates/logIn.html',
@@ -39,7 +39,7 @@ myApp.config(function($routeProvider, $locationProvider) {
     })
     .when('/settings', {
       templateUrl: '/views/templates/settings.html',
-      controller: 'UserController as uc',
+      controller: 'UserController as vm',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();

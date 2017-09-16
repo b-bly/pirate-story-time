@@ -129,11 +129,5 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         });
     }
 
-    function setGetFromPirateverse() {
-        console.log('self.getFromPirateverse');
-        self.getFromPirateverseBool = true;
-        if (self.getFromPirateverse == 'My Cards') {
-            self.getFromPirateverseBool = false;
-        }
-    }
+    
 }]);

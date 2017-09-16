@@ -1,5 +1,5 @@
 <div ng-include="'views/partials/nav.html'"></div>
-
+<!-- uses user controller -->
 <div ng-cloak layout-gt-sm="row" layout="column">
 
   <div flex-gt-sm="50" flex>
@@ -16,15 +16,14 @@
         <md-list-item class="md-2-line" ng-click="null">
 
           <div class="md-list-item-text" layout="column">
-            <form ng-submit="vm.cardService.setGetFromPirateverse()">
-              <p>Selected Value: <span class="radioValue">{{ vm.cardService.getFromPirateverse }}</span> </p>
-              <md-radio-group ng-model="vm.cardService.getFromPirateverse">
+            <form ng-submit="vm.setGetFromPirateverse()">
+              <p>Selected Value: <span class="radioValue">{{ vm.getFromPirateverse }}</span> </p>
+              <md-radio-group ng-model="vm.getFromPirateverse">
                 <md-radio-button value="My Cards" class="md-primary">My Cards</md-radio-button>
                 <md-radio-button value="Pirateverse"> Pirateverse </md-radio-button>
               </md-radio-group>
-
               <hr />
-              <md-button class="md-primary">Save</md-button>
+              <input type="submit" class="md-button md-primary"></input>
             </form>
           </div>
         </md-list-item>

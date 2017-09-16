@@ -1,35 +1,54 @@
-myApp.factory('UserService', function($http, $location){
+myApp.factory('UserService', function ($http, $location) {
   console.log('UserService Loaded');
 
   var userObject = {};
 
   return {
-    userObject : userObject,
+    userObject: userObject,
 
-    getuser : function(){
+    getuser: function () {
       //console.log('UserService -- getuser');
-      $http.get('/user').then(function(response) {
-          if(response.data.username) {
-              // user has a curret session on the server
-              userObject.userName = response.data.username;
-              //console.log('UserService -- getuser -- User Data: ', userObject.userName);
-          } else {
-              console.log('UserService -- getuser -- failure');
-              // user has no session, bounce them back to the login page
-              $location.path("/login");
-          }
-      },function(response){
+      $http.get('/user').then(function (response) {
+        if (response.data.username) {
+          // user has a curret session on the server
+          userObject.userName = response.data.username;
+          console.log('userObject');
+          console.log(userObject);
+          
+          
+          //console.log('UserService -- getuser -- User Data: ', userObject.userName);
+        } else {
+          console.log('UserService -- getuser -- failure');
+          // user has no session, bounce them back to the login page
+          $location.path("/login");
+        }
+      }, function (response) {
         console.log('UserService -- getuser -- failure: ', response);
         $location.path("/login");
       });
     },
 
-    logout : function() {
+    logout: function () {
       console.log('UserService -- logout');
-      $http.get('/user/logout').then(function(response) {
+      $http.get('/user/logout').then(function (response) {
         console.log('UserService -- logout -- logged out');
         $location.path("/login");
+      });
+    },
+
+    setGetFromPirateverse: function (getFromPirateverse) {
+      // console.log('setGetFromPiratevers, getFromPirateverse');
+      // console.log(getFromPirateverse);
+      getFromPirateverse = getFromPirateverse == 'My Cards'? {getfrompirateverse: false} : {getfrompirateverse: true};
+      console.log('getFromPirateverse');
+      console.log(getFromPirateverse);
+      
+      
+      $http.put('/register/getfrompirateverse', getFromPirateverse).then(function(response) {
+        console.log('user service -- update getfrompirateverse -- success');
+        //send alert of success?
       });
     }
   };
 });
+
