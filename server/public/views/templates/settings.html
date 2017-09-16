@@ -12,12 +12,12 @@
 
     <md-content>
       <md-list flex>
-        <md-subheader class="md-no-sticky">Select cards from </md-subheader>
+        
         <md-list-item class="md-2-line" ng-click="null">
 
           <div class="md-list-item-text" layout="column">
             <form ng-submit="vm.setGetFromPirateverse()">
-              <p>Selected Value: <span class="radioValue">{{ vm.getFromPirateverse }}</span> </p>
+                <span class="md-no-sticky" class="radioValue">Select cards from {{ vm.getFromPirateverse }}</span>
               <md-radio-group ng-model="vm.getFromPirateverse">
                 <md-radio-button value="My Cards" class="md-primary">My Cards</md-radio-button>
                 <md-radio-button value="Pirateverse"> Pirateverse </md-radio-button>

@@ -64,23 +64,9 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         console.log('getFromPirateverseBool');
         console.log(self.getFromPirateverseBool);
 
-        if (self.getFromPirateverseBool == true) {
-            //get data from all of pirateverse
+        // if (self.getFromPirateverseBool == true) {
+    
             console.log('you\'ve entered the pirateverse!');
-
-            $http.get('/card/storypirateverse').then(function (response) {
-                if (response.data) {
-                    //card(s) returned
-                    let cards = response.data;
-                    let result = sortCards(response.data);
-                    self.storyCards.list = result;
-                } else {
-                    console.log('CardService -- getCards -- error');
-                    //to do: message to users: no cards!
-                }
-            });
-        } else {
-            console.log('not the pirateverse getusercards');
 
             $http.get('/card/story').then(function (response) {
                 if (response.data) {
@@ -93,7 +79,22 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
                     //to do: message to users: no cards!
                 }
             });
-        }
+        
+        //else {
+        //     console.log('not the pirateverse getusercards');
+
+        //     $http.get('/card/story').then(function (response) {
+        //         if (response.data) {
+        //             //card(s) returned
+        //             let cards = response.data;
+        //             let result = sortCards(response.data);
+        //             self.storyCards.list = result;
+        //         } else {
+        //             console.log('CardService -- getCards -- error');
+        //             //to do: message to users: no cards!
+        //         }
+        //     });
+        // }
     }
 
     function sortCards(cards) {

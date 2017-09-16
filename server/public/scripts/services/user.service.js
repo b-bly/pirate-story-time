@@ -37,13 +37,10 @@ myApp.factory('UserService', function ($http, $location) {
     },
 
     setGetFromPirateverse: function (getFromPirateverse) {
-      // console.log('setGetFromPiratevers, getFromPirateverse');
       // console.log(getFromPirateverse);
       getFromPirateverse = getFromPirateverse == 'My Cards'? {getfrompirateverse: false} : {getfrompirateverse: true};
       console.log('getFromPirateverse');
       console.log(getFromPirateverse);
-      
-      
       $http.put('/register/getfrompirateverse', getFromPirateverse).then(function(response) {
         console.log('user service -- update getfrompirateverse -- success');
         //send alert of success?

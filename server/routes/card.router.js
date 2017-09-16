@@ -45,7 +45,7 @@ router.get('/userscards', function (req, res) {
     console.log('get /cards route');
     if (req.isAuthenticated()) {
         let username = req.user.username;
-        Card.find({username: username}, function (err, data) {
+        Card.find({ username: username }, function (err, data) {
             if (err) {
                 console.log('card find error: ', err);
                 res.sendStatus(500);
@@ -117,59 +117,61 @@ router.get('/story', function (req, res) {
     let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     let cards = [];
     if (req.isAuthenticated()) {
-        //criteria.username = req.user.username
-        let username = req.user.username;
-        types.forEach((type, i) => {           
-           // console.log('type: ', type);
-            Card.findRandom({username: username, type: type }, {}, {}, function (err, data) {
-                if (err) {
-                    res.sendStatus(500);
-                } else {
-                    console.log('findOneRandomCard data loop #', i);
-                    console.log(data);
-                    if (data) {cards.push(data[0]) }
-                    else {
-                        j++;
+        console.log('getfrompirateverse type');
+        console.log(req.user.getfrompirateverse);
+        console.log(typeof req.user.getfrompirateverse);
+        
+        
+        
+        if (req.user.getfrompirateverse == false) { //get from users cards
+            //*** change this to get from "myCards: true" 
+            //criteria.username = req.user.username
+            let username = req.user.username;
+            types.forEach((type, i) => {
+                // console.log('type: ', type);
+                Card.findRandom({ username: username, type: type }, {}, {}, function (err, data) {
+                    if (err) {
+                        res.sendStatus(500);
+                    } else {
+                        // console.log('findOneRandomCard data loop #', i);
+                        // console.log(data);
+                        if (data) { cards.push(data[0]) }
+                        else {
+                            j++;
+                        }
+                        if (cards.length == 5 - j) {
+                            console.log('sending cards');
+                            
+                            res.send(cards);
+                        }
                     }
-                    if (cards.length == 5 - j) {
-                        res.send(cards);
-                    }
-                }
+                });
             });
-        });
+        } else { // get from pirateverse
+            types.forEach((type, i) => {
+                //console.log('type: ', type);
+                Card.findRandom({ type: type }, {}, {}, function (err, data) {
+                    if (err) {
+                        res.sendStatus(500);
+                    } else {
+                        //console.log('findOneRandomCard data loop #', i);
+                       // console.log(data);
+                        cards.push(data[0]);
+                        if (cards.length == 5) {
+                            res.send(cards);
+                        }
+                    }
+                });
+            });
+        }
 
     } else {
         console.log('not logged in');
         res.sendStatus(403);
     }
+
 });
 
-router.get('/storypirateverse', function (req, res) {
-    console.log('get /storypirateverse route');
-    let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
-    let cards = [];
-    if (req.isAuthenticated()) {
-        types.forEach((type, i) => {
-            console.log('type: ', type);
-            Card.findRandom({ type: type }, {}, {}, function (err, data) {
-                if (err) {
-                    res.sendStatus(500);
-                } else {
-                    console.log('findOneRandomCard data loop #', i);
-                    console.log(data);
-                    cards.push(data[0]);
-                    if (cards.length == 5) {
-                        res.send(cards);
-                    }
-                }
-            });
-        });
-
-    } else {
-        console.log('not logged in');
-        res.sendStatus(403);
-    }
-});
 
 //OLD GET USERCARDS FUNCTION
 // router.get('/userscards', function (req, res) {
