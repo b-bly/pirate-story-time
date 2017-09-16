@@ -2,9 +2,9 @@
 <!-- uses user controller -->
 <div ng-cloak layout-gt-sm="row" layout="column">
 
-  <div flex-gt-sm="50" flex>
+  <div flex="50" flex>
 
-    <md-toolbar layout="row" class="md-hue-3">
+    <md-toolbar layout="row" class="md-hue-3" flex="50">
       <div class="md-toolbar-tools">
         <span>Settings</span>
       </div>
@@ -12,23 +12,27 @@
 
     <md-content>
       <md-list flex>
-        
         <md-list-item class="md-2-line" ng-click="null">
-
-          <div class="md-list-item-text" layout="column">
+          <div layout="column">
             <form ng-submit="vm.setGetFromPirateverse()">
-                <span class="md-no-sticky" class="radioValue">Select cards from {{ vm.getFromPirateverse }}</span>
-              <md-radio-group ng-model="vm.getFromPirateverse">
-                <md-radio-button value="My Cards" class="md-primary">My Cards</md-radio-button>
-                <md-radio-button value="Pirateverse"> Pirateverse </md-radio-button>
-              </md-radio-group>
-              <hr />
-              <input type="submit" class="md-button md-primary"></input>
+              <div class="md-list-item-text">
+                <span class="md-no-sticky" class="radioValue">Select cards from {{ vm.userObject.data.getfrompirateverse }}</span>
+                <md-radio-group ng-model="vm.userObject.data.getfrompirateverse">
+                  <md-radio-button ng-value="false" class="md-primary">My Cards</md-radio-button>
+                  <md-radio-button ng-value="true"> Pirateverse </md-radio-button>
+                </md-radio-group>
+                <hr />
+              </div>
+
+              <md-button type="submit" class="md-raised md-primary">Save</md-button>
+
             </form>
+
           </div>
         </md-list-item>
-        
+
         <md-divider></md-divider>
 
       </md-list>
+
     </md-content>

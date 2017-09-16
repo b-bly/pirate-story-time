@@ -1,7 +1,7 @@
 myApp.factory('UserService', function ($http, $location) {
   console.log('UserService Loaded');
 
-  var userObject = {};
+  var userObject = {data: {}};
 
   return {
     userObject: userObject,
@@ -11,7 +11,7 @@ myApp.factory('UserService', function ($http, $location) {
       $http.get('/user').then(function (response) {
         if (response.data.username) {
           // user has a curret session on the server
-          userObject.userName = response.data.username;
+          userObject.data = response.data;
           console.log('userObject');
           console.log(userObject);
           
