@@ -11,13 +11,16 @@
 
   <md-content md-theme="docs-dark" layout-padding layout="row" layout-wrap>
     <div flex="30" layout-align="start center">
-      <h1 class="lead">Browse cards</h1>
+      <h2 class="lead">Browse cards</h2>
     </div>
     <div flex layout-align="center center">
       <md-input-container layout-align="center center">
         <label></label>
         <input ng-model="vm.searchText" placeholder="search">
       </md-input-container>
+      <md-button ng-href="#/add" class="md-icon-button" aria-label="Menu">
+        <md-icon class="md-48">add</md-icon>
+      </md-button>
       <md-button ng-href="#/settings" class="md-icon-button" aria-label="Menu">
         <md-icon class="md-48">settings</md-icon>
       </md-button>
@@ -27,8 +30,8 @@
 
 <md-content id="myCards">
   <section layout="row" layout-align="center center" layout-wrap>
-    <md-button md-no-ink class="md-primary">My cards</md-button>
-    <md-button md-no-ink class="md-primary">Pirateverse</md-button>
+    <md-button ng-click="vm.cardService.getUsersCards()" md-no-ink class="md-primary">My cards</md-button>
+    <md-button ng-click="vm.cardService.getCards()" md-no-ink class="md-primary">Pirateverse</md-button>
   </section>
 </md-content>
 

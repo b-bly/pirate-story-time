@@ -46,8 +46,8 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })    
-    .when('/addacard', {
-      templateUrl: '/views/templates/addACard.html',
+    .when('/add', {
+      templateUrl: '/views/templates/add.html',
       controller: 'CardController as cc',
       resolve: {
         getuser : function(UserService){

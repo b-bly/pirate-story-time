@@ -41,6 +41,24 @@ router.get('/', function (req, res) {
     }
 });
 
+router.get('/userscards', function (req, res) {
+    console.log('get /cards route');
+    if (req.isAuthenticated()) {
+        let username = req.user.username;
+        Card.find({username: username}, function (err, data) {
+            if (err) {
+                console.log('card find error: ', err);
+                res.sendStatus(500);
+            } else {
+                res.send(data);
+            }
+        });
+    } else {
+        console.log('not logged in');
+        res.sendStatus(403);
+    }
+});
+
 router.delete('/:id', function (req, res) {
     let id = req.params.id;
     if (req.isAuthenticated()) {
@@ -93,7 +111,7 @@ router.put('/:id', function (req, res) {
 
 //would like to wrap this up in a function because the '/pirateverse' request is nearly identical 
 //it just lacks the username parameter in the mongoose find.
-router.get('/userscards', function (req, res) {
+router.get('/story', function (req, res) {
     //console.log('get /cards route');
     let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     let cards = [];
@@ -108,7 +126,7 @@ router.get('/userscards', function (req, res) {
                 } else {
                     console.log('findOneRandomCard data loop #', i);
                     console.log(data);
-                    cards.push(data[0]);
+                    if (data) cards.push(data[0]);
                     if (cards.length == 5) {
                         res.send(cards);
                     }
@@ -122,7 +140,7 @@ router.get('/userscards', function (req, res) {
     }
 });
 
-router.get('/pirateverse', function (req, res) {
+router.get('/storypirateverse', function (req, res) {
     console.log('get /cards route');
     let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     let cards = [];
