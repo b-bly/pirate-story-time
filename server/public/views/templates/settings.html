@@ -1,6 +1,35 @@
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
-        <h1 class="lead">Settings</h1>
-          
+
+<div ng-cloak layout-gt-sm="row" layout="column">
+
+  <div flex-gt-sm="50" flex>
+
+    <md-toolbar layout="row" class="md-hue-3">
+      <div class="md-toolbar-tools">
+        <span>Settings</span>
       </div>
-      
+    </md-toolbar>
+
+    <md-content>
+      <md-list flex>
+        <md-subheader class="md-no-sticky">Select cards from </md-subheader>
+        <md-list-item class="md-2-line" ng-click="null">
+
+          <div class="md-list-item-text" layout="column">
+            <form ng-submit="vm.cardService.setGetFromPirateverse()">
+              <p>Selected Value: <span class="radioValue">{{ vm.cardService.getFromPirateverse }}</span> </p>
+              <md-radio-group ng-model="vm.cardService.getFromPirateverse">
+                <md-radio-button value="My Cards" class="md-primary">My Cards</md-radio-button>
+                <md-radio-button value="Pirateverse"> Pirateverse </md-radio-button>
+              </md-radio-group>
+
+              <hr />
+              <md-button class="md-primary">Save</md-button>
+            </form>
+          </div>
+        </md-list-item>
+        
+        <md-divider></md-divider>
+
+      </md-list>
+    </md-content>

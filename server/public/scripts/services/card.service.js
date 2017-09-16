@@ -4,6 +4,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     self.cards = { list: [] };
     self.usersCards = { list: [] };
     self.storyCards = { list: [] };
+    self.getFromPirateverseBool = true;
 
     self.addACard = function (type, description, url, saveToPirateverse) {
         saveToPirateverse = saveToPirateverse ? saveToPirateverse : false;
@@ -29,7 +30,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         getRequest('/card');
     }
 
-    self.getUsersCards = function() {
+    self.getUsersCards = function () {
         console.log('getUsersCards called');
         getRequest('/card/userscards')
     }
@@ -58,12 +59,15 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     }
 
     self.getStoryCards = function () {
-        
-        
-        if (self.pirateverse == true) {
+        console.log('getFromPirateverseBool');
+
+        console.log('getFromPirateverseBool');
+        console.log(self.getFromPirateverseBool);
+
+        if (self.getFromPirateverseBool == true) {
             //get data from all of pirateverse
-            //console.log('you\'ve entered the pirateverse!');
-            
+            console.log('you\'ve entered the pirateverse!');
+
             $http.get('/card/storypirateverse').then(function (response) {
                 if (response.data) {
                     //card(s) returned
@@ -76,8 +80,8 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
                 }
             });
         } else {
-            //console.log('not the pirateverse getusercards');
-            
+            console.log('not the pirateverse getusercards');
+
             $http.get('/card/story').then(function (response) {
                 if (response.data) {
                     //card(s) returned
@@ -123,5 +127,13 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
                 //to do: message to users: no cards!
             }
         });
+    }
+
+    function setGetFromPirateverse() {
+        console.log('self.getFromPirateverse');
+        self.getFromPirateverseBool = true;
+        if (self.getFromPirateverse == 'My Cards') {
+            self.getFromPirateverseBool = false;
+        }
     }
 }]);
