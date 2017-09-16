@@ -79,10 +79,18 @@ li a:hover {
   color: #eee;
 } */
 
+html, body {
+  font-family: 'Roboto', sans-serif;
+}
+
 md-nav-bar {
   background-color: gray;
 }
 
 navbar-inner img {
   width: 50px;
+}
+
+#myCards {
+  margin-top: -40px;
 }

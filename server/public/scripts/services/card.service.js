@@ -41,6 +41,11 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
 
     }
 
+    self.getUsersCards = function() {
+        console.log('getUsersCards called');
+        
+    }
+
     self.deleteCard = function (id) {
         console.log('deleteCard clicked, id: ');
         console.log(id);
@@ -67,7 +72,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         });
     }
 
-    self.getUsersCards = function () {
+    self.getStoryCards = function () {
         console.log('getUsersCards called pirateverse: ');
         console.log(self.pirateverse);
         

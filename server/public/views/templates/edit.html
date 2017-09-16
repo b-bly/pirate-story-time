@@ -1,12 +1,45 @@
 <div ng-include="'views/partials/nav.html'"></div>
 
-<h1 class="lead">Browse cards</h1>
+<!-- search, my library, pirateverse, settings -->
+
+
+
+
+<!-- CARDS not edit mode -->
+
+<div layout="column" class="md-inline-form">
+
+  <md-content md-theme="docs-dark" layout-padding layout="row" layout-wrap>
+    <div flex="30" layout-align="start center">
+      <h1 class="lead">Browse cards</h1>
+    </div>
+    <div flex layout-align="center center">
+      <md-input-container layout-align="center center">
+        <label></label>
+        <input ng-model="vm.searchText" placeholder="search">
+      </md-input-container>
+      <md-button ng-href="#/settings" class="md-icon-button" aria-label="Menu">
+        <md-icon class="md-48">settings</md-icon>
+      </md-button>
+    </div>
+  </md-content>
+</div>
+
+<md-content id="myCards">
+  <section layout="row" layout-align="center center" layout-wrap>
+    <md-button md-no-ink class="md-primary">My cards</md-button>
+    <md-button md-no-ink class="md-primary">Pirateverse</md-button>
+  </section>
+</md-content>
+
+
 <div flex>
   <md-content class="md-padding" layout="row" layout-wrap>
     <!-- <div flex> -->
     <!-- style="height: 200px; max-width: 200px" -->
 
-    <md-card ng-repeat="card in vm.cards.list" md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch>
+    <md-card ng-repeat="card in vm.cards.list | filter:vm.searchText" md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}"
+      md-theme-watch>
 
       <!-- non edit mode  -->
       <div ng-show="!editCard">
@@ -14,10 +47,11 @@
           <md-card-title-text>
             <span class="md-headline">Type: {{ card.type }}</span>
             <span class="md-subhead">Description: {{card.description }}</span>
-            
-              <span>Save to pirateverse? <span ng-if="card.savetopirateverse">Of course, matey!</span>
-              <p ng-if="!card.savetopirateverse">Good heavens, no!</p></span>
-      
+
+            <span>Save to pirateverse? <span ng-if="card.savetopirateverse">Of course, matey!</span>
+            <p ng-if="!card.savetopirateverse">Good heavens, no!</p>
+            </span>
+
           </md-card-title-text>
           <md-card-title-media>
             <!-- <div class="md-media-md card-media"></div> -->
@@ -46,11 +80,11 @@
                 <option selected>{{card.type}}</option>
                 <option value="card.type" selected="selected">{{card.type}}</option>
                   </select>
-<!-- tried ng-selected and ng-value and value and selected -->
+              <!-- tried ng-selected and ng-value and value and selected -->
 
               <label for="description">Description:</label>
               <textarea ng-value="card.description" type="text" ng-model="card.description" rows="4" cols="60"></textarea>
-              <md-checkbox ng-model="card.savetopirateverse" aria-label="Save to Pirateverse?" >
+              <md-checkbox ng-model="card.savetopirateverse" aria-label="Save to Pirateverse?">
                 Save to pirateverse? {{card.savetopirateverse}}
               </md-checkbox>
               <!-- Works with input type=checkbox and ng-checked="{{card.savetopirateverse}} === true" -->

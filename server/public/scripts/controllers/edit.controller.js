@@ -23,5 +23,10 @@ myApp.controller('EditController', function (CardService, UserService) {
     $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
     $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
     $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
+    $mdThemingProvider.theme('docs-dark', 'default')
+    .primaryPalette('blue')
+    .primaryPalette('pink')
+    .accentPalette('orange')
+    .backgroundPalette('grey');
   }); 
 

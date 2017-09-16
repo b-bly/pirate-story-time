@@ -63,7 +63,7 @@ myApp.config(function($routeProvider, $locationProvider) {
           return UserService.getuser();
         },
         getCards : function(CardService){
-          return CardService.getCards();
+          return CardService.getUsersCards();
         }
       }
     })
@@ -75,7 +75,7 @@ myApp.config(function($routeProvider, $locationProvider) {
           return UserService.getuser();
         },
         getCards : function(CardService){
-          return CardService.getUsersCards();
+          return CardService.getStoryCards();
         }
       }
     })
