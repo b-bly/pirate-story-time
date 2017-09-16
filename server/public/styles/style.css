@@ -94,3 +94,11 @@ navbar-inner img {
 #myCards {
   margin-top: -40px;
 }
+
+.browse-card {
+  border-radius: 5px;
+}
+
+.card-image {
+  margin: 10px;
+}
