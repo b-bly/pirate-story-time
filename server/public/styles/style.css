@@ -91,7 +91,7 @@ navbar-inner img {
   width: 50px;
 }
 
-#myCards {
+/* #myCards {
   margin-top: -40px;
 }
 
@@ -101,4 +101,8 @@ navbar-inner img {
 
 .card-image {
   margin: 10px;
-}
+} */
+
+/* md-card {
+  max-width: 33%;
+} */

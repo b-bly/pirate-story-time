@@ -9,19 +9,21 @@
 </div>
 
 <h2 ng-show="vm.cardService.pirateverse">You've entered the pirateverse, matey, take care now!</h2>
-<md-content class="md-padding" layout="row" layout-wrap>
-    <md-card ng-repeat="card in vm.storyCards.list" md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}" md-theme-watch>
+<md-content class="md-padding" layout-wrap layout="row">
+    <md-card layout="column" ng-repeat="card in vm.storyCards.list" md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}"
+        md-theme-watch>
 
         <md-card-title>
             <md-card-title-text>
                 <span class="md-headline">Type: {{ card.type }}</span>
                 <span class="md-subhead">Description: {{ card.description }}</span>
             </md-card-title-text>
-            <md-card-title-media>
-                <!-- <div class="md-media-md card-media"></div> -->
-                <img ng-src="{{card.url}}" style="height: 200px; max-width: 200px">
-            </md-card-title-media>
         </md-card-title>
+        <md-card-title-media>
+            <!-- <div class="md-media-md card-media"></div> -->
+            <img ng-hide="!card.url"  class="card-image" ng-src="{{card.url}}" style="height: 200px; max-width: 200px">
+        </md-card-title-media>
+
         <!-- <md-card-actions layout="row" layout-align="end center">
             <md-button ng-click="editCard = !editCard; vm.selectedCard = card[0];"><i aria-label="edit" class="material-icons" style="font-size:24px;">mode edit</i></md-button>
             <md-button class="md-warn" ng-click="vm.deleteCard(card[0]._id)"><i aria-label="delete" class="material-icons" style="font-size:24px;">delete</i></md-button>
@@ -31,8 +33,8 @@
         </md-checkbox> -->
 
     </md-card>
-</md-content>
 
+    
 <!-- I decided to use one variable 'storyCards' for both stories from one user or from the pirateverse. 
 I want to try to clear out data from this variable on page unload eventually, so there
 are no problems if the user reloads the page or something.
