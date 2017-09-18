@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var Card = require('../models/card.js');
+var Users = require('../models/user.js');
 var path = require('path');
 
 
 router.post('/', function (req, res) {
-    console.log('hit card post, req.body: ', req.body);
+    //console.log('hit card post, req.body: ', req.body);
     //this will make sure that the user adding the item IS authenticated
     let card = new Card(req.body);
     if (req.isAuthenticated()) {
@@ -25,7 +26,7 @@ router.post('/', function (req, res) {
 });
 
 router.get('/', function (req, res) {
-    console.log('get /cards route');
+    // console.log('get /cards route');
     if (req.isAuthenticated()) {
         Card.find({}, function (err, data) {
             if (err) {
@@ -42,7 +43,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/userscards', function (req, res) {
-    console.log('get /cards route');
+    // console.log('get /cards route');
     if (req.isAuthenticated()) {
         let username = req.user.username;
         Card.find({ username: username }, function (err, data) {
@@ -51,6 +52,41 @@ router.get('/userscards', function (req, res) {
                 res.sendStatus(500);
             } else {
                 res.send(data);
+            }
+        });
+    } else {
+        console.log('not logged in');
+        res.sendStatus(403);
+    }
+});
+
+router.get('/myfavorites', function (req, res) {
+    if (req.isAuthenticated()) {
+console.log('myfavorites ');
+
+        let userId = req.user.id;
+        Users.find({ _id: userId }, function (err, data) {
+            if (err) {
+                console.log('card find error: ', err);
+                res.sendStatus(500);
+            } else {
+                //data.mycards has card ids
+                console.log('mycards');
+                console.log(data);
+                
+                
+                Card.find({ _id: { $in: data[0].mycards } }, function (err, data) {
+                    if (err) {
+                        console.log('card find error: ', err);
+                        res.sendStatus(500);
+                    } else {
+                        console.log('myfavorites find request data');
+                        console.log(data);
+                        
+                        
+                        res.send(data);
+                    }
+                });
             }
         });
     } else {
@@ -79,7 +115,7 @@ router.delete('/:id', function (req, res) {
     }
 });
 
-router.put('/:id', function (req, res) {
+router.put('mydeck/:id', function (req, res) {
     let card = {
         type: req.body.type,
         description: req.body.description,
@@ -120,9 +156,9 @@ router.get('/story', function (req, res) {
         console.log('getfrompirateverse type');
         console.log(req.user.getfrompirateverse);
         console.log(typeof req.user.getfrompirateverse);
-        
-        
-        
+
+
+
         if (req.user.getfrompirateverse == false) { //get from users cards
             //*** change this to get from "myCards: true" 
             //criteria.username = req.user.username
@@ -141,7 +177,7 @@ router.get('/story', function (req, res) {
                         }
                         if (cards.length == 5 - j) {
                             console.log('sending cards');
-                            
+
                             res.send(cards);
                         }
                     }
@@ -155,7 +191,7 @@ router.get('/story', function (req, res) {
                         res.sendStatus(500);
                     } else {
                         //console.log('findOneRandomCard data loop #', i);
-                       // console.log(data);
+                        // console.log(data);
                         cards.push(data[0]);
                         if (cards.length == 5) {
                             res.send(cards);

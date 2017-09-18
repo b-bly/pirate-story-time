@@ -33,7 +33,7 @@
   <div flex="30" layout-align="start center"></div>
   <section layout="row" layout-align="center center" layout-wrap>
     <!-- change getuserscards to get mylibrary cards -->
-    <md-button ng-click="vm.cardService.getUsersCards();" md-no-ink class="md-primary">My cards</md-button>
+    <md-button ng-click="vm.cardService.getMyFavorites();" md-no-ink class="md-primary">My Favorites</md-button>
     <md-button ng-click="vm.cardService.getCards()" md-no-ink class="md-primary">Pirateverse</md-button>
   </section>
 </md-content>
@@ -62,7 +62,7 @@
         <md-card-actions layout="row" layout-align="end center">
           <!-- pirateverse: add / favorite button -->
           <!-- My Deck: remove button -->
-          <md-button ng-show="vm.cardService.showPirateverseActions" ng-click="addToMyDeck(card._id); vm.selectedCard = card;">
+          <md-button ng-show="vm.cardService.showPirateverseActions" ng-click="vm.addToMyDeck(card._id);">
             add <md-icon md-font-icon="fa fa-add" class="md-48" aria-label="add to my deck">add</md-icon>
           </md-button>
           <md-button ng-show="!(vm.cardService.showPirateverseActions)" class="" ng-click="vm.removeCard(card._id)">

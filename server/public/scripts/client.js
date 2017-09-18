@@ -62,8 +62,8 @@ myApp.config(function($routeProvider, $locationProvider) {
         getuser : function(UserService){
           return UserService.getuser();
         },
-        getCards : function(CardService){
-          return CardService.getUsersCards();
+        getMyFavorites : function(CardService){
+          return CardService.getMyFavorites();
         }
       }
     })
@@ -86,8 +86,8 @@ myApp.config(function($routeProvider, $locationProvider) {
         getuser : function(UserService){
           return UserService.getuser();
         },
-        getCards : function(CardService){
-          return CardService.getCards();
+        getUsersCards : function(CardService){
+          return CardService.getUsersCards();
         }
       }
     })

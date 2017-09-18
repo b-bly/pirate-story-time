@@ -23,6 +23,17 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
                 self.message = "Error adding card!!";
             }
         });
+
+        $http.put('/register/mydeck/' + cardId).then(function (response) {
+            alert('Success! card added to My Cards!');
+            self.getCards();
+          });
+
+    }
+
+    self.getMyFavorites = function () {
+        self.showPirateverseActions = false;
+        getRequest('/card/myfavorites')
     }
 
     self.getCards = function () {
@@ -31,8 +42,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         getRequest('/card');
     }
 
-    self.getUsersCards = function () {
-        self.showPirateverseActions = false;
+    self.getUsersCards = function () {=
         console.log('getUsersCards called');
         getRequest('/card/userscards')
     }
@@ -44,7 +54,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
 
         $http.delete('/card/' + id).then(function (response) {
             self.getCards();
-            $location.path('/edit');
+            $location.path('/mycards');
             //why doesn't the location.path loading edit show that the card has been deleted?
         });
     }
@@ -73,6 +83,8 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
                 }
             });
     }
+
+
 
     function sortCards(cards) {
         let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
@@ -106,6 +118,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
             }
         });
     }
+
 
     // swal({
     //     title: 'Are you sure?',
