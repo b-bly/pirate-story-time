@@ -42,7 +42,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         getRequest('/card');
     }
 
-    self.getUsersCards = function () {=
+    self.getUsersCards = function () {
         console.log('getUsersCards called');
         getRequest('/card/userscards')
     }
