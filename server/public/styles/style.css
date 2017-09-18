@@ -91,7 +91,7 @@ navbar-inner img {
   width: 50px;
 }
 
-/* #myCards {
+#myCards {
   margin-top: -40px;
 }
 
@@ -101,8 +101,14 @@ navbar-inner img {
 
 .card-image {
   margin: 10px;
-} */
+} 
 
-/* md-card {
-  max-width: 33%;
-} */
+md-card {
+  max-width: 30%;
+  
+
+}
+
+
+/* Text size for mobile */
+/* https://stackoverflow.com/questions/37643838/angular-material-design-text-size-change */

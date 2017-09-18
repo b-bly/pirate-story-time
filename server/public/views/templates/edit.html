@@ -7,15 +7,15 @@
 
 <!-- CARDS not edit mode -->
 
-<!-- <div layout="column" class="md-inline-form">
+<div layout="column" class="md-inline-form">
 
-  <md-content md-theme="docs-dark" layout-padding layout="row" layout-wrap>
-    <div flex="30" layout-align="start center">
+  
+  <md-content md-theme="docs-dark" layout-padding layout="row" layout-xs="column" layout-sm="column">
+    <div flex layout-align="start center">
       <h2 class="lead">Browse cards</h2>
     </div>
-    <div flex layout-align="center center">
-      <md-input-container layout-align="center center">
-        <label></label>
+    <div layout-align="center center">
+      <md-input-container >
         <input ng-model="vm.searchText" placeholder="search">
       </md-input-container>
       <md-button ng-href="#/add" class="md-icon-button" aria-label="Menu">
@@ -25,20 +25,22 @@
         <md-icon class="md-48">settings</md-icon>
       </md-button>
     </div>
+    <div flex></div>
   </md-content>
 </div>
 
-<md-content id="myCards">
+<md-content flex id="myCards">
+  <div flex="30" layout-align="start center"></div>
   <section layout="row" layout-align="center center" layout-wrap>
     <md-button ng-click="vm.cardService.getUsersCards()" md-no-ink class="md-primary">My cards</md-button>
     <md-button ng-click="vm.cardService.getCards()" md-no-ink class="md-primary">Pirateverse</md-button>
   </section>
-</md-content> -->
+</md-content>
 
 <!-- CARDS non edit mode  -->
 
 <div flex>
-  <md-content class="md-padding" layout="row" layout-wrap>
+  <md-content class="md-padding" layout="row" layout-wrap layout-sm="column" layout-xs="column">
     <md-card layout="column" class="browse-card" ng-repeat="card in vm.cards.list | filter:vm.searchText" md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}">
       <div ng-show="!editCard">
         <md-card-title>
