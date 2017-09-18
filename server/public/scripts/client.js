@@ -79,6 +79,18 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
+    .when('/mycards', {
+      templateUrl: '/views/templates/mycards.html',
+      controller: 'MyCardsController as vm',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        },
+        getCards : function(CardService){
+          return CardService.getCards();
+        }
+      }
+    })
     .otherwise({
       redirectTo: 'home'
     });

@@ -4,7 +4,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     self.cards = { list: [] };
     self.usersCards = { list: [] };
     self.storyCards = { list: [] };
-    self.getFromPirateverseBool = true;
+    self.showPirateverseActions = false;
 
     self.addACard = function (type, description, url, saveToPirateverse) {
         saveToPirateverse = saveToPirateverse ? saveToPirateverse : false;
@@ -27,10 +27,12 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
 
     self.getCards = function () {
         // console.log('getCards called');
+        self.showPirateverseActions = true;
         getRequest('/card');
     }
 
     self.getUsersCards = function () {
+        self.showPirateverseActions = false;
         console.log('getUsersCards called');
         getRequest('/card/userscards')
     }
@@ -59,7 +61,6 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     }
 
     self.getStoryCards = function () {
-        // if (self.getFromPirateverseBool == true) {    
             $http.get('/card/story').then(function (response) {
                 if (response.data) {
                     //card(s) returned

@@ -9,13 +9,13 @@
 
 <div layout="column" class="md-inline-form">
 
-  
+
   <md-content md-theme="docs-dark" layout-padding layout="row" layout-xs="column" layout-sm="column">
     <div flex layout-align="start center">
       <h2 class="lead">Browse cards</h2>
     </div>
     <div layout-align="center center">
-      <md-input-container >
+      <md-input-container>
         <input ng-model="vm.searchText" placeholder="search">
       </md-input-container>
       <md-button ng-href="#/add" class="md-icon-button" aria-label="Menu">
@@ -32,7 +32,8 @@
 <md-content flex id="myCards">
   <div flex="30" layout-align="start center"></div>
   <section layout="row" layout-align="center center" layout-wrap>
-    <md-button ng-click="vm.cardService.getUsersCards()" md-no-ink class="md-primary">My cards</md-button>
+    <!-- change getuserscards to get mylibrary cards -->
+    <md-button ng-click="vm.cardService.getUsersCards();" md-no-ink class="md-primary">My cards</md-button>
     <md-button ng-click="vm.cardService.getCards()" md-no-ink class="md-primary">Pirateverse</md-button>
   </section>
 </md-content>
@@ -42,7 +43,7 @@
 <div flex>
   <md-content class="md-padding" layout="row" layout-wrap layout-sm="column" layout-xs="column">
     <md-card layout="column" class="browse-card" ng-repeat="card in vm.cards.list | filter:vm.searchText" md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}">
-      <div ng-show="!editCard">
+      <div>
         <md-card-title>
           <md-card-header>
             <md-card-title-text>
@@ -59,45 +60,16 @@
           <img ng-hide="!card.url" ng-src="{{card.url}}" style="height: 200px; max-width: 200px;">
         </md-card-title-media>
         <md-card-actions layout="row" layout-align="end center">
-          <md-button ng-click="editCard = !editCard; vm.selectedCard = card;"><i aria-label="edit" class="material-icons" style="font-size:24px;">mode edit</i></md-button>
-          <md-button class="md-warn" ng-click="vm.deleteCard(card._id)"><i aria-label="delete" class="material-icons" style="font-size:24px;">delete</i></md-button>
+          <!-- pirateverse: add / favorite button -->
+          <!-- My Deck: remove button -->
+          <md-button ng-show="vm.cardService.showPirateverseActions" ng-click="addToMyDeck(card._id); vm.selectedCard = card;">
+            add <md-icon md-font-icon="fa fa-add" class="md-48" aria-label="add to my deck">add</md-icon>
+          </md-button>
+          <md-button ng-show="!(vm.cardService.showPirateverseActions)" class="" ng-click="vm.removeCard(card._id)">
+            remove <md-icon class="md-48" aria-label="remove from my deck">remove</md-icon>
+          </md-button>
         </md-card-actions>
       </div>
-
-      <!-- *** EDIT mode  *** -->
-      <!-- <div ng-show="editCard">
-  <md-content layout="row">
-    <md-card layout="column"> -->
-      <div ng-show="editCard">
-        <form>
-          <md-card-title>
-            <md-card-title-text>
-              <label for="type">Type: </label>
-              <!-- to do: https://stackoverflow.com/questions/17815036/setting-default-value-in-select-drop-down-using-angularjs -->
-              <select ng-selected="card.type" ng-model="card.type" ng-options="x for x in vm.types">
-                <option selected>{{card.type}}</option>
-                <option value="card.type" selected="selected">{{card.type}}</option>
-                  </select>
-              <label for="description">Description:</label>
-              <textarea ng-value="card.description" type="text" ng-model="card.description" rows="4" cols="30"></textarea>
-              <md-checkbox ng-model="card.savetopirateverse" aria-label="Save to Pirateverse?">
-                Save to pirateverse? {{card.savetopirateverse}}
-              </md-checkbox>
-            </md-card-title-text>
-          </md-card-title>
-
-          <md-card-title>
-            <div>
-              <label for="url">Image URL:</label>
-              <input ng-value="card.url" type="url" ng-model="card.url" />
-            </div>
-          </md-card-title>
-          <div>
-            <md-button ng-click="vm.updateACard(card); editCard = !editCard"><i aria-label="submit" class="material-icons" style="font-size:24px;">done</i></md-button>
-            <md-button ng-click="editCard = !editCard"><i aria-label="cancel" class="material-icons" style="font-size:24px;">undo</i></md-button>
-          </div>
-        </form>
     </md-card>
   </md-content>
-  </div>
 </div>
