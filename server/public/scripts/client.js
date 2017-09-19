@@ -62,8 +62,8 @@ myApp.config(function($routeProvider, $locationProvider) {
         getuser : function(UserService){
           return UserService.getuser();
         },
-        getMyFavorites : function(CardService){
-          return CardService.getMyFavorites();
+        getUsersCards : function(CardService){
+          return CardService.getUsersCards();
         }
       }
     })
@@ -79,18 +79,7 @@ myApp.config(function($routeProvider, $locationProvider) {
         }
       }
     })
-    .when('/mycards', {
-      templateUrl: '/views/templates/mycards.html',
-      controller: 'MyCardsController as vm',
-      resolve: {
-        getuser : function(UserService){
-          return UserService.getuser();
-        },
-        getUsersCards : function(CardService){
-          return CardService.getUsersCards();
-        }
-      }
-    })
+  
     .otherwise({
       redirectTo: 'home'
     });
