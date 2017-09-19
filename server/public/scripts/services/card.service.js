@@ -84,7 +84,12 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
             });
     }
 
-
+    self.removeCard = function(cardId) {
+        $http.put('/register/remove/' + cardId).then(function (response) {
+            alert('Success! card removed!');
+            self.getMyFavorites();
+        });
+    }
 
     function sortCards(cards) {
         let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];

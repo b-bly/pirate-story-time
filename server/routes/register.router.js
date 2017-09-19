@@ -87,4 +87,31 @@ router.put('/mydeck/:id', function (req, res) {
   }
 });
 
+router.put('/remove/:id', function (req, res) {
+  console.log('user router put id: ');
+  console.log(req.params.id);
+  let cardId = req.params.id;
+  if (req.isAuthenticated()) {
+    let userId = req.user.id;
+    console.log('userId');
+    console.log(userId);
+
+    Users.findByIdAndUpdate(
+      { _id: userId },
+      { $pull: { mycards: cardId } },
+      function (err, data) {
+        if (err) {
+          console.log('put error: ', err);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      }
+    );
+  } else {
+    console.log('not logged in');
+    res.sendStatus(403);
+  }
+});
+
 module.exports = router;
