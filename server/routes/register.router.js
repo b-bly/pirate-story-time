@@ -38,8 +38,8 @@ router.post('/', function (req, res, next) {
     });
   });
 
-router.put('/getfrompirateverse', function (req, res) {
-  console.log('getfrompirateverse post, req.body: ', req.body);
+router.put('/getstoryfrom', function (req, res) {
+  console.log('getstoryfrom post, req.body: ', req.body);
   //this will make sure that the user adding the item IS authenticated
 
   if (req.isAuthenticated()) {
@@ -47,7 +47,7 @@ router.put('/getfrompirateverse', function (req, res) {
     let id = req.user._id;
     Users.findByIdAndUpdate(
       { _id: id },
-      { $set: { getfrompirateverse: req.body.getfrompirateverse } },
+      { $set: { getstoryfrom: req.body.getstoryfrom } },
       function (err, data) {
         if (err) {
           console.log('put error: ', err);

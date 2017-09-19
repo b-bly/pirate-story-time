@@ -31,9 +31,9 @@ myApp.factory('UserService', function ($http, $location) {
       });
     },
 
-    setGetFromPirateverse: function (saveToPirateverse) {
-      $http.put('/register/getfrompirateverse', saveToPirateverse).then(function (response) {
-        console.log('user service -- update getfrompirateverse -- success');
+    setGetFromPirateverse: function (getStoryFrom) {
+      $http.put('/register/getstoryfrom', getStoryFrom).then(function (response) {
+        console.log('user service -- update getstoryfrom -- success');
         console.log(response);
         
         //send alert of success?

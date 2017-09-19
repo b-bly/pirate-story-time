@@ -7,8 +7,8 @@ myApp.controller('UserController', function (UserService, CardService) {
   CardService.pirateverse = self.pirateverse;
   self.getcardsfrom = ['myCards', 'myFavorites', 'pirateverse'];
 
-  self.setGetFromPirateverse = function () {
-    self.userService.setGetFromPirateverse();
+  self.setGetFromPirateverse = function (getFromPirateverse) {
+    self.userService.setGetFromPirateverse(getFromPirateverse);
   }
 
 }); //used with settings, about, addAcard, user

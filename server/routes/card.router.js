@@ -62,7 +62,7 @@ router.get('/userscards', function (req, res) {
 
 router.get('/myfavorites', function (req, res) {
     if (req.isAuthenticated()) {
-console.log('myfavorites ');
+        console.log('myfavorites ');
 
         let userId = req.user.id;
         Users.find({ _id: userId }, function (err, data) {
@@ -73,8 +73,8 @@ console.log('myfavorites ');
                 //data.mycards has card ids
                 console.log('mycards');
                 console.log(data);
-                
-                
+
+
                 Card.find({ _id: { $in: data[0].mycards } }, function (err, data) {
                     if (err) {
                         console.log('card find error: ', err);
@@ -82,8 +82,8 @@ console.log('myfavorites ');
                     } else {
                         console.log('myfavorites find request data');
                         console.log(data);
-                        
-                        
+
+
                         res.send(data);
                     }
                 });
@@ -149,12 +149,15 @@ router.put('mydeck/:id', function (req, res) {
 //it just lacks the username parameter in the mongoose find.
 router.get('/story', function (req, res) {
     var j = 0;
-    //console.log('get /cards route');
+    console.log('story getstoryfrom: ');
+    console.log(req.body.getstoryfrom);
+    
+    
     let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     let cards = [];
     if (req.isAuthenticated()) {
         console.log('logged in');
-        if (req.user.getcardsfrom == 'myCards') { //get from users cards
+        if (req.user.getstoryfrom == 'myCards') { //get from users cards
             //*** change this to get from "myCards: true" 
             //criteria.username = req.user.username
             let username = req.user.username;
@@ -172,11 +175,48 @@ router.get('/story', function (req, res) {
                         }
                         if (cards.length == 5 - j) {
                             console.log('sending cards');
-
                             res.send(cards);
                         }
                     }
                 });
+            });
+        } else if (req.user.getstoryfrom == 'myFavorites') { //get from users cards
+            //*** change this to get from "myCards: true" 
+            //criteria.username = req.user.username
+            let username = req.user.username;
+            types.forEach((type, i) => {
+                // console.log('type: ', type);
+
+                Card.find({ _id: { $in: data[0].mycards } }, function (err, data) {
+                    if (err) {
+                        console.log('card find error: ', err);
+                        res.sendStatus(500);
+                    } else {
+                        console.log('get story > myfavorites find request data');
+                        console.log(data);
+
+
+                        //res.send(data);
+                    }
+                });
+
+                //     Card.findRandom({ username: username, type: type }, {}, {}, function (err, data) {
+                //         if (err) {
+                //             res.sendStatus(500);
+                //         } else {
+                //             // console.log('findOneRandomCard data loop #', i);
+                //             // console.log(data);
+                //             if (data) { cards.push(data[0]) }
+                //             else {
+                //                 j++;
+                //             }
+                //             if (cards.length == 5 - j) {
+                //                 console.log('sending cards');
+
+                //                 res.send(cards);
+                //             }
+                //         }
+                //     });
             });
         } else { // get from pirateverse
             types.forEach((type, i) => {

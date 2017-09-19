@@ -15,7 +15,7 @@
       <md-list flex="50">
         <md-list-item class="md-2-line" ng-click="null">
           <div layout="column">
-            <form ng-submit="vm.setGetFromPirateverse(vm.userObject.data.getstoryfrom)">
+            <form ng-submit="vm.setGetFromPirateverse(vm.userObject.data)">
               
               <span class="md-no-sticky" class="radioValue">Select cards from {{vm.userObject.data.getstoryfrom}}</span>
               <div ng-repeat="deck in vm.getcardsfrom">
