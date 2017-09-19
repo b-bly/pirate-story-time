@@ -46,7 +46,7 @@ myApp.controller('LoginController', function($http, $location, UserService) {
         console.log('LoginController -- registerUser -- sending to server...', self.user);
         $http.post('/register', self.user).then(function(response) {
           console.log('LoginController -- registerUser -- success');
-          $location.path('/story');
+          $location.path('/login');
         }).catch(function(response) {
           console.log('LoginController -- registerUser -- error');
           self.message = "Please try again."

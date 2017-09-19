@@ -9,30 +9,25 @@
         <span>Settings</span>
       </div>
     </md-toolbar>
+    <!-- USER CONTROLLER -->
 
     <md-content>
-      <md-list flex>
+      <md-list flex="50">
         <md-list-item class="md-2-line" ng-click="null">
           <div layout="column">
-            <form ng-submit="vm.setGetFromPirateverse()">
-              <div class="md-list-item-text">
-                <span class="md-no-sticky" class="radioValue">Select cards from {{ vm.userObject.data.getfrompirateverse }}</span>
-                <md-radio-group ng-model="vm.userObject.data.getfrompirateverse">
-                  <md-radio-button ng-value="false" class="md-primary">My Cards</md-radio-button>
-                  <md-radio-button ng-value="true"> Pirateverse </md-radio-button>
+            <form ng-submit="vm.setGetFromPirateverse(vm.userObject.data.getstoryfrom)">
+              
+              <span class="md-no-sticky" class="radioValue">Select cards from {{vm.userObject.data.getstoryfrom}}</span>
+              <div ng-repeat="deck in vm.getcardsfrom">
+                <md-radio-group ng-model="vm.userObject.data.getstoryfrom">
+                  <md-radio-button ng-model="vm.userObject.data.getstoryfrom" ng-value="deck" class="md-primary">{{deck}}</md-radio-button>
                 </md-radio-group>
-                <hr />
               </div>
-
+              <md-divider> </md-divider>      
+              <hr/>  
               <md-button type="submit" class="md-raised md-primary">Save</md-button>
-
             </form>
-
           </div>
         </md-list-item>
-
-        <md-divider></md-divider>
-
       </md-list>
-
     </md-content>

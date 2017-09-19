@@ -153,13 +153,8 @@ router.get('/story', function (req, res) {
     let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     let cards = [];
     if (req.isAuthenticated()) {
-        console.log('getfrompirateverse type');
-        console.log(req.user.getfrompirateverse);
-        console.log(typeof req.user.getfrompirateverse);
-
-
-
-        if (req.user.getfrompirateverse == false) { //get from users cards
+        console.log('logged in');
+        if (req.user.getcardsfrom == 'myCards') { //get from users cards
             //*** change this to get from "myCards: true" 
             //criteria.username = req.user.username
             let username = req.user.username;

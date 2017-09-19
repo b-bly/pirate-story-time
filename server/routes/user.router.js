@@ -10,7 +10,7 @@ router.get('/', function (req, res) {
     //console.log('logged in', req.user);
     var userInfo = {
       username: req.user.username,
-      getfrompirateverse: req.user.getfrompirateverse
+      getstoryfrom: req.user.getstoryfrom
     };
     res.send(userInfo);
   } else {

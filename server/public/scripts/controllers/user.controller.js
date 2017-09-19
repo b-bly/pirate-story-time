@@ -5,9 +5,10 @@ myApp.controller('UserController', function (UserService, CardService) {
   self.cardService = CardService;
   self.userObject = UserService.userObject;
   CardService.pirateverse = self.pirateverse;
+  self.getcardsfrom = ['myCards', 'myFavorites', 'pirateverse'];
 
   self.setGetFromPirateverse = function () {
-    self.userService.setGetFromPirateverse(self.getFromPirateverse);
+    self.userService.setGetFromPirateverse();
   }
 
 }); //used with settings, about, addAcard, user
