@@ -1,3 +1,4 @@
+
 myApp.factory('UserService', function ($http, $location) {
   console.log('UserService Loaded');
   var userObject = { data: {} };
@@ -32,10 +33,21 @@ myApp.factory('UserService', function ($http, $location) {
     },
 
     setGetFromPirateverse: function (getStoryFrom) {
-      $http.put('/register/getstoryfrom', getStoryFrom).then(function (response) {
+      //$(document).ready(function () {
+
+        $http.put('/register/getstoryfrom', getStoryFrom).then(function (response) {
+          swal({
+            title: 'Settings updated!',
+            html: $('<div>')
+              .addClass('some-class')
+              .text('Now get back to story tellin\'!'),
+            animation: false,
+            customClass: 'animated wobble'
+          })
+        
         console.log('user service -- update getstoryfrom -- success');
         console.log(response);
-        
+      //});
         //send alert of success?
       });
     },

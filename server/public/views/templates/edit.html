@@ -78,16 +78,12 @@
         </md-card-actions>
         <md-card-actions ng-show="vm.cardService.showMyCardsActions" layout="row" layout-align="end center">
           <md-button ng-click="editCard = !editCard; vm.selectedCard = card;"><i aria-label="edit" class="material-icons" style="font-size:24px;">mode edit</i></md-button>
-          <md-button class="md-warn" ng-click="vm.deleteCard(card._id)"><i aria-label="delete" class="material-icons" style="font-size:24px;">delete</i></md-button>
+          <md-button class="md-warn" ng-click="vm.cardService.deleteCard(card._id)"><i aria-label="delete" class="material-icons" style="font-size:24px;">delete</i></md-button>
         </md-card-actions>
       </div>
       <!-- </md-card>
   </md-content>
 </div> -->
-
-      <!--  CARDS non edit mode  -->
-
-
 
       <!-- *** MY CARDS EDIT mode  *** -->
 
@@ -120,7 +116,7 @@
             </div>
           </md-card-title>
           <div>
-            <md-button ng-click="vm.updateACard(card); editCard = !editCard"><i aria-label="submit" class="material-icons" style="font-size:24px;">done</i></md-button>
+            <md-button ng-click="vm.cardService.updateACard(card); editCard = !editCard"><i aria-label="submit" class="material-icons" style="font-size:24px;">done</i></md-button>
             <md-button ng-click="editCard = !editCard"><i aria-label="cancel" class="material-icons" style="font-size:24px;">undo</i></md-button>
           </div>
         </form>

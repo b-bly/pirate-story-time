@@ -134,7 +134,7 @@ router.delete('/:id', function (req, res) {
     }
 });
 
-router.put('mydeck/:id', function (req, res) {
+router.put('/mydeck/:id', function (req, res) {
     let card = {
         type: req.body.type,
         description: req.body.description,
@@ -142,6 +142,9 @@ router.put('mydeck/:id', function (req, res) {
         savetopirateverse: req.body.savetopirateverse
     };
     let id = req.params.id;
+console.log('put card id');
+console.log(id);
+console.log('');
 
     if (req.isAuthenticated()) {
 

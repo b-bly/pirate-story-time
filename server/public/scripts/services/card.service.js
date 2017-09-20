@@ -5,12 +5,13 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     self.usersCards = { list: [] };
     self.storyCards = { list: [] };
     self.showMyCardsActions = true;
-    
+
 
     self.addACard = function (type, description, url, saveToPirateverse) {
         saveToPirateverse = saveToPirateverse ? saveToPirateverse : false;
         let card = new Card(type, description, url, saveToPirateverse);
         // console.log('card', card);
+
         console.log('addACard card services');
         console.log(card);
 
@@ -18,16 +19,19 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
             if (response.data) {
                 // console.log('card service -- post -- success: ', response.data);
                 // location works with SPA (ng-route)
-                alert('We\'ve got that card on board now, matey!');
+                swal(
+                    'That card is aboard now!',
+                    'OK',
+                    'success'
+                )
                 $location.path('/edit'); // http://localhost:5000/#/user
-                self.getCards();
+
             } else {
                 console.log('card service addACard error', response);
                 self.message = "Error adding card!!";
-                
             }
         });
-//moved to server
+        //moved to server
         // $http.put('/register/mydeck/' + cardId).then(function (response) {
         //     alert('Success! card added to My Cards!');
         //     self.getCards();
@@ -39,7 +43,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     self.getUsersCards = function () {
         //edit.html button ng-class variables
         self.myCards = true;
-     
+
         self.showMyCardsActions = true;
         self.showPirateverseActions = false;
         self.showMyFavoritesActions = false;
@@ -55,8 +59,8 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         getRequest('/card/myfavorites')
     }
 
-     //gets pirateverse cards
-     self.getCards = function () {
+    //gets pirateverse cards
+    self.getCards = function () {
         // console.log('getCards called');
         self.showPirateverseActions = true;
         self.showMyCardsActions = false;
@@ -68,12 +72,25 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         console.log('deleteCard clicked, id: ');
         console.log(id);
         //to do: add alert
-
-        $http.delete('/card/' + id).then(function (response) {
-            self.getCards();
-            $location.path('/mycards');
-            //why doesn't the location.path loading edit show that the card has been deleted?
-        });
+        swal({
+            title: 'Get your head out of your poop deck!',
+            text: "Are you sure you want to feed this card to the croc?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Feed to croc'
+        }).then(function () {
+            swal(
+                'Yum!',
+                'Your file has been eaten',
+                'success'
+            )
+            $http.delete('/card/' + id).then(function (response) {
+                self.getCards();
+                //why doesn't the location.path loading edit show that the card has been deleted?
+            });
+        })
     }
 
     self.updateACard = function (card) {
@@ -81,44 +98,102 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         var id = card._id;
         //console.log('updateACard');
         //console.log(card);
-        $http.put('/card/' + id, card).then(function (response) {
-            alert('Success! card updated!');
+        //mydeck
+        $http.put('/card/mydeck/' + id, card).then(function (response) {
+            // swal(
+            //     'Blistering barnacles! That card is up to date!',
+            //     'OK',
+            //     'success'
+            // )
+            // swal({
+            //     title: 'Blistering barnacles! That card is up to date!',
+
+            //     type: 'success',
+            //     showCancelButton: true,
+            //     confirmButtonColor: '#3085d6',
+            //     confirmButtonText: 'OK',
+            //     html: $('<div>')
+            //     .addClass('some-class'),
+
+            //   animation: false,
+            //   customClass: 'animated bounceInDown'
+            // })
             self.getCards();
         });
     }
 
     self.getStoryCards = function () {
-            $http.get('/card/story').then(function (response) {
-                if (response.data) {
-                    //card(s) returned
-                    let cards = response.data;
-                    let result = sortCards(response.data);
-                    self.storyCards.list = result;
-                } else {
-                    console.log('CardService -- getCards -- error');
-                    //to do: message to users: no cards!
-                }
-            });
+//modified from https://stackoverflow.com/questions/34463715/mongoose-limit-query-for-more-performance
+    //     $http.get('/load',
+    //         { params: { limit: 20, skip: self.cards.list.length } })
+    //         .success(function (data) {
+    //             self.cards.list = self.cards.list.concat(data);
+    //         }
+    //         );
+    // }
+
+    $http.get('/card/story').then(function (response) {
+        if (response.data) {
+            //card(s) returned
+            let cards = response.data;
+            let result = sortCards(response.data);
+            self.storyCards.list = result;
+
+        } else {
+            console.log('CardService -- getCards -- error');
+            //to do: message to users: no cards!
+
+        }
+    });
+}
+
+self.removeCard = function (cardId) {
+
+        swal({
+            title: 'Are you sure you\'ll be tossin\'n this card back to the Pirateverse?',
+
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Remove this scurvy card!',
+            html: $('<div>')
+                .addClass('some-class')
+                .text('You can always go looking for it again.'),
+            animation: false,
+            customClass: 'animated bounceInDown'
+        })
+            .then(function () {
+                //errror: uncaught promise ???
+                $http.put('/register/remove/' + cardId).then(function (response) {
+                    self.getMyFavorites();
+                    swal(
+                        'Removed!',
+                        'The pirateverse has absorbed your card.  You\'re next.',
+                        'success'
+                    )
+                });
+            })
     }
 
-    self.removeCard = function(cardId) {
-        $http.put('/register/remove/' + cardId).then(function (response) {
-            alert('We made that card walk the plank, matey!');
-            self.getMyFavorites();
-        });
-    }
-
-    self.addToMyDeck = function (cardId) {
+self.addToMyDeck = function (cardId) {
         // console.log('addToMyDeck called, id:');
         // console.log(cardId);
-        
-        $http.put('/register/mydeck/' + cardId).then(function (response) {
-          alert('Success! card updated!');
-          self.getCards();
-        });
-      }
 
-    function sortCards(cards) {
+        $http.put('/register/mydeck/' + cardId).then(function (response) {
+            swal({
+                title: 'It\'s aboard our ship now!',
+                html: $('<div>')
+                    .addClass('some-class')
+                    .text('You\'d better get aboard too, Captain!'),
+                animation: false,
+                customClass: 'animated bouncInDown'
+            })
+            self.getCards();
+        });
+    }
+
+function sortCards(cards) {
         let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
         let result = [];
         //modified from https://stackoverflow.com/questions/13304543/javascript-sort-array-based-on-another-array
@@ -137,7 +212,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         return result;
     }
 
-    function getRequest(url) {
+function getRequest(url) {
         $http.get(url).then(function (response) {
             if (response.data) {
                 //card(s) returned
@@ -167,5 +242,5 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     //       'success'
     //     )
     //   })
-    
+
 }]);
