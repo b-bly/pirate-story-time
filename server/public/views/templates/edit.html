@@ -28,9 +28,15 @@
   <div flex="30" layout-align="start center"></div>
   <section layout="row" layout-align="center center" layout-wrap layout-xs="column" layout-sm="column">
     <!-- change getuserscards to get mylibrary cards -->
-    <md-button ng-click="vm.cardService.getUsersCards()" md-no-ink class="md-primary">My Cards</md-button>
-    <md-button ng-click="vm.cardService.getMyFavorites();" md-no-ink class="md-primary">My Favorites</md-button>
-    <md-button ng-click="vm.cardService.getCards()" md-no-ink class="md-primary">Pirateverse</md-button>
+    <md-button ng-click="vm.cardService.getUsersCards(); 
+    vm.cardService.myCards=true; myFavorites=false; pirateverse=false;
+    " class="md-raised" ng-class="{'md-primary' : vm.cardService.myCards}">My Cards</md-button>
+    <md-button ng-click="vm.cardService.getMyFavorites(); 
+    vm.cardService.myCards=false; myFavorites=true; pirateverse=false;
+    " class="md-raised" ng-class="{ 'md-primary': myFavorites }">My Favorites</md-button>
+    <md-button ng-click="vm.cardService.getCards();
+    vm.cardService.myCards=false; myFavorites=false; pirateverse=true;
+    " class="md-raised" ng-class="{ 'md-primary': pirateverse }">Pirateverse</md-button>
   </section>
 
 </md-content>
@@ -46,7 +52,7 @@
             <md-card-title-text>
               <span class="md-headline">Type: {{ card.type }}</span>
               <span class="md-subhead">Description: {{card.description }}</span>
-              <span>Save to pirateverse? <span ng-if="card.savetopirateverse">Of course, matey!</span>
+              <span ng-show="vm.cardService.showMyCardsActions ">Save to pirateverse? <span ng-if="card.savetopirateverse">Of course, matey!</span>
               <p ng-if="!card.savetopirateverse">Good heavens, no!</p>
               </span>
             </md-card-title-text>

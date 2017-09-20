@@ -4,7 +4,6 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     self.cards = { list: [] };
     self.usersCards = { list: [] };
     self.storyCards = { list: [] };
- 
     self.showMyCardsActions = true;
     
 
@@ -19,17 +18,19 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
             if (response.data) {
                 // console.log('card service -- post -- success: ', response.data);
                 // location works with SPA (ng-route)
-                $location.path('/user'); // http://localhost:5000/#/user
+                $location.path('/edit'); // http://localhost:5000/#/user
+                self.getCards();
             } else {
                 console.log('card service addACard error', response);
                 self.message = "Error adding card!!";
+                
             }
         });
-
-        $http.put('/register/mydeck/' + cardId).then(function (response) {
-            alert('Success! card added to My Cards!');
-            self.getCards();
-          });
+//moved to server
+        // $http.put('/register/mydeck/' + cardId).then(function (response) {
+        //     alert('Success! card added to My Cards!');
+        //     self.getCards();
+        //   });
 
     }
 
@@ -49,6 +50,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     }
 
     self.getUsersCards = function () {
+        self.myCards = true;
         self.showMyCardsActions = true;
         self.showPirateverseActions = false;
         self.showMyFavoritesActions = false;

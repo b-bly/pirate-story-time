@@ -12,12 +12,28 @@ router.post('/', function (req, res) {
     if (req.isAuthenticated()) {
         //console.log('authenticated user');
         card.username = req.user.username;
+        let userId = req.user._id;
         card.save(function (err, data) {
             if (err) {
                 console.log('error saving item:', err);
                 res.sendStatus(500);
             } else { //item successfull added to DB
-                res.sendStatus(201);
+               let cardId = data._id;
+                //code from /register/mydeck -- refactor in module when time.
+                Users.findByIdAndUpdate(
+                    { _id:  userId },
+                    { $push: { mycards: cardId } },
+                    function (err, data) {
+                      if (err) {
+                        console.log('put error: ', err);
+                        res.sendStatus(500);
+                      } else {
+                        res.sendStatus(200);
+                      }
+                    }
+                  );
+
+                //res.sendStatus(201);
             }
         });
     } else { //user not authenticated
@@ -28,7 +44,8 @@ router.post('/', function (req, res) {
 router.get('/', function (req, res) {
     // console.log('get /cards route');
     if (req.isAuthenticated()) {
-        Card.find({}, function (err, data) {
+        let myFavorites = req.user.mycards;
+        Card.find({ _id: { "$nin": myFavorites } }, function (err, data) {
             if (err) {
                 console.log('card find error: ', err);
                 res.sendStatus(500);
