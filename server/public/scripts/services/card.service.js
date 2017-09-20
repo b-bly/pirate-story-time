@@ -18,6 +18,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
             if (response.data) {
                 // console.log('card service -- post -- success: ', response.data);
                 // location works with SPA (ng-route)
+                alert('We\'ve got that card on board now, matey!');
                 $location.path('/edit'); // http://localhost:5000/#/user
                 self.getCards();
             } else {
@@ -34,6 +35,19 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
 
     }
 
+    //gets current user's cards
+    self.getUsersCards = function () {
+        //edit.html button ng-class variables
+        self.myCards = true;
+     
+        self.showMyCardsActions = true;
+        self.showPirateverseActions = false;
+        self.showMyFavoritesActions = false;
+        console.log('getUsersCards called');
+        getRequest('/card/userscards')
+    }
+
+    //gets current user's favorites
     self.getMyFavorites = function () {
         self.showPirateverseActions = false;
         self.showMyCardsActions = false;
@@ -41,21 +55,13 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         getRequest('/card/myfavorites')
     }
 
-    self.getCards = function () {
+     //gets pirateverse cards
+     self.getCards = function () {
         // console.log('getCards called');
         self.showPirateverseActions = true;
         self.showMyCardsActions = false;
         self.showMyFavoritesActions = false;
         getRequest('/card');
-    }
-
-    self.getUsersCards = function () {
-        self.myCards = true;
-        self.showMyCardsActions = true;
-        self.showPirateverseActions = false;
-        self.showMyFavoritesActions = false;
-        console.log('getUsersCards called');
-        getRequest('/card/userscards')
     }
 
     self.deleteCard = function (id) {
@@ -97,10 +103,20 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
 
     self.removeCard = function(cardId) {
         $http.put('/register/remove/' + cardId).then(function (response) {
-            alert('Success! card removed!');
+            alert('We made that card walk the plank, matey!');
             self.getMyFavorites();
         });
     }
+
+    self.addToMyDeck = function (cardId) {
+        // console.log('addToMyDeck called, id:');
+        // console.log(cardId);
+        
+        $http.put('/register/mydeck/' + cardId).then(function (response) {
+          alert('Success! card updated!');
+          self.getCards();
+        });
+      }
 
     function sortCards(cards) {
         let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];

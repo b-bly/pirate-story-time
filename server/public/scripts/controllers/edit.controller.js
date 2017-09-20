@@ -10,18 +10,14 @@ myApp.controller('EditController', function (CardService, UserService) {
     console.log(self.cards);
 
 
+    //CardService.getUsersCards();
 
-    self.deleteCard = function (id) {
-        return CardService.deleteCard(id);
-    }
 
     self.updateACard = function (card) {
         return CardService.updateACard(card);
     }
 
-    self.addToMyDeck = function (id) {
-        return UserService.addToMyDeck(id);
-    }
+
 }).config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
     $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();

@@ -42,14 +42,16 @@ router.post('/', function (req, res) {
 });
 
 router.get('/', function (req, res) {
-    // console.log('get /cards route');
+    console.log('get /cards route');
     if (req.isAuthenticated()) {
-        let myFavorites = req.user.mycards;
+        let myFavorites = req.user.mycards; //array of card ids
         Card.find({ _id: { "$nin": myFavorites } }, function (err, data) {
             if (err) {
                 console.log('card find error: ', err);
                 res.sendStatus(500);
             } else {
+                console.log('get cards success');
+                
                 res.send(data);
             }
         });

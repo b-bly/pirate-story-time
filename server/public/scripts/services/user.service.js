@@ -40,15 +40,7 @@ myApp.factory('UserService', function ($http, $location) {
       });
     },
 
-    addToMyDeck: function (cardId) {
-      // console.log('addToMyDeck called, id:');
-      // console.log(cardId);
-      
-      $http.put('/register/mydeck/' + cardId).then(function (response) {
-        alert('Success! card updated!');
-        self.getCards();
-      });
-    }
+
 
   }; //return obj
 }); //closing factory
