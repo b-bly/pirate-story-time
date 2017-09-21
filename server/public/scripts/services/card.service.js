@@ -65,7 +65,27 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         self.showPirateverseActions = true;
         self.showMyCardsActions = false;
         self.showMyFavoritesActions = false;
-        getRequest('/card');
+        $http.get('/card', { params: { limit: 5} }).then(function (response) {
+            if (response.data) {
+                //card(s) returned
+                self.cards.list = response.data;
+                // console.log('cards.list');
+                // console.log(self.cards.list);
+            } else {
+                console.log('CardService -- getCards -- error');
+                //to do: message to users: no cards!
+            }
+        });
+
+    }
+
+    self.loadMore = function () {
+         //modified from https://stackoverflow.com/questions/34463715/mongoose-limit-query-for-more-performance
+         $http.get('/card/morepirateverse',
+         { params: { limit: 5, skip: self.cards.list.length } })
+         .then(function (data) {
+             self.cards.list = self.cards.list.concat(data);
+         });
     }
 
     self.deleteCard = function (id) {
@@ -123,31 +143,22 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     }
 
     self.getStoryCards = function () {
-//modified from https://stackoverflow.com/questions/34463715/mongoose-limit-query-for-more-performance
-    //     $http.get('/load',
-    //         { params: { limit: 20, skip: self.cards.list.length } })
-    //         .success(function (data) {
-    //             self.cards.list = self.cards.list.concat(data);
-    //         }
-    //         );
-    // }
+        $http.get('/card/story').then(function (response) {
+            if (response.data) {
+                //card(s) returned
+                let cards = response.data;
+                let result = sortCards(response.data);
+                self.storyCards.list = result;
 
-    $http.get('/card/story').then(function (response) {
-        if (response.data) {
-            //card(s) returned
-            let cards = response.data;
-            let result = sortCards(response.data);
-            self.storyCards.list = result;
+            } else {
+                console.log('CardService -- getCards -- error');
+                //to do: message to users: no cards!
 
-        } else {
-            console.log('CardService -- getCards -- error');
-            //to do: message to users: no cards!
+            }
+        });
+    }
 
-        }
-    });
-}
-
-self.removeCard = function (cardId) {
+    self.removeCard = function (cardId) {
 
         swal({
             title: 'Are you sure you\'ll be tossin\'n this card back to the Pirateverse?',
@@ -176,7 +187,7 @@ self.removeCard = function (cardId) {
             })
     }
 
-self.addToMyDeck = function (cardId) {
+    self.addToMyDeck = function (cardId) {
         // console.log('addToMyDeck called, id:');
         // console.log(cardId);
 
@@ -193,7 +204,7 @@ self.addToMyDeck = function (cardId) {
         });
     }
 
-function sortCards(cards) {
+    function sortCards(cards) {
         let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
         let result = [];
         //modified from https://stackoverflow.com/questions/13304543/javascript-sort-array-based-on-another-array
@@ -212,7 +223,7 @@ function sortCards(cards) {
         return result;
     }
 
-function getRequest(url) {
+    function getRequest(url) {
         $http.get(url).then(function (response) {
             if (response.data) {
                 //card(s) returned

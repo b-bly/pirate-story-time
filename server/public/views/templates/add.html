@@ -1,34 +1,34 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-    <h1 class="lead">Add a card</h1>
+  <h1 class="lead">Add a card</h1>
 
-    <form ng-submit="cc.addACard()">
-        <div>
-          <label for="type">Type: </label>
-                <select ng-model="cc.type" ng-options="x for x in cc.types">
-                    </select>       
-        </div>
-        <div>
-          <label for="description">Description:</label>
-          <textarea type="text" ng-model="cc.description" rows="4" cols="60"></textarea>
-        </div>
-        <div>
-  
-          <!-- <div>
+  <form ng-submit="cc.addACard()">
+    <div>
+      <label for="type">Type: </label>
+      <select ng-model="cc.type" ng-options="x for x in cc.types">
+                    </select>
+    </div>
+    <div>
+      <label for="description">Description:</label>
+      <textarea type="text" ng-model="cc.description" rows="4" cols="60"></textarea>
+    </div>
+    <div>
+
+      <!-- <div>
             <label for="email">Email:</label>
             <input type="email" ng-model="lc.user.email" />
           </div> -->
-          <div>
-            <label for="url">Image URL:</label>
-            <input type="url" ng-model="cc.url" />
-          </div>
-     
-          <div>
-            <md-checkbox ng-model="cc.saveToPirateverse" aria-label="Save to Pirateverse?">
-                Save to pirateverse?
-            </md-checkbox>
-          </div>
-        <input class="btn btn-default" type="submit" name="submit" value="New Card" />
-        <a href="#/home" class="btn btn-danger">Cancel</a>
-      </form>
-</div>
+      <div>
+        <label for="url">Image URL:</label>
+        <input type="url" ng-model="cc.url" />
+      </div>
+
+      <div>
+        <md-checkbox ng-model="cc.saveToPirateverse" aria-label="Save to Pirateverse?">
+          Save to pirateverse?
+        </md-checkbox>
+      </div>
+      <input class="btn btn-default" type="submit" name="submit" value="New Card" />
+      <a href="#/home" class="btn btn-danger">Cancel</a>
+  </form>
+  </div>

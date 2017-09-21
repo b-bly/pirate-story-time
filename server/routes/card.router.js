@@ -18,20 +18,20 @@ router.post('/', function (req, res) {
                 console.log('error saving item:', err);
                 res.sendStatus(500);
             } else { //item successfull added to DB
-               let cardId = data._id;
+                let cardId = data._id;
                 //code from /register/mydeck -- refactor in module when time.
                 Users.findByIdAndUpdate(
-                    { _id:  userId },
+                    { _id: userId },
                     { $push: { mycards: cardId } },
                     function (err, data) {
-                      if (err) {
-                        console.log('put error: ', err);
-                        res.sendStatus(500);
-                      } else {
-                        res.sendStatus(200);
-                      }
+                        if (err) {
+                            console.log('put error: ', err);
+                            res.sendStatus(500);
+                        } else {
+                            res.sendStatus(200);
+                        }
                     }
-                  );
+                );
 
                 //res.sendStatus(201);
             }
@@ -42,19 +42,41 @@ router.post('/', function (req, res) {
 });
 
 router.get('/', function (req, res) {
-    console.log('get /cards route');
+    console.log('get /cards pirateverse route');
+   
+    let limit = req.query.limit || 5;
+    console.log('limit');
+    console.log(limit);
     if (req.isAuthenticated()) {
         let myFavorites = req.user.mycards; //array of card ids
-        Card.find({ _id: { "$nin": myFavorites } }, function (err, data) {
-            if (err) {
-                console.log('card find error: ', err);
-                res.sendStatus(500);
-            } else {
-                console.log('get cards success');
-                
+        console.log('myFavorites');
+        console.log(myFavorites);
+    
+        Card.find({ _id: { "$nin": myFavorites } })
+            .limit(limit)
+            .exec(function (err, data) {
+                console.log('get pirateverse success, data: ');
+                console.log(data);
                 res.send(data);
-            }
-        });
+            });
+    } else {
+        console.log('not logged in');
+        res.sendStatus(403);
+    }
+});
+
+router.get('/morepirateverse', function (req, res) {
+    let skip = req.query.skip || 0;
+    let limit = req.query.limit || 50;
+    if (req.isAuthenticated()) {
+        let myFavorites = req.user.mycards; //array of card ids
+        Card.find({ _id: { "$nin": myFavorites } })
+            .lean()
+            .skip(skip)
+            .limit(limit)
+            .exec(function (err, data) {
+                res.send(data);
+            });
     } else {
         console.log('not logged in');
         res.sendStatus(403);
@@ -142,9 +164,9 @@ router.put('/mydeck/:id', function (req, res) {
         savetopirateverse: req.body.savetopirateverse
     };
     let id = req.params.id;
-console.log('put card id');
-console.log(id);
-console.log('');
+    console.log('put card id');
+    console.log(id);
+    console.log('');
 
     if (req.isAuthenticated()) {
 
@@ -173,8 +195,8 @@ router.get('/story', function (req, res) {
     var j = 0;
     console.log('story getstoryfrom: ');
     console.log(req.body.getstoryfrom);
-    
-    
+
+
     let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     let cards = [];
     if (req.isAuthenticated()) {

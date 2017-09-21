@@ -95,25 +95,48 @@
         <form>
           <md-card-title>
             <md-card-title-text>
-              <label for="type">Type: </label>
-              <!-- to do: https://stackoverflow.com/questions/17815036/setting-default-value-in-select-drop-down-using-angularjs -->
+              <!-- <label for="type">Type: </label>
               <select ng-selected="card.type" ng-model="card.type" ng-options="x for x in vm.types">
                     <option selected>{{card.type}}</option>
                     <option value="card.type" selected="selected">{{card.type}}</option>
-                      </select>
-              <label for="description">Description:</label>
-              <textarea ng-value="card.description" type="text" ng-model="card.description" rows="4" cols="30"></textarea>
+                      </select> -->
+
+              <md-input-container>
+                <label>Type: </label>
+                <md-select ng-model="card.type">
+                  <md-option><em>None</em></md-option>
+                  <md-option ng-repeat="type in vm.types" ng-value="type">
+                    {{ type }}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              
+              <md-card-title>
+                <md-input-container>
+                  <label>Description:</label>
+                  <textarea name="description" ng-model="card.description" required md-maxlength="1000" rows="5" cols="60"></textarea>
+                  <div ng-messages="userForm.bio.$error" ng-show="userForm.bio.$dirty">
+                    <div ng-message="required">Shiver me timbers! Write something!</div>
+                    <div ng-message="md-maxlength">Look! There's a novel on the portside deck! Less is more, matey.</div>
+                  </div>
+                </md-input-container>
+              </md-card-title>
+              <!-- <label for="description">Description:</label>
+              <textarea ng-value="card.description" type="text" ng-model="card.description" rows="4" cols="30"></textarea> -->
               <md-checkbox ng-model="card.savetopirateverse" aria-label="Save to Pirateverse?">
-                Save to pirateverse? {{card.savetopirateverse}}
+                Save to pirateverse?
               </md-checkbox>
+              <span ng-show="vm.cardService.showMyCardsActions "> <span ng-if="card.savetopirateverse">Of course, matey!</span>
+              <p ng-if="!card.savetopirateverse">Good heavens, no!</p>
+              </span>
             </md-card-title-text>
           </md-card-title>
 
           <md-card-title>
-            <div>
+            <md-input-container>
               <label for="url">Image URL:</label>
               <input ng-value="card.url" type="url" ng-model="card.url" />
-            </div>
+            </md-input-container>
           </md-card-title>
           <div>
             <md-button ng-click="vm.cardService.updateACard(card); editCard = !editCard"><i aria-label="submit" class="material-icons" style="font-size:24px;">done</i></md-button>
