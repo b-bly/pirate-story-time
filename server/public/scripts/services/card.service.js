@@ -76,7 +76,6 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
                 //to do: message to users: no cards!
             }
         });
-
     }
 
     self.loadMore = function () {
@@ -84,7 +83,15 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
          $http.get('/card/morepirateverse',
          { params: { limit: 5, skip: self.cards.list.length } })
          .then(function (data) {
-             self.cards.list = self.cards.list.concat(data);
+             self.cards.list = self.cards.list.concat(data.data);
+             console.log('self.cards.list load more');
+             console.log(self.cards.list);
+             console.log('loadMore data');
+             console.log(data);
+             
+             
+             
+             
          });
     }
 

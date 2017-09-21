@@ -57,4 +57,12 @@ myApp.controller('LoginController', function($http, $location, UserService) {
     self.logout = function() {
       UserService.logout();
     }
+
+    // (function() {
+    //   'use strict';
+    
+    //    $rootScope.$on('$routeChangeSuccess', function(event, current) {
+    //      self.currentLink = getCurrentLinkFromRoute(current);
+    //    });
+    // });
 });

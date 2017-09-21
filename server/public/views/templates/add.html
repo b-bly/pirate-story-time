@@ -2,33 +2,39 @@
 <div class="container">
   <h1 class="lead">Add a card</h1>
 
-  <form ng-submit="cc.addACard()">
-    <div>
-      <label for="type">Type: </label>
-      <select ng-model="cc.type" ng-options="x for x in cc.types">
-                    </select>
-    </div>
-    <div>
-      <label for="description">Description:</label>
-      <textarea type="text" ng-model="cc.description" rows="4" cols="60"></textarea>
-    </div>
-    <div>
+  <md-card>
+    <form ng-submit="cc.addACard()">
+      <md-card-title>
+        <md-card-title-text>
+          <md-input-container>
+            <label>Type: </label>
+            <md-select ng-model="card.type">
+              <md-option><em>None</em></md-option>
+              <md-option ng-repeat="type in cc.types" ng-value="type">
+                {{ type }}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <md-card-title>
+            <md-input-container>
+              <label>Description:</label>
+              <textarea name="description" ng-model="cc.description" required md-maxlength="1000" rows="5" cols="60"></textarea>
+              <div ng-messages="userForm.bio.$error" ng-show="userForm.bio.$dirty">
+                <div ng-message="required">Shiver me timbers! Write something!</div>
+                <div ng-message="md-maxlength">Look! There's a novel on the portside deck! Less is more, matey.</div>
+              </div>
+            </md-input-container>
+          </md-card-title>
 
-      <!-- <div>
-            <label for="email">Email:</label>
-            <input type="email" ng-model="lc.user.email" />
-          </div> -->
-      <div>
-        <label for="url">Image URL:</label>
-        <input type="url" ng-model="cc.url" />
-      </div>
 
-      <div>
-        <md-checkbox ng-model="cc.saveToPirateverse" aria-label="Save to Pirateverse?">
-          Save to pirateverse?
-        </md-checkbox>
-      </div>
-      <input class="btn btn-default" type="submit" name="submit" value="New Card" />
-      <a href="#/home" class="btn btn-danger">Cancel</a>
-  </form>
-  </div>
+          <md-checkbox ng-model="cc.savetopirateverse" aria-label="Save to Pirateverse?">
+            Save to pirateverse?
+          </md-checkbox>
+           <span ng-if="cc.savetopirateverse">Of course, matey!</span>
+          <p ng-if="!cc.savetopirateverse">Good heavens, no!</p>
+          
+        </md-card-title-text>
+      </md-card-title>
+    </form>
+  </md-card>
+</div>

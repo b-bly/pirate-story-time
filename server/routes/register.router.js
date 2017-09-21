@@ -18,14 +18,12 @@ router.post('/', function (req, res, next) {
   password: {type: String, required: true},
   recipes: {type: Array}
   */
-
   var userToSave = {
     username: req.body.username,
     password: req.body.password,
     getstoryfrom: 'pirateverse'
   };
-
-
+  
     Users.create(userToSave, function (err, post) {
       console.log('post /register -- User.create');
       if (err) {

@@ -44,30 +44,30 @@ router.post('/', function (req, res) {
 router.get('/', function (req, res) {
     console.log('get /cards pirateverse route');
    
-    let limit = req.query.limit || 5;
-    console.log('limit');
-    console.log(limit);
+    let limit = parseInt(req.query.limit) || 5;
+    // console.log('limit');
+    // console.log(limit);
     if (req.isAuthenticated()) {
         let myFavorites = req.user.mycards; //array of card ids
-        console.log('myFavorites');
-        console.log(myFavorites);
+        // console.log('myFavorites');
+        // console.log(myFavorites);
     
         Card.find({ _id: { "$nin": myFavorites } })
             .limit(limit)
             .exec(function (err, data) {
-                console.log('get pirateverse success, data: ');
-                console.log(data);
+                // console.log('get pirateverse success, data: ');
+                // console.log(data);
                 res.send(data);
             });
     } else {
-        console.log('not logged in');
+        // console.log('not logged in');
         res.sendStatus(403);
     }
 });
 
 router.get('/morepirateverse', function (req, res) {
-    let skip = req.query.skip || 0;
-    let limit = req.query.limit || 50;
+    let skip = parseInt(req.query.skip) || 0;
+    let limit = parseInt(req.query.limit) || 50;
     if (req.isAuthenticated()) {
         let myFavorites = req.user.mycards; //array of card ids
         Card.find({ _id: { "$nin": myFavorites } })
@@ -75,6 +75,10 @@ router.get('/morepirateverse', function (req, res) {
             .skip(skip)
             .limit(limit)
             .exec(function (err, data) {
+                console.log('morepirateverse');
+                console.log(data);
+                
+                
                 res.send(data);
             });
     } else {
