@@ -1,5 +1,5 @@
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
+<div class="container" md-padding layout="column">
   <h1 class="lead">Add a card</h1>
 
   <md-card>
@@ -10,7 +10,7 @@
             <label>Type: </label>
             <md-select ng-model="card.type">
               <md-option><em>None</em></md-option>
-              <md-option ng-repeat="type in cc.types" ng-value="type">
+              <md-option style="color: blue" ng-repeat="type in cc.types" ng-value="type">
                 {{ type }}
               </md-option>
             </md-select>
@@ -18,7 +18,7 @@
           <md-card-title>
             <md-input-container>
               <label>Description:</label>
-              <textarea name="description" ng-model="cc.description" required md-maxlength="1000" rows="5" cols="60"></textarea>
+              <textarea style="color: blue" name="description" ng-model="cc.description" required md-maxlength="1000" rows="5" cols="60"></textarea>
               <div ng-messages="userForm.bio.$error" ng-show="userForm.bio.$dirty">
                 <div ng-message="required">Shiver me timbers! Write something!</div>
                 <div ng-message="md-maxlength">Look! There's a novel on the portside deck! Less is more, matey.</div>
@@ -28,10 +28,10 @@
 
 
           <md-checkbox ng-model="cc.savetopirateverse" aria-label="Save to Pirateverse?">
-            Save to pirateverse?
+            <p>Save to pirateverse?  <span style="color: blue" ng-if="cc.savetopirateverse"> Of course, matey!</span>
+            <span style="color: blue" ng-if="!cc.savetopirateverse"> Good heavens, no!</span></p>
           </md-checkbox>
-           <span ng-if="cc.savetopirateverse">Of course, matey!</span>
-          <p ng-if="!cc.savetopirateverse">Good heavens, no!</p>
+         
           
         </md-card-title-text>
       </md-card-title>
