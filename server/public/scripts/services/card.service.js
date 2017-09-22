@@ -65,7 +65,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         self.showPirateverseActions = true;
         self.showMyCardsActions = false;
         self.showMyFavoritesActions = false;
-        $http.get('/card', { params: { limit: 5} }).then(function (response) {
+        $http.get('/card', { params: { limit: 5 } }).then(function (response) {
             if (response.data) {
                 //card(s) returned
                 self.cards.list = response.data;
@@ -79,20 +79,20 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     }
 
     self.loadMore = function () {
-         //modified from https://stackoverflow.com/questions/34463715/mongoose-limit-query-for-more-performance
-         $http.get('/card/morepirateverse',
-         { params: { limit: 5, skip: self.cards.list.length } })
-         .then(function (data) {
-             self.cards.list = self.cards.list.concat(data.data);
-             console.log('self.cards.list load more');
-             console.log(self.cards.list);
-             console.log('loadMore data');
-             console.log(data);
-             
-             
-             
-             
-         });
+        //modified from https://stackoverflow.com/questions/34463715/mongoose-limit-query-for-more-performance
+        $http.get('/card/morepirateverse',
+            { params: { limit: 5, skip: self.cards.list.length } })
+            .then(function (data) {
+                self.cards.list = self.cards.list.concat(data.data);
+                console.log('self.cards.list load more');
+                console.log(self.cards.list);
+                console.log('loadMore data');
+                console.log(data);
+
+
+
+
+            });
     }
 
     self.deleteCard = function (id) {
@@ -243,7 +243,9 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
             }
         });
     }
-
+    // FILESTACK
+    const apikey = 'A84ELWySuRZ6V4lWbEcn1z';
+    self.fileStack = filestack.init(apikey);
 
     // swal({
     //     title: 'Are you sure?',
