@@ -6,6 +6,7 @@ myApp.controller('EditController', function (CardService, UserService) {
     self.userObject = UserService.userObject;
     self.types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     self.cards = CardService.cards;
+   
     console.log('EditController cards');
     console.log(self.cards);
 
@@ -19,11 +20,11 @@ myApp.controller('EditController', function (CardService, UserService) {
 
 
 }).config(function ($mdThemingProvider) {
-    $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
-    $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
-    $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
-    $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
-    $mdThemingProvider.theme('docs-dark', 'default')
+    $mdThemingProvider.theme('Villain').backgroundPalette('light-green').dark();
+    $mdThemingProvider.theme('Creature').backgroundPalette('orange').dark();
+    $mdThemingProvider.theme('Environment').backgroundPalette('deep-purple').dark();
+    $mdThemingProvider.theme('Item').backgroundPalette('blue').dark();
+    $mdThemingProvider.theme('Goal', 'default')
         .primaryPalette('blue')
         .primaryPalette('pink')
         .accentPalette('orange')

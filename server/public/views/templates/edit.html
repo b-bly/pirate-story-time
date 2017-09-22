@@ -3,11 +3,11 @@
 <!-- search, my library, pirateverse, settings -->
 
 <div layout="column" class="md-inline-form">
-    
+
   <md-content md-theme="docs-dark" layout-padding layout="row" layout-xs="column" layout-sm="column" layout-align="center center">
-      <div flex layout-align="center center" md-padding>
-          <h2 class="lead">Browse cards</h2>
-        </div>
+    <div flex layout-align="center center" md-padding>
+      <h2 class="lead">Browse cards</h2>
+    </div>
     <div layout-align="center center">
       <md-input-container>
         <input ng-model="vm.searchText" placeholder="search">
@@ -15,7 +15,7 @@
       <md-button ng-href="#/add" class="md-icon-button" aria-label="Menu">
         <md-icon class="md-48">add</md-icon>
       </md-button>
-     
+
     </div>
     <div flex></div>
   </md-content>
@@ -38,16 +38,18 @@
     vm.cardService.myCards=false; myFavorites=false; pirateverse=true;
     " class="md-raised" ng-class="{ 'md-primary': pirateverse }">Pirateverse</md-button>
   </section>
-
+  <md-checkbox ng-model="color" aria-label="Color cards">
+      <p>Color coded? <span style="color: blue" ng-if="color"> Aye!</span>
+        <span style="color: blue" ng-if="!color"> Nooooo</span></p>
+    </md-checkbox>
 </md-content>
 
 <!-- CARDS non edit mode  -->
 
 <div flex>
-  
-    <md-content>
-        <div class="md-padding" layout="row" layout-wrap layout-sm="column" layout-xs="column">
-      <md-card layout="column" class="browse-card" ng-repeat="card in vm.cards.list | filter:vm.searchText" md-theme="{{ showDarkTheme ? 'dark-blue' : 'default' }}">
+  <md-content>
+    <div class="md-padding" layout="row" layout-wrap layout-sm="column" layout-xs="column">
+      <md-card layout="column" class="browse-card" ng-repeat="card in vm.cards.list | filter:vm.searchText" md-theme="{{ color? card.type : 'default' }}">
         <div ng-show="!editCard">
           <md-card-title>
             <md-card-header>
@@ -77,8 +79,9 @@
             </md-button>
           </md-card-actions>
           <md-card-actions ng-show="vm.cardService.showMyCardsActions" layout="row" layout-align="end center">
-            <md-button class="md-icon-button" ng-click="editCard = !editCard; vm.selectedCard = card;">   
-              <md-icon class="md-48">edit</md-icon></md-button>
+            <md-button class="md-icon-button" ng-click="editCard = !editCard; vm.selectedCard = card;">
+              <md-icon class="md-48">edit</md-icon>
+            </md-button>
             <md-button class="md-warn md-icon-button" ng-click="vm.cardService.deleteCard(card._id)"><i aria-label="delete" class="material-icons" style="font-size:24px;">delete</i>
               <md-icon class="md-48">delete</md-icon>
             </md-button>
@@ -139,22 +142,24 @@
             <md-card-title>
               <md-input-container>
                 <label for="url">Image URL:</label>
-                <input  type="url" ng-model="card.url" />
+                <input type="url" ng-model="card.url" />
               </md-input-container>
             </md-card-title>
             <div layout="row" layout-align="end center">
               <md-button class="md-icon-button" ng-click="vm.cardService.updateACard(card); editCard = !editCard">
-                <md-icon class="md-48" aria-label="add to my deck">done</md-icon></md-button>
+                <md-icon class="md-48" aria-label="add to my deck">done</md-icon>
+              </md-button>
               <md-button class="md-icon-button" ng-click="editCard = !editCard">
-                  <md-icon class="md-48" aria-label="add to my deck">undo</md-icon></md-button>
+                <md-icon class="md-48" aria-label="add to my deck">undo</md-icon>
+              </md-button>
             </div>
           </form>
         </div>
       </md-card>
     </div>
-      <div layout="row" layout-align="center center">
-        <md-button ng-click="vm.cardService.loadMore()" flex ng-show="vm.cardService.showPirateverseActions" ng-class="primary">Load more</md-button>
-      </div>
+    <div layout="row" layout-align="center center">
+      <md-button ng-click="vm.cardService.loadMore()" flex ng-show="vm.cardService.showPirateverseActions" ng-class="primary">Load more</md-button>
     </div>
-  
+</div>
+
 </div>
