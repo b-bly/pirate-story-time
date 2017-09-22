@@ -14,13 +14,20 @@ myApp.controller('CardController', function (CardService, UserService) {
   self.pick = function () {
     CardService.fileStack.pick({
       accept: ['image/*'],
-      fromSources: ['imagesearch'],
+      //imageMax: [600, 400]]
+      //fromSources: ['imagesearch'],
     }).then(result => {
       //console.log(JSON.stringify(result.filesUploaded));
       console.log(result);
 
       self.url.url = result.filesUploaded[0].url;
     });
+  }
+  self.logUrl = function() {
+    console.log('self.url');
+    console.log(self.url);
+    
+    
   }
   //Adam's code
   // CardService.fileStack.pick().then((result) => {

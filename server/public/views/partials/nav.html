@@ -15,9 +15,9 @@
       </ul>
     </div>
   </nav> -->
-<div ng-controller="NavController as vm" >
+<div ng-controller="NavController as vm">
   <md-content class="md-padding">
-    <md-nav-bar  md-selected-nav-item="vm.currentNavItem" aria-label="current nav item">
+    <md-nav-bar md-selected-nav-item="vm.currentNavItem" aria-label="current nav item">
       <div layout="row" layout-align="center end" flex>
         <div flex="75" class="md-title">
           Pirate Story Time
@@ -39,7 +39,7 @@
           <md-button ng-click="$mdMenu.open($event)" aria-label="Open sample menu">
             <span><md-icon aria-label="Menu" class="md-48">menu</md-icon></span>
           </md-button>
-          <md-menu-content>
+          <md-menu-content >
             <md-menu-item>
               <md-button ng-href="#/story" name="story">Story</md-menu-item>
             </md-button>
@@ -49,6 +49,11 @@
             <md-menu-item>
               <md-button ng-href="#" ng-click="vm.userService.logout()" name="Log out">Log out</md-menu-item>
             </md-button>
+            <md-menu-item>
+              <md-button ng-href="#/settings" class="md-icon-button" aria-label="Menu">
+                <span></span><md-icon class="md-48">settings</md-icon> </span>
+              </md-button>
+            </md-menu-item>
           </md-menu-content>
         </md-menu>
 

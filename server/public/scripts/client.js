@@ -19,15 +19,6 @@ myApp.config(function ($routeProvider, $locationProvider) {
       templateUrl: '/views/templates/register.html',
       controller: 'LoginController as lc'
     })
-    .when('/home', {
-      templateUrl: '/views/templates/user.html',
-      controller: 'UserController as uc',
-      resolve: {
-        getuser: function (UserService) {
-          return UserService.getuser();
-        }
-      }
-    })
     .when('/about', {
       templateUrl: '/views/templates/about.html',
       controller: 'AboutController as ac',
@@ -81,6 +72,6 @@ myApp.config(function ($routeProvider, $locationProvider) {
     })
 
     .otherwise({
-      redirectTo: 'home'
+      redirectTo: 'story'
     });
 });

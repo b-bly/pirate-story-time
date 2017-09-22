@@ -81,17 +81,13 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     self.loadMore = function () {
         //modified from https://stackoverflow.com/questions/34463715/mongoose-limit-query-for-more-performance
         $http.get('/card/morepirateverse',
-            { params: { limit: 5, skip: self.cards.list.length } })
+            { params: { limit: 20, skip: self.cards.list.length } })
             .then(function (data) {
                 self.cards.list = self.cards.list.concat(data.data);
                 console.log('self.cards.list load more');
                 console.log(self.cards.list);
                 console.log('loadMore data');
                 console.log(data);
-
-
-
-
             });
     }
 
@@ -127,24 +123,24 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         //console.log(card);
         //mydeck
         $http.put('/card/mydeck/' + id, card).then(function (response) {
-            // swal(
-            //     'Blistering barnacles! That card is up to date!',
-            //     'OK',
-            //     'success'
-            // )
-            // swal({
-            //     title: 'Blistering barnacles! That card is up to date!',
+            swal(
+                'Blistering barnacles! That card is up to date!',
+                'OK',
+                'success'
+            )
+            swal({
+                title: 'Blistering barnacles! That card is up to date!',
 
-            //     type: 'success',
-            //     showCancelButton: true,
-            //     confirmButtonColor: '#3085d6',
-            //     confirmButtonText: 'OK',
-            //     html: $('<div>')
-            //     .addClass('some-class'),
+                type: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK',
+                html: $('<div>')
+                .addClass('some-class'),
 
-            //   animation: false,
-            //   customClass: 'animated bounceInDown'
-            // })
+              animation: false,
+              customClass: 'animated bounceInDown'
+            })
             self.getCards();
         });
     }

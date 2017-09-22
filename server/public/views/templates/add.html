@@ -13,18 +13,18 @@
       </md-card-title>
 
       <md-card-content>
-      <md-input-container>
-        <label>Type: </label>
-        <md-select ng-model="card.type">
-          <md-option><em>None</em></md-option>
-          <md-option style="color: blue" ng-repeat="type in cc.types" ng-value="type">
-            {{ type }}
-          </md-option>
-        </md-select>
-      </md-input-container>
-    </md-card-content>
+        <md-input-container>
+          <label>Type: </label>
+          <md-select ng-model="card.type">
+            <md-option><em>None</em></md-option>
+            <md-option style="color: blue" ng-repeat="type in cc.types" ng-value="type">
+              {{ type }}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </md-card-content>
 
-    <md-card-content>
+      <md-card-content>
         <md-input-container>
           <label>Description:</label>
           <textarea style="color: blue" name="description" ng-model="cc.description" required md-maxlength="1000" rows="3" cols="60"></textarea>
@@ -32,10 +32,10 @@
             <div ng-message="required">Shiver me timbers! Write something!</div>
             <div ng-message="md-maxlength">Look! There's a novel on the portside deck! Less is more, matey.</div>
           </div>
-        </md-card-content>      
+      </md-card-content>
       <md-card-content>
         <md-button type="button" ng-click="cc.pick()">Add image</md-button>
-        <img ng-src="{{cc.url.url}}">
+        <!-- <img ng-src="{{cc.url.url}}" style="width: 20px;"> -->
       </md-card-content>
 
       <md-card-title>
@@ -46,6 +46,11 @@
       </md-card-title>
       </md-card-content>
 
+      <md-card-content>
+        <md-button type="button" ng-click="cc.cardService.addACard(card.type, cc.description, cc.url.url, cc.savetopirateverse)">Save</md-button>
+      </md-card-content>
+
+      <!-- <md-button ng-click="cc.logUrl()">logUrl</md-button> -->
       <!-- </md-card-title-text> -->
     </md-card>
   </form>
