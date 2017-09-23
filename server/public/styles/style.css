@@ -111,6 +111,31 @@ md-card {
   background-color: blue;
 }
 
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("Pirate-Story.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100%;
+  
+}
+.padding {
+  margin-top: -27px;
+}
 
+.morepadding {
+  margin-top: -45px;
+}
+
+.login {
+
+    background-color: gray;
+
+ 
+}
 /* Text size for mobile */
 /* https://stackoverflow.com/questions/37643838/angular-material-design-text-size-change */

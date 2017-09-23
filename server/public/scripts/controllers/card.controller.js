@@ -23,12 +23,7 @@ myApp.controller('CardController', function (CardService, UserService) {
       self.url.url = result.filesUploaded[0].url;
     });
   }
-  self.logUrl = function() {
-    console.log('self.url');
-    console.log(self.url);
-    
-    
-  }
+  
   //Adam's code
   // CardService.fileStack.pick().then((result) => {
   //   console.log('result', result);

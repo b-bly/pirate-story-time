@@ -1,18 +1,49 @@
-<div class="container">
-  <h1 class="lead">Login</h1>
-    <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
+<!-- <div id="background"></div>
+    <style>
+        #background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            /* width: 100%; */
+            height: 100%;
+            background-image: url("Pirate-Story.png");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100%;
+        }
+    </style> -->
+
+<div>
+<md-content class="login" md-theme="docs-dark" layout="column" layout-align="center center">
+
+    <h1 class="md-headline">Login</h1>
+    <h2 class="md-subhead" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
+
     <form ng-submit="lc.login()">
-      <div>
-          <label for="username">Username:</label>
-          <input type="text" ng-model="lc.user.username" />
-      </div>
-      <div>
-          <label for="password">Password:</label>
-          <input type="password" ng-model="lc.user.password" />
-      </div>
-      <div>
-          <input class="btn btn-default" type="submit" name="submit" value="Log In" />
-          <a href="#register">Register</a>
-      </div>
+        <div layout="column" >
+
+            <div>
+            <md-input-container>
+                <label for="username">Username:</label>
+                <input type="text" ng-model="lc.user.username" />
+            </md-input-container>
+        </div>
+        <div>
+            <md-input-container class="padding">
+                <label for="password">Password:</label>
+                <input type="password" ng-model="lc.user.password" />
+            </md-input-container>
+        </div>
+            <div class="padding">
+                <md-button type="submit">
+                    login
+                </md-button>
     </form>
+
+    <!-- <input class="btn btn-default" type="submit" name="submit" value="Log In" /> -->
+    <md-button ng-href="#register">Register</md-button>
+    </div>
+    </div>
+    <img src="Pirate-Story.png" style="width: 100vh" layout-align="start center" />
+</md-content>
 </div>

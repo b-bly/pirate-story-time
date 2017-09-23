@@ -6,24 +6,15 @@ myApp.controller('EditController', function (CardService, UserService) {
     self.userObject = UserService.userObject;
     self.types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     self.cards = CardService.cards;
-   
     console.log('EditController cards');
     console.log(self.cards);
 
 
-    //CardService.getUsersCards();
-
-
-    self.updateACard = function (card) {
-        return CardService.updateACard(card);
-    }
-
-
 }).config(function ($mdThemingProvider) {
-    $mdThemingProvider.theme('Villain').backgroundPalette('light-green').dark();
-    $mdThemingProvider.theme('Creature').backgroundPalette('orange').dark();
+    $mdThemingProvider.theme('Villain').backgroundPalette('green').dark();
+    $mdThemingProvider.theme('Creature').backgroundPalette('deep-orange').dark();
     $mdThemingProvider.theme('Environment').backgroundPalette('deep-purple').dark();
-    $mdThemingProvider.theme('Item').backgroundPalette('blue').dark();
+    $mdThemingProvider.theme('Item').backgroundPalette('indigo').dark();
     $mdThemingProvider.theme('Goal', 'default')
         .primaryPalette('blue')
         .primaryPalette('pink')
@@ -31,3 +22,22 @@ myApp.controller('EditController', function (CardService, UserService) {
         .backgroundPalette('grey');
 });
 
+// red
+// pink
+// purple
+// deep-purple
+// indigo
+// blue
+// light-blue
+// cyan
+// teal
+// green
+// light-green
+// lime
+// yellow
+// amber
+// orange
+// deep-orange
+// brown
+// grey
+// blue-grey

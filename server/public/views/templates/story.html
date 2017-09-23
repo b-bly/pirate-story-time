@@ -1,15 +1,16 @@
 <div ng-include="'views/partials/nav.html'"></div>
 
 <div layout="column" class="md-inline-form">
-    <md-content md-theme="docs-dark" layout-padding layout="row" layout-wrap>
-        <div flex layout-align="start center">
+    <md-content md-theme="docs-dark" layout-padding layout="column" >
+        <div class="padding" flex layout-align="start center">
             <h2>Once upon a pirate ship...</h2>
-
         </div>
-        <md-checkbox ng-model="color" aria-label="Color cards">
-            <p>Color coded? <span style="color: blue" ng-if="cc.savetopirateverse"> Aye!</span>
-                <span style="color: blue" ng-if="!cc.savetopirateverse"> Nooooo</span></p>
+        <div class="morepadding">
+        <md-checkbox  ng-model="color" aria-label="Color cards">
+            <p>Color coded? <span style="color: blue" ng-if="color"> Aye!</span>
+                <span style="color: blue" ng-if="!color"> Nooooo</span></p>
         </md-checkbox>
+    </div>
     </md-content>
 </div>
 

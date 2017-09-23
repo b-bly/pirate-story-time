@@ -10,10 +10,10 @@ myApp.controller('StoryController', function($http, UserService, CardService) {
     
 
 }).config(function ($mdThemingProvider) {
-    $mdThemingProvider.theme('Villain').backgroundPalette('light-blue').dark();
-    $mdThemingProvider.theme('Creature').backgroundPalette('orange').dark();
+    $mdThemingProvider.theme('Villain').backgroundPalette('green').dark();
+    $mdThemingProvider.theme('Creature').backgroundPalette('deep-orange').dark();
     $mdThemingProvider.theme('Environment').backgroundPalette('deep-purple').dark();
-    $mdThemingProvider.theme('Item').backgroundPalette('blue').dark();
+    $mdThemingProvider.theme('Item').backgroundPalette('indigo').dark();
     $mdThemingProvider.theme('Goal', 'default')
         .primaryPalette('blue')
         .primaryPalette('pink')

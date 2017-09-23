@@ -5,6 +5,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     self.usersCards = { list: [] };
     self.storyCards = { list: [] };
     self.showMyCardsActions = true;
+    self.url = { url: '' };
 
 
     self.addACard = function (type, description, url, saveToPirateverse) {
@@ -65,7 +66,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         self.showPirateverseActions = true;
         self.showMyCardsActions = false;
         self.showMyFavoritesActions = false;
-        $http.get('/card', { params: { limit: 5 } }).then(function (response) {
+        $http.get('/card', { params: { limit: 10 } }).then(function (response) {
             if (response.data) {
                 //card(s) returned
                 self.cards.list = response.data;
@@ -81,7 +82,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     self.loadMore = function () {
         //modified from https://stackoverflow.com/questions/34463715/mongoose-limit-query-for-more-performance
         $http.get('/card/morepirateverse',
-            { params: { limit: 20, skip: self.cards.list.length } })
+            { params: { limit: 10, skip: self.cards.list.length } })
             .then(function (data) {
                 self.cards.list = self.cards.list.concat(data.data);
                 console.log('self.cards.list load more');
@@ -115,13 +116,26 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
             });
         })
     }
+    // FILESTACK
+    const apikey = 'A84ELWySuRZ6V4lWbEcn1z';
+    self.fileStack = filestack.init(apikey);
+
+    self.pick = function () {
+        self.fileStack.pick({
+          accept: ['image/*']
+          //imageMax: [600, 400]]
+          //fromSources: ['imagesearch'],
+        }).then(result => {
+          //console.log(JSON.stringify(result.filesUploaded));
+          console.log(result);
+          self.url.url = result.filesUploaded[0].url;
+        });
+      }  
 
     self.updateACard = function (card) {
-        var card = new Card(card);
-        var id = card._id;
-        //console.log('updateACard');
-        //console.log(card);
-        //mydeck
+         var id = card._id;
+        var card = new Card(card.type, card.description, self.url.url, card.savetopirateverse);
+
         $http.put('/card/mydeck/' + id, card).then(function (response) {
             swal(
                 'Blistering barnacles! That card is up to date!',
@@ -130,9 +144,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
             )
             swal({
                 title: 'Blistering barnacles! That card is up to date!',
-
                 type: 'success',
-                showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
                 html: $('<div>')
@@ -141,7 +153,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
               animation: false,
               customClass: 'animated bounceInDown'
             })
-            self.getCards();
+            self.getUsersCards();
         });
     }
 
@@ -207,6 +219,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         });
     }
 
+
     function sortCards(cards) {
         let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
         let result = [];
@@ -239,10 +252,8 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
             }
         });
     }
-    // FILESTACK
-    const apikey = 'A84ELWySuRZ6V4lWbEcn1z';
-    self.fileStack = filestack.init(apikey);
-
+  
+ 
     // swal({
     //     title: 'Are you sure?',
     //     text: "You won't be able to revert this!",
