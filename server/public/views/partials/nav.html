@@ -39,7 +39,7 @@
           <md-button ng-click="$mdMenu.open($event)" aria-label="Open sample menu">
             <span><md-icon aria-label="Menu" class="md-48">menu</md-icon></span>
           </md-button>
-          <md-menu-content >
+          <md-menu-content>
             <md-menu-item>
               <md-button ng-href="#/story" name="story">Story</md-menu-item>
             </md-button>
@@ -47,11 +47,17 @@
               <md-button ng-href="#/edit" name="browse">Browse</md-menu-item>
             </md-button>
             <md-menu-item>
-              <md-button ng-href="#" ng-click="vm.userService.logout()" name="Log out">Log out</md-menu-item>
+              <md-button ng-href="#about" name="about">About</md-menu-item>
             </md-button>
             <md-menu-item>
+              <md-button ng-href="login#" ng-click="vm.userService.logout()" name="Log out">Log out</md-menu-item>
+            </md-button>
+
+            <md-menu-item>
               <md-button ng-href="#/settings" class="md-icon-button" aria-label="Menu">
-                <span></span><md-icon class="md-48">settings</md-icon> </span>
+                <span></span>
+                <md-icon class="md-48">settings</md-icon>
+                </span>
               </md-button>
             </md-menu-item>
           </md-menu-content>

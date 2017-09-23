@@ -1,4 +1,4 @@
-myApp.controller('UserController', function (UserService, CardService) {
+myApp.controller('UserController', function (UserService, CardService, $scope, $mdColorPalette) {
   console.log('UserController created');
   var self = this;
   self.userService = UserService;
@@ -10,5 +10,5 @@ myApp.controller('UserController', function (UserService, CardService) {
   self.setGetFromPirateverse = function (getFromPirateverse) {
     self.userService.setGetFromPirateverse(getFromPirateverse);
   }
-
+  
 }); //used with settings, about, addAcard, user

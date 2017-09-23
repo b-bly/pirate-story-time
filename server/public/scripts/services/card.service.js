@@ -6,7 +6,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     self.storyCards = { list: [] };
     self.showMyCardsActions = true;
     self.url = { url: '' };
-
+    self.class = { class: '' };
 
     self.addACard = function (type, description, url, saveToPirateverse) {
         saveToPirateverse = saveToPirateverse ? saveToPirateverse : false;
@@ -32,12 +32,6 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
                 self.message = "Error adding card!!";
             }
         });
-        //moved to server
-        // $http.put('/register/mydeck/' + cardId).then(function (response) {
-        //     alert('Success! card added to My Cards!');
-        //     self.getCards();
-        //   });
-
     }
 
     //gets current user's cards
@@ -49,7 +43,19 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         self.showPirateverseActions = false;
         self.showMyFavoritesActions = false;
         console.log('getUsersCards called');
-        getRequest('/card/userscards')
+        // getRequest('/card/userscards')
+        $http.get('/card/userscards').then(function (response) {
+            if (response.data) {
+                //card(s) returned
+                self.cards.list = response.data;
+                self.cards.list.forEach(function (obj, i) {
+                    self.cards.list[i].class = '';
+                });
+            } else {
+                console.log('CardService -- getCards -- error');
+                //to do: message to users: no cards!
+            }
+        });
     }
 
     //gets current user's favorites
@@ -95,26 +101,45 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     self.deleteCard = function (id) {
         console.log('deleteCard clicked, id: ');
         console.log(id);
-        //to do: add alert
-        swal({
-            title: 'Get your head out of your poop deck!',
-            text: "Are you sure you want to feed this card to the croc?",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Feed to croc'
-        }).then(function () {
-            swal(
-                'Yum!',
-                'Your file has been eaten',
-                'success'
-            )
-            $http.delete('/card/' + id).then(function (response) {
-                self.getCards();
-                //why doesn't the location.path loading edit show that the card has been deleted?
-            });
-        })
+        self.cards.list.forEach(function (obj, i) {
+            if (obj._id == id) {
+                self.cards.list[i].class = 'hinge animated';
+                console.log('it worked');
+
+            }
+        });
+        console.log(self.class.class);
+
+        setTimeout(function () {
+            swal({
+                title: 'Get your head out of your poop deck!',
+                text: "Are you sure you want to feed this card to the croc?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Feed to croc'
+            })
+
+        }, 1500);
+        // swal({
+        //     title: 'Get your head out of your poop deck!',
+        //     text: "Are you sure you want to feed this card to the croc?",
+        //     type: 'warning',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     cancelButtonColor: '#d33',
+        //     confirmButtonText: 'Feed to croc'
+        // }).then(function () {
+        //     swal(
+        //         'Yum!',
+        //         'Your file has been eaten',
+        //         'success'
+        //     )
+        //     $http.delete('/card/' + id).then(function (response) {
+        //         self.getCards();
+        // });
+        // })
     }
     // FILESTACK
     const apikey = 'A84ELWySuRZ6V4lWbEcn1z';
@@ -122,18 +147,18 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
 
     self.pick = function () {
         self.fileStack.pick({
-          accept: ['image/*']
-          //imageMax: [600, 400]]
-          //fromSources: ['imagesearch'],
+            accept: ['image/*']
+            //imageMax: [600, 400]]
+            //fromSources: ['imagesearch'],
         }).then(result => {
-          //console.log(JSON.stringify(result.filesUploaded));
-          console.log(result);
-          self.url.url = result.filesUploaded[0].url;
+            //console.log(JSON.stringify(result.filesUploaded));
+            console.log(result);
+            self.url.url = result.filesUploaded[0].url;
         });
-      }  
+    }
 
     self.updateACard = function (card) {
-         var id = card._id;
+        var id = card._id;
         var card = new Card(card.type, card.description, self.url.url, card.savetopirateverse);
 
         $http.put('/card/mydeck/' + id, card).then(function (response) {
@@ -148,10 +173,10 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'OK',
                 html: $('<div>')
-                .addClass('some-class'),
+                    .addClass('some-class'),
 
-              animation: false,
-              customClass: 'animated bounceInDown'
+                animation: false,
+                customClass: 'animated bounceInDown'
             })
             self.getUsersCards();
         });
@@ -219,7 +244,6 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
         });
     }
 
-
     function sortCards(cards) {
         let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
         let result = [];
@@ -252,8 +276,8 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
             }
         });
     }
-  
- 
+
+
     // swal({
     //     title: 'Are you sure?',
     //     text: "You won't be able to revert this!",

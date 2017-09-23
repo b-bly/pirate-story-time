@@ -42,16 +42,9 @@ router.post('/', function (req, res) {
 });
 
 router.get('/', function (req, res) {
-    console.log('get /cards pirateverse route');
-   
     let limit = parseInt(req.query.limit) || 5;
-    // console.log('limit');
-    // console.log(limit);
     if (req.isAuthenticated()) {
         let myFavorites = req.user.mycards; //array of card ids
-        // console.log('myFavorites');
-        // console.log(myFavorites);
-    
         Card.find({ _id: { "$nin": myFavorites } })
             .limit(limit)
             .exec(function (err, data) {
@@ -68,6 +61,9 @@ router.get('/', function (req, res) {
 router.get('/morepirateverse', function (req, res) {
     let skip = parseInt(req.query.skip) || 0;
     let limit = parseInt(req.query.limit) || 50;
+    console.log('skip, limit: ');
+    console.log(skip, limit);
+    
     if (req.isAuthenticated()) {
         let myFavorites = req.user.mycards; //array of card ids
         Card.find({ _id: { "$nin": myFavorites } })
@@ -75,10 +71,8 @@ router.get('/morepirateverse', function (req, res) {
             .skip(skip)
             .limit(limit)
             .exec(function (err, data) {
-                console.log('morepirateverse');
+                console.log('morepirateverse data');
                 console.log(data);
-                
-                
                 res.send(data);
             });
     } else {
@@ -107,28 +101,24 @@ router.get('/userscards', function (req, res) {
 
 router.get('/myfavorites', function (req, res) {
     if (req.isAuthenticated()) {
-        console.log('myfavorites ');
-
+        //console.log('myfavorites ');
         let userId = req.user.id;
         Users.find({ _id: userId }, function (err, data) {
             if (err) {
-                console.log('card find error: ', err);
+                //console.log('card find error: ', err);
                 res.sendStatus(500);
             } else {
                 //data.mycards has card ids
-                console.log('mycards');
-                console.log(data);
-
+                //console.log('mycards');
+                //console.log(data);
 
                 Card.find({ _id: { $in: data[0].mycards } }, function (err, data) {
                     if (err) {
-                        console.log('card find error: ', err);
+                        //console.log('card find error: ', err);
                         res.sendStatus(500);
                     } else {
-                        console.log('myfavorites find request data');
-                        console.log(data);
-
-
+                        //console.log('myfavorites find request data');
+                        //console.log(data);
                         res.send(data);
                     }
                 });

@@ -50,108 +50,107 @@
 
 <!-- CARDS non edit mode  -->
 
-<div flex>
-  <md-content>
-    <div class="md-padding" layout="row" layout-wrap layout-sm="column" layout-xs="column">
-      <md-card layout="column" class="browse-card md-primary" ng-repeat="card in vm.cardService.cards.list | filter:vm.searchText" 
-      md-theme="{{ color? card.type : 'default' }}">
-        <div ng-show="!editCard">
-          <md-card-title class="padding">
-            <md-card-header>
-              <md-card-title-text>
-                <span class="md-headline">Type: <span class="md-title">{{ card.type }}</span></span>
-                <span class="md-headline">Description: <span class="md-title">{{card.description }}</span></span>
-                <span ng-show="vm.cardService.showMyCardsActions ">Save to pirateverse? <span ng-if="card.savetopirateverse">Of course, matey!</span>
-                <p ng-if="!card.savetopirateverse">Good heavens, no!</p>
-                </span>
-              </md-card-title-text>
-            </md-card-header>
+
+<md-content layout-wrap layout="row">
+  <div ng-class="md-padding" layout="row" layout-wrap layout-sm="column" layout-xs="column" ng-repeat="card in vm.cardService.cards.list | filter:vm.searchText">
+    <md-card layout="column" ng-class="card.class" class="browse-card md-primary" md-theme="{{ color? card.type : 'default' }}">
+      <div ng-show="!editCard">
+        <md-card-title class="padding">
+          <md-card-header>
+            <md-card-title-text>{{vm.cardService.class.class}}
+              <span class="md-headline">Type: <span class="md-title">{{ card.type }}</span></span>
+              <span class="md-headline">Description: <span class="md-title">{{card.description }}</span></span>
+              <span ng-show="vm.cardService.showMyCardsActions ">Save to pirateverse? <span ng-if="card.savetopirateverse">Of course, matey!</span>
+              <p ng-if="!card.savetopirateverse">Good heavens, no!</p>
+              </span>
+            </md-card-title-text>
+          </md-card-header>
+        </md-card-title>
+
+        <md-card-title class="card-image padding">
+          <img ng-hide="!card.url" ng-src="{{card.url}}" style="height: 200px; max-width: 200px;">
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center" class="padding">
+          <!-- pirateverse: add / favorite button -->
+          <!-- My Deck: remove button -->
+          <md-button ng-show="vm.cardService.showPirateverseActions" ng-click="vm.cardService.addToMyDeck(card._id);">
+            add
+            <md-icon class="md-48" aria-label="add to my deck">add</md-icon>
+          </md-button>
+          <md-button ng-show="vm.cardService.showMyFavoritesActions" class="" ng-click="vm.cardService.removeCard(card._id)">
+            remove
+            <md-icon class="md-48" aria-label="remove from my deck">remove</md-icon>
+          </md-button>
+        </md-card-actions>
+        <md-card-actions ng-show="vm.cardService.showMyCardsActions" layout="row" layout-align="end center" class="padding">
+          <md-button class="md-icon-button" ng-click="editCard = !editCard; vm.selectedCard = card;">
+            <md-icon class="md-48">edit</md-icon>
+          </md-button>
+          <md-button class="md-warn md-icon-button" ng-click="vm.cardService.deleteCard(card._id)"><i aria-label="delete" class="material-icons" style="font-size:24px;">delete</i>
+            <md-icon class="md-48">delete</md-icon>
+          </md-button>
+        </md-card-actions>
+      </div>
+
+      <!-- *** MY CARDS EDIT mode  *** -->
+      <div ng-show="editCard">
+        <form>
+          <md-card-title>
+            <md-input-container>
+              <label>Type: </label>
+              <md-select ng-model="card.type">
+                <md-option><em>None</em></md-option>
+                <md-option ng-repeat="type in vm.types" ng-value="type">
+                  {{ type }}
+                </md-option>
+              </md-select>
+            </md-input-container>
           </md-card-title>
 
-          <md-card-title class="card-image padding">
-            <img ng-hide="!card.url" ng-src="{{card.url}}" style="height: 200px; max-width: 200px;">
+          <md-card-title class="morepadding">
+            <md-input-container>
+              <label>Description:</label>
+              <textarea name="description" ng-model="card.description" required md-maxlength="1000" rows="5" cols="60"></textarea>
+              <div ng-messages="userForm.bio.$error" ng-show="userForm.bio.$dirty">
+                <div ng-message="required">Shiver me timbers! Write something!</div>
+                <div ng-message="md-maxlength">Look! There's a novel on the portside deck! Less is more, matey.</div>
+              </div>
+            </md-input-container>
           </md-card-title>
-          <md-card-actions layout="row" layout-align="end center" class="padding">
-            <!-- pirateverse: add / favorite button -->
-            <!-- My Deck: remove button -->
-            <md-button ng-show="vm.cardService.showPirateverseActions" ng-click="vm.cardService.addToMyDeck(card._id);">
-              add
-              <md-icon class="md-48" aria-label="add to my deck">add</md-icon>
-            </md-button>
-            <md-button ng-show="vm.cardService.showMyFavoritesActions" class="" ng-click="vm.cardService.removeCard(card._id)">
-              remove
-              <md-icon class="md-48" aria-label="remove from my deck">remove</md-icon>
-            </md-button>
-          </md-card-actions>
-          <md-card-actions ng-show="vm.cardService.showMyCardsActions" layout="row" layout-align="end center" class="padding">
-            <md-button class="md-icon-button" ng-click="editCard = !editCard; vm.selectedCard = card;">
-              <md-icon class="md-48">edit</md-icon>
-            </md-button>
-            <md-button class="md-warn md-icon-button" ng-click="vm.cardService.deleteCard(card._id)"><i aria-label="delete" class="material-icons" style="font-size:24px;">delete</i>
-              <md-icon class="md-48">delete</md-icon>
-            </md-button>
-          </md-card-actions>
-        </div>
 
-        <!-- *** MY CARDS EDIT mode  *** -->
-        <div ng-show="editCard">
-          <form>
-            <md-card-title>
-              <md-input-container>
-                <label>Type: </label>
-                <md-select ng-model="card.type">
-                  <md-option><em>None</em></md-option>
-                  <md-option ng-repeat="type in vm.types" ng-value="type">
-                    {{ type }}
-                  </md-option>
-                </md-select>
-              </md-input-container>
-            </md-card-title>
+          <md-card-title class="morepadding">
+            <md-checkbox ng-model="card.savetopirateverse" aria-label="Save to Pirateverse?">
+              <p>Save to pirateverse? <span style="color: blue" ng-if="card.savetopirateverse"> Of course, matey!</span>
+                <span style="color: blue" ng-if="!card.savetopirateverse"> Good heavens, no!</span></p>
+            </md-checkbox>
+          </md-card-title>
+          </md-card-title>
 
-            <md-card-title class="morepadding">
-              <md-input-container>
-                <label>Description:</label>
-                <textarea name="description" ng-model="card.description" required md-maxlength="1000" rows="5" cols="60"></textarea>
-                <div ng-messages="userForm.bio.$error" ng-show="userForm.bio.$dirty">
-                  <div ng-message="required">Shiver me timbers! Write something!</div>
-                  <div ng-message="md-maxlength">Look! There's a novel on the portside deck! Less is more, matey.</div>
-                </div>
-              </md-input-container>
-            </md-card-title>
-
-            <md-card-title class="morepadding">
-              <md-checkbox ng-model="card.savetopirateverse" aria-label="Save to Pirateverse?">
-                <p>Save to pirateverse? <span style="color: blue" ng-if="card.savetopirateverse"> Of course, matey!</span>
-                  <span style="color: blue" ng-if="!card.savetopirateverse"> Good heavens, no!</span></p>
-              </md-checkbox>
-            </md-card-title>
-            </md-card-title>
-
-            <md-card-title class="morepadding">
-              <!-- <md-input-container>
+          <md-card-title class="morepadding">
+            <!-- <md-input-container>
                 <label for="url">Image URL:</label>
                 <input type="url" ng-model="card.url" />
-              </md-input-container> -->             
-                  <md-button type="button" ng-click="vm.cardService.pick()">Add image</md-button>
-                  <!-- <img ng-src="{{cc.url.url}}" style="width: 20px;"> -->          
-            </md-card-title>
-            <md-button ng-click="logUrl">log url</md-button>
+              </md-input-container> -->
+            <md-button type="button" ng-click="vm.cardService.pick()">Add image</md-button>
+            <!-- <img ng-src="{{cc.url.url}}" style="width: 20px;"> -->
+          </md-card-title>
+          <md-button ng-click="logUrl">log url</md-button>
 
-            <div layout="row" layout-align="end center">
-              <md-button class="md-icon-button" ng-click="vm.cardService.updateACard(card); editCard = !editCard">
-                <md-icon class="md-48" aria-label="add to my deck">done</md-icon>
-              </md-button>
-              <md-button class="md-icon-button" ng-click="editCard = !editCard">
-                <md-icon class="md-48" aria-label="add to my deck">undo</md-icon>
-              </md-button>
-            </div>
-          </form>
-        </div>
-      </md-card>
-    </div>
+          <div layout="row" layout-align="end center">
+            <md-button class="md-icon-button" ng-click="vm.cardService.updateACard(card); editCard = !editCard">
+              <md-icon class="md-48" aria-label="add to my deck">done</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="editCard = !editCard">
+              <md-icon class="md-48" aria-label="add to my deck">undo</md-icon>
+            </md-button>
+          </div>
+        </form>
+      </div>
+    </md-card>
+  </div>
+</md-content>
+
     <div layout="row" layout-align="center center">
-      <md-button ng-click="vm.cardService.loadMore()" flex ng-show="vm.cardService.showPirateverseActions" ng-class="primary">Load more</md-button>
+      <md-button ng-click="vm.cardService.loadMore()" ng-show="vm.cardService.showPirateverseActions" ng-class="primary">Load more</md-button>
     </div>
-</div>
-
-</div>
+ 

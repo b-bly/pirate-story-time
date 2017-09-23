@@ -13,37 +13,39 @@
         }
     </style> -->
 
-<div>
-<md-content class="login" md-theme="docs-dark" layout="column" layout-align="center center">
 
-    <h1 class="md-headline">Login</h1>
-    <h2 class="md-subhead" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
+    <md-content class="page-top">
+            <div style='color: white;' id="background" class="login" 
+             layout="column" layout-align="center center">
+                    
+        <h1 class="md-headline">Login</h1>
+        <h2 class="md-subhead" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
 
-    <form ng-submit="lc.login()">
-        <div layout="column" >
+        <form ng-submit="lc.login()">
+            <div layout="column">
 
-            <div>
-            <md-input-container>
-                <label for="username">Username:</label>
-                <input type="text" ng-model="lc.user.username" />
-            </md-input-container>
+                <div>
+                    <md-input-container>
+                        <label for="username">Username:</label>
+                        <input type="text" ng-model="lc.user.username" />
+                    </md-input-container>
+                </div>
+                <div>
+                    <md-input-container class="padding">
+                        <label for="password">Password:</label>
+                        <input type="password" ng-model="lc.user.password" />
+                    </md-input-container>
+                </div>
+                <div class="padding">
+                    <md-button type="submit">
+                        login
+                    </md-button>
+        </form>
+
+        <!-- <input class="btn btn-default" type="submit" name="submit" value="Log In" /> -->
+        <md-button ng-href="#register">Register</md-button>
         </div>
-        <div>
-            <md-input-container class="padding">
-                <label for="password">Password:</label>
-                <input type="password" ng-model="lc.user.password" />
-            </md-input-container>
         </div>
-            <div class="padding">
-                <md-button type="submit">
-                    login
-                </md-button>
-    </form>
-
-    <!-- <input class="btn btn-default" type="submit" name="submit" value="Log In" /> -->
-    <md-button ng-href="#register">Register</md-button>
+        <img src="Pirate-Story.png" class="login-image" layout-align="start center" />
     </div>
-    </div>
-    <img src="Pirate-Story.png" style="width: 100vh" layout-align="start center" />
 </md-content>
-</div>

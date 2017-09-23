@@ -12,8 +12,8 @@ router.get('/', function (req, res) {
       username: req.user.username,
       getstoryfrom: req.user.getstoryfrom
     };
-    console.log('user');
-    console.log(req.user);
+    //console.log('user');
+   // console.log(req.user);
     
     
     res.send(userInfo);
