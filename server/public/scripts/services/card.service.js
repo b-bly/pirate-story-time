@@ -121,11 +121,11 @@ myApp.service('CardService', ['$http', '$location', '$timeout', function ($http,
                     'success'
                 )
                 $http.delete('/card/' + id).then(function (response) {
-                    self.getCards();
+                    self.getUsersCards();
                 });
-            }, function(dismiss) {
+            }, function (dismiss) {
                 self.getUsersCards();
-                
+
             });
 
         }, 1500);
@@ -216,13 +216,14 @@ myApp.service('CardService', ['$http', '$location', '$timeout', function ($http,
             }).then(function () {
                 //runs on clicking 'OK'
                 //errror: uncaught promise ???
-                // $http.put('/register/remove/' + cardId).then(function (response) {
-                self.getMyFavorites();
-                swal(
-                    'Removed!',
-                    'The pirateverse has absorbed your card.  You\'re next.',
-                    'success'
-                )
+                $http.put('/register/remove/' + cardId).then(function (response) {
+                    self.getMyFavorites();
+                    swal(
+                        'Removed!',
+                        'The pirateverse has absorbed your card.  You\'re next.',
+                        'success'
+                    )
+                });
             }, function (dismiss) {
                 //runs on clicking 'cancel'
                 console.log('cancel path ran in remove');

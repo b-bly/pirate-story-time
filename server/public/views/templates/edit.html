@@ -51,9 +51,9 @@
 <!-- CARDS non edit mode  -->
 
 
-<md-content layout-wrap layout="row" layout-xs="column" >
-  <div  ng-repeat="card in vm.cardService.cards.list | filter:vm.searchText" layout-align="start">
-    <md-card  layout="column" ng-class="card.class" class="browse-card md-primary" md-theme="{{ color? card.type : 'default' }}" >
+<md-content layout-wrap layout="row" layout-xs="column" flex >
+  <div  class="browse-card" ng-repeat="card in vm.cardService.cards.list | filter:vm.searchText" layout-align="start">
+    <md-card  layout="column" ng-class="card.class" class=" md-primary" md-theme="{{ color? card.type : 'default' }}" >
       <div ng-show="!editCard">
         <md-card-title class="padding">
           <md-card-header>
@@ -110,11 +110,16 @@
           <md-card-title class="morepadding">
             <md-input-container>
               <label>Description:</label>
-              <textarea name="description" ng-model="card.description" required md-maxlength="1000" rows="5" cols="60"></textarea>
-              <div ng-messages="userForm.bio.$error" ng-show="userForm.bio.$dirty">
-                <div ng-message="required">Shiver me timbers! Write something!</div>
-                <div ng-message="md-maxlength">Look! There's a novel on the portside deck! Less is more, matey.</div>
+             
+              <textarea style="color: blue" name="description" ng-model="card.description" rows="3" cols="60"></textarea>
+              <div>
+                <div class="md-subhead red pulse" ng-show="cc.description.length == 0">Shiver me timbers! Write something!</div>
+                <div ng-show="cc.description.length > 50 && cc.description.length < 90" class="md-subhead red animated text bounceInDown">Look! There's a novel on the portside deck! Less is more, matey.</div>
+                <div class="md-subhead red animated text bounceInUp" ng-show="cc.description.length > 100 && cc.description.length < 140">Keep this up, and we'll have to hunt some squid.  For the ink.</div>
+                <div class="md-subhead red animated text bounceInDown" ng-show="cc.description.length > 150">OK, we're leaving without you, mate!</div>
+                
               </div>
+
             </md-input-container>
           </md-card-title>
 
@@ -134,8 +139,7 @@
             <md-button type="button" ng-click="vm.cardService.pick()">Add image</md-button>
             <!-- <img ng-src="{{cc.url.url}}" style="width: 20px;"> -->
           </md-card-title>
-          <md-button ng-click="logUrl">log url</md-button>
-
+          
           <div layout="row" layout-align="end center">
             <md-button class="md-icon-button" ng-click="vm.cardService.updateACard(card); editCard = !editCard">
               <md-icon class="md-48" aria-label="add to my deck">done</md-icon>

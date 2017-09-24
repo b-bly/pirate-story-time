@@ -101,6 +101,7 @@ navbar-inner img {
 
 .browse-card {
   border-radius: 10px;
+  max-width: 33%;
 }
 
 .card-image {
@@ -299,8 +300,9 @@ md-card {
   }
 }
 
-
-
+ {
+  
+}
 @media (max-width : 375px) {
 .title {
   visibility: hidden;
@@ -308,6 +310,9 @@ md-card {
 }
   .navigation {
     margin-left: -20px;
+  }
+  .browse-card {
+    max-width: 100%;
   }
   md-card {
     max-width: 100%;

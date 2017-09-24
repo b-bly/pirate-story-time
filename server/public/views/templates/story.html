@@ -22,7 +22,7 @@
 
 <h2 ng-show="vm.cardService.pirateverse">You've entered the pirateverse, matey, take care now!</h2>
 <md-content  layout-wrap layout="row" flex>
-    <div flex="30" ng-repeat="card in vm.storyCards.list" layout-sm="column" layout-xs="column">
+    <div class="browse-card" ng-repeat="card in vm.storyCards.list" layout-sm="column" layout-xs="column">
         <md-card  ng-class='card.class' layout="column" md-theme="{{ color? card.type : 'default' }}" md-theme-watch>
 
             <md-card-title>

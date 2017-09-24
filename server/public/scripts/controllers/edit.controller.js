@@ -11,8 +11,8 @@ myApp.controller('EditController', function (CardService, UserService) {
 
 
 }).config(function ($mdThemingProvider) {
-    $mdThemingProvider.theme('Villain').backgroundPalette('green').dark();
-    $mdThemingProvider.theme('Creature').backgroundPalette('deep-orange').dark();
+    $mdThemingProvider.theme('Villain').backgroundPalette('green');
+    $mdThemingProvider.theme('Creature').backgroundPalette('brown').dark();
     $mdThemingProvider.theme('Environment').backgroundPalette('deep-purple').dark();
     $mdThemingProvider.theme('Item').backgroundPalette('indigo').dark();
     $mdThemingProvider.theme('Goal', 'default')
