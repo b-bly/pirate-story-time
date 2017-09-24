@@ -1,4 +1,4 @@
-myApp.service('CardService', ['$http', '$location', function ($http, $location) {
+myApp.service('CardService', ['$http', '$location', '$timeout', function ($http, $location, $timeout) {
     let self = this;
     self.types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     self.cards = { list: [] };
@@ -7,6 +7,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     self.showMyCardsActions = true;
     self.url = { url: '' };
     self.class = { class: '' };
+    let removeCancel = false;
 
     self.addACard = function (type, description, url, saveToPirateverse) {
         saveToPirateverse = saveToPirateverse ? saveToPirateverse : false;
@@ -99,18 +100,12 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     }
 
     self.deleteCard = function (id) {
-        console.log('deleteCard clicked, id: ');
-        console.log(id);
         self.cards.list.forEach(function (obj, i) {
             if (obj._id == id) {
                 self.cards.list[i].class = 'hinge animated';
-                console.log('it worked');
-
             }
         });
-        console.log(self.class.class);
-
-        setTimeout(function () {
+        $timeout(function () {
             swal({
                 title: 'Get your head out of your poop deck!',
                 text: "Are you sure you want to feed this card to the croc?",
@@ -119,27 +114,21 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Feed to croc'
-            })
+            }).then(function () {
+                swal(
+                    'Yum!',
+                    'Your file has been eaten',
+                    'success'
+                )
+                $http.delete('/card/' + id).then(function (response) {
+                    self.getCards();
+                });
+            }, function(dismiss) {
+                self.getUsersCards();
+                
+            });
 
         }, 1500);
-        // swal({
-        //     title: 'Get your head out of your poop deck!',
-        //     text: "Are you sure you want to feed this card to the croc?",
-        //     type: 'warning',
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#3085d6',
-        //     cancelButtonColor: '#d33',
-        //     confirmButtonText: 'Feed to croc'
-        // }).then(function () {
-        //     swal(
-        //         'Yum!',
-        //         'Your file has been eaten',
-        //         'success'
-        //     )
-        //     $http.delete('/card/' + id).then(function (response) {
-        //         self.getCards();
-        // });
-        // })
     }
     // FILESTACK
     const apikey = 'A84ELWySuRZ6V4lWbEcn1z';
@@ -187,9 +176,15 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
             if (response.data) {
                 //card(s) returned
                 let cards = response.data;
-                let result = sortCards(response.data);
-                self.storyCards.list = result;
+                let result = sortCards(cards);
 
+                result.forEach(function (obj, i) {
+
+                    $timeout(function () {
+                        self.storyCards.list.push(obj);
+                        self.storyCards.list[i].class = 'animated slideInUp';
+                    }, 1000 * i);
+                });
             } else {
                 console.log('CardService -- getCards -- error');
                 //to do: message to users: no cards!
@@ -199,49 +194,85 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
     }
 
     self.removeCard = function (cardId) {
+        self.cards.list.forEach(function (obj, i) {
+            if (obj._id == cardId) {
+                self.cards.list[i].class = 'zoomOutDown animated';
+            }
+        });
+        $timeout(function () {
+            swal({
+                title: 'Are you sure you\'ll be tossin\'n this card back to the Pirateverse?',
 
-        swal({
-            title: 'Are you sure you\'ll be tossin\'n this card back to the Pirateverse?',
-
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Remove this scurvy card!',
-            html: $('<div>')
-                .addClass('some-class')
-                .text('You can always go looking for it again.'),
-            animation: false,
-            customClass: 'animated bounceInDown'
-        })
-            .then(function () {
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Remove this scurvy card!',
+                html: $('<div>')
+                    .addClass('some-class')
+                    .text('You can always go looking for it again.'),
+                animation: false,
+                customClass: 'animated bounceInDown'
+            }).then(function () {
+                //runs on clicking 'OK'
                 //errror: uncaught promise ???
-                $http.put('/register/remove/' + cardId).then(function (response) {
-                    self.getMyFavorites();
-                    swal(
-                        'Removed!',
-                        'The pirateverse has absorbed your card.  You\'re next.',
-                        'success'
-                    )
+                // $http.put('/register/remove/' + cardId).then(function (response) {
+                self.getMyFavorites();
+                swal(
+                    'Removed!',
+                    'The pirateverse has absorbed your card.  You\'re next.',
+                    'success'
+                )
+            }, function (dismiss) {
+                //runs on clicking 'cancel'
+                console.log('cancel path ran in remove');
+                console.log('confirm');
+
+                $http.get('/card/myfavorites').then(function (response) {
+                    if (response.data) {
+                        //card(s) returned
+                        self.cards.list = response.data;
+
+                        self.cards.list.forEach(function (obj, i) {
+                            if (obj._id == cardId) {
+                                self.cards.list[i].class = 'animated bounceIn';
+                            }
+                        });
+
+                        // console.log('cards.list');
+                        // console.log(self.cards.list);
+                    } else {
+                        console.log('CardService -- getCards -- error');
+                        //to do: message to users: no cards!
+                    }
                 });
-            })
+
+            });
+        }, 1000);
+
     }
 
     self.addToMyDeck = function (cardId) {
         // console.log('addToMyDeck called, id:');
         // console.log(cardId);
-
-        $http.put('/register/mydeck/' + cardId).then(function (response) {
-            swal({
-                title: 'It\'s aboard our ship now!',
-                html: $('<div>')
-                    .addClass('some-class')
-                    .text('You\'d better get aboard too, Captain!'),
-                animation: false,
-                customClass: 'animated bouncInDown'
-            })
-            self.getCards();
+        self.cards.list.forEach(function (obj, i) {
+            if (obj._id == cardId) {
+                self.cards.list[i].class = 'jello animated';
+            }
         });
+        $timeout(function () {
+            $http.put('/register/mydeck/' + cardId).then(function (response) {
+                swal({
+                    title: 'It\'s aboard our ship now!',
+                    html: $('<div>')
+                        .addClass('some-class')
+                        .text('You\'d better get aboard too, Captain!'),
+                    animation: false,
+                    customClass: 'animated bouncInDown'
+                });
+                self.getCards();
+            });
+        }, 1000);
     }
 
     function sortCards(cards) {
@@ -268,6 +299,7 @@ myApp.service('CardService', ['$http', '$location', function ($http, $location) 
             if (response.data) {
                 //card(s) returned
                 self.cards.list = response.data;
+
                 // console.log('cards.list');
                 // console.log(self.cards.list);
             } else {

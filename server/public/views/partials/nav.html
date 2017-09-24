@@ -18,8 +18,12 @@
 <div ng-controller="NavController as vm">
   <md-content class="md-padding">
     <md-nav-bar md-selected-nav-item="vm.currentNavItem" aria-label="current nav item">
-      <div layout="row" layout-align="center end" flex>
-        <div flex="75" class="md-title">
+      <div class="navigation" layout="row" layout-align="center" flex layout-align="space-between center" style="justify-content: space-between;">
+          <!-- <ul><li><a class="navbar-brand" href="#/home"><img src="pirate-icon.png" style="width: 50px"/></a></li></ul> -->
+         <div style="width: 10%;" >
+          <md-button ng-href="#story"><img  src="pirate-icon.png" style="width: 45px;"/></md-button>
+        </div>
+        <div style="width: 20%; min-width: 190px;" class="md-headline title">
           Pirate Story Time
         </div>
         <!-- <a ng-href="#/story">
@@ -33,7 +37,7 @@
         <!-- <md-nav-item md-nav-href="#/story" name="story">Story</md-nav-item>
       <md-nav-item md-nav-href="#/edit" name="browse">Browse</md-nav-item>
       <md-nav-item md-nav-href="#" ng-click="vm.userService.logout()" name="Log out" >Log out</md-nav-item> -->
-        <md-menu flex="25">
+        <md-menu style="width: 10%; min-width: 100px;" >
 
           <!-- Trigger element is a md-button with an icon -->
           <md-button ng-click="$mdMenu.open($event)" aria-label="Open sample menu">

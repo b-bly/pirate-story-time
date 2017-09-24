@@ -74,6 +74,10 @@ li a {
 }
 
 /* Change the link color to #111 (black) on hover */
+.red {
+  color: red;
+}
+
 li a:hover {
   text-decoration: underline;
   color: #eee;
@@ -96,7 +100,7 @@ navbar-inner img {
 }
 
 .browse-card {
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .card-image {
@@ -105,6 +109,7 @@ navbar-inner img {
 
 md-card {
   min-width: 200px;
+  /* max-width: 30%; */
 }
 
 .gray {
@@ -297,6 +302,16 @@ md-card {
 
 
 @media (max-width : 375px) {
+.title {
+  visibility: hidden;
+  width: 0px;
+}
+  .navigation {
+    margin-left: -20px;
+  }
+  md-card {
+    max-width: 100%;
+  }
   .page-top {
     margin-top: 0;
   }

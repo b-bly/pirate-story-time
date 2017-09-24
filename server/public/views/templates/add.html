@@ -1,6 +1,6 @@
 <!-- card controller  -->
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container" md-padding layout="column" flex>
+<div class="container" md-padding layout="column" layout-align="start center">
   <!-- <div layout="column" md-padding> <h1 class="lead">Add a card</h1> </div> -->
 
 
@@ -24,13 +24,16 @@
         </md-input-container>
       </md-card-content>
 
-      <md-card-content class="padding">
+      <md-card-content class="morepadding">
         <md-input-container>
           <label>Description:</label>
-          <textarea style="color: blue" name="description" ng-model="cc.description" required md-maxlength="1000" rows="3" cols="60"></textarea>
-          <div ng-messages="userForm.bio.$error" ng-show="userForm.bio.$dirty">
-            <div ng-message="required">Shiver me timbers! Write something!</div>
-            <div ng-message="md-maxlength">Look! There's a novel on the portside deck! Less is more, matey.</div>
+          <textarea style="color: blue" name="description" ng-model="cc.description" rows="3" cols="60"></textarea>
+          <div>
+            <div class="md-subhead red pulse" ng-show="cc.description.length == 0">Shiver me timbers! Write something!</div>
+            <div ng-show="cc.description.length > 50 && cc.description.length < 90" class="md-subhead red animated text bounceInDown">Look! There's a novel on the portside deck! Less is more, matey.</div>
+            <div class="md-subhead red animated text bounceInUp" ng-show="cc.description.length > 100 && cc.description.length < 140">Keep this up, and we'll have to hunt some squid.  For the ink.</div>
+            <div class="md-subhead red animated text bounceInDown" ng-show="cc.description.length > 150">OK, we're leaving without you, mate!</div>
+            
           </div>
       </md-card-content >
       <md-card-content class="morepadding">

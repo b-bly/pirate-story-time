@@ -1,4 +1,4 @@
-myApp.controller('StoryController', function($http, UserService, CardService) {
+myApp.controller('StoryController', function($timeout, UserService, CardService) {
     var self = this;
     self.userService = UserService;
     self.cardService = CardService;
@@ -8,6 +8,14 @@ myApp.controller('StoryController', function($http, UserService, CardService) {
     self.usersCards = CardService.storyCards;
     self.storyCards = CardService.storyCards;
     
+    // CardService.storyCards.list.forEach(function(obj, i) {
+    //     $timeout(function() {
+    //         self.storyCards.list[i] = obj;
+    //         self.storyCards.list[i].class = 'animated pulse';
+    //     }, 500);
+    // });
+        
+  
 
 }).config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('Villain').backgroundPalette('green').dark();

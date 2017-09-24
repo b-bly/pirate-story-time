@@ -7,6 +7,7 @@ myApp.controller('CardController', function (CardService, UserService) {
   self.usersCards = CardService.usersCards;
   self.types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
   self.url = { url: '' };
+  self.description = '';
   self.addACard = function () {
     return CardService.addACard(self.type, self.description, self.url.url, self.saveToPirateverse);
   };

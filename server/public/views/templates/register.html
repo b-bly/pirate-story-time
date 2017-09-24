@@ -1,28 +1,33 @@
-<div class="container">
-  <h1 class="lead">RegistArrrr!</h1>
-  <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
+<md-content class="">
+  <div style='color: white;' id="background" class="login" layout="column" layout-align="start center">
+    <h1 class="md-headline">RegistArrr!</h1>
+    <h2 class="md-subhead" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
+
     <form ng-submit="lc.registerUser()">
-      <div>
-        <label for="username">Username:</label>
-        <input type="text" ng-model="lc.user.username" />
-      </div>
-      <div>
+      <div layout="column">
+       
+          <md-input-container>
+            <label for="username" style="color: white;">Username:</label>
+            <input type="text" ng-model="lc.user.username" />
+          </md-input-container>
+       
 
-        <!-- <div>
-          <label for="email">Email:</label>
-          <input type="email" ng-model="lc.user.email" />
-        </div> -->
-        <div>
-          <label for="password">Password:</label>
+        <md-input-container class="padding">
+          <label for="password" style="color: white;">Password:</label>
           <input type="password" ng-model="lc.user.password" />
-        </div>
-        <div>
-          <label for="password">Re-enter password:</label>
+        </md-input-container>
+        <md-input-container class="padding">
+          <label for="password" style="color: white;">Re-enter password:</label>
           <input type="password" ng-model="lc.user.passwordConfirm" />
-        </div>
-      </div>
-      <input class="btn btn-default" type="submit" name="submit" value="Register" />
-      <a href="#home">Cancel</a>
-    </form>
+        </md-input-container>
+        <div class="padding" class="raised md-primary">
+          <md-button type="submit">
+            submit
+          </md-button>
+          <md-button ng-href="#login">Cancel</md-button>
+        </form>
+    </div>
+    <img src="pirate-story.png" class="login-image" layout-align="start center" />
+    
+</md-content>
 
-</div>

@@ -38,8 +38,6 @@ myApp.controller('LoginController', function($http, $location, UserService) {
       console.log('LoginController -- registerUser');
       if(self.user.username === '' || self.user.password === '') {
         self.message = "Choose a username and password!";
-      } else if (self.user.password.length < 6) {
-        self.message = "Yer password must be at least 6 characters long, matey."
       // } else if (self.user.password != self.user.passwordConfirm) {
       //   self.message = "Arr, the passwords don't match!"
       } else {

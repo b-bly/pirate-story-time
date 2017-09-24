@@ -22,44 +22,44 @@
 </div>
 
 <!-- MY CARDS PIRATEVERSE MY FAVORITES  -->
-<md-content flex id="myCards">
-  <div flex="30" layout-align="start center"></div>
-  <section layout="row" layout-align="center center" layout-wrap layout-xs="column" layout-sm="column">
-    <!-- change getuserscards to get mylibrary cards -->
-    <md-button ng-click="vm.cardService.getUsersCards(); 
+<md-content id="myCards">
+  <!-- <div flex="30" layout-align="start center"></div> -->
+    <section layout="row" layout-align="center center" layout-wrap layout-xs="column" layout-sm="column">
+      <!-- change getuserscards to get mylibrary cards -->
+      <md-button ng-click="vm.cardService.getUsersCards(); 
     vm.cardService.myCards=true; 
     myFavorites=false; 
     pirateverse=false;
     " class="md-raised" ng-class="{'md-primary' : vm.cardService.myCards}">My Cards</md-button>
-    <md-button ng-click="vm.cardService.getMyFavorites(); 
+      <md-button ng-click="vm.cardService.getMyFavorites(); 
     vm.cardService.myCards=false; myFavorites=true; pirateverse=false;
     " class="md-raised" ng-class="{ 'md-primary': myFavorites }">My Favorites</md-button>
-    <md-button ng-click="vm.cardService.getCards();
+      <md-button ng-click="vm.cardService.getCards();
     vm.cardService.myCards=false; myFavorites=false; pirateverse=true;
     " class="md-raised" ng-class="{ 'md-primary': pirateverse }">Pirateverse</md-button>
-  </section>
+    </section>
 
-  <section layout="row" layout-align="center center" layout-wrap layout-xs="column" layout-sm="column">
+    <section layout="row" layout-align="center center" layout-wrap layout-xs="column" layout-sm="column">
 
-    <md-checkbox ng-model="color" aria-label="Color cards">
-      <p>Color coded? <span style="color: blue" ng-if="color"> Aye!</span>
-        <span style="color: blue" ng-if="!color"> Nooooo</span></p>
-    </md-checkbox>
-  </section>
+      <md-checkbox ng-model="color" aria-label="Color cards">
+        <p>Color coded? <span style="color: blue" ng-if="color"> Aye!</span>
+          <span style="color: blue" ng-if="!color"> Nooooo</span></p>
+      </md-checkbox>
+    </section>
 </md-content>
 
 <!-- CARDS non edit mode  -->
 
 
-<md-content layout-wrap layout="row">
-  <div ng-class="md-padding" layout="row" layout-wrap layout-sm="column" layout-xs="column" ng-repeat="card in vm.cardService.cards.list | filter:vm.searchText">
-    <md-card layout="column" ng-class="card.class" class="browse-card md-primary" md-theme="{{ color? card.type : 'default' }}">
+<md-content layout-wrap layout="row" layout-xs="column" >
+  <div  ng-repeat="card in vm.cardService.cards.list | filter:vm.searchText" layout-align="start">
+    <md-card  layout="column" ng-class="card.class" class="browse-card md-primary" md-theme="{{ color? card.type : 'default' }}" >
       <div ng-show="!editCard">
         <md-card-title class="padding">
           <md-card-header>
             <md-card-title-text>{{vm.cardService.class.class}}
-              <span class="md-headline">Type: <span class="md-title">{{ card.type }}</span></span>
-              <span class="md-headline">Description: <span class="md-title">{{card.description }}</span></span>
+              <span class="md-title">Type: <span class="md-subhead">{{ card.type }}</span></span>
+              <span class="md-title">Description: <span class="md-subhead">{{card.description }}</span></span>
               <span ng-show="vm.cardService.showMyCardsActions ">Save to pirateverse? <span ng-if="card.savetopirateverse">Of course, matey!</span>
               <p ng-if="!card.savetopirateverse">Good heavens, no!</p>
               </span>
@@ -150,7 +150,6 @@
   </div>
 </md-content>
 
-    <div layout="row" layout-align="center center">
-      <md-button ng-click="vm.cardService.loadMore()" ng-show="vm.cardService.showPirateverseActions" ng-class="primary">Load more</md-button>
-    </div>
- 
+<div layout="row" layout-align="center center">
+  <md-button ng-click="vm.cardService.loadMore()" ng-show="vm.cardService.showPirateverseActions" ng-class="primary">Load more</md-button>
+</div>

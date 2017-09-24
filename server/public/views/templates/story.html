@@ -1,35 +1,42 @@
 <div ng-include="'views/partials/nav.html'"></div>
 
 <div layout="column" class="md-inline-form">
-    <md-content md-theme="docs-dark" layout-padding layout="column" >
+    <md-content md-theme="docs-dark" layout-padding layout="column">
         <div class="padding" flex layout-align="start center">
             <h2>Once upon a pirate ship...</h2>
         </div>
         <div class="morepadding">
-        <md-checkbox  ng-model="color" aria-label="Color cards">
-            <p>Color coded? <span style="color: blue" ng-if="color"> Aye!</span>
-                <span style="color: blue" ng-if="!color"> Nooooo</span></p>
-        </md-checkbox>
-    </div>
+            <md-checkbox ng-model="color" aria-label="Color cards">
+                <p>Color coded? <span style="color: blue" ng-if="color"> Aye!</span>
+                    <span style="color: blue" ng-if="!color"> Nooooo</span></p>
+            </md-checkbox>
+        </div>
     </md-content>
 </div>
 
+
+<!-- <md-content layout-wrap layout="row" flex>
+    <div flex="30" ng-class="md-padding"  layout-sm="column" layout-xs="column" ng-repeat="card in vm.cardService.cards.list | filter:vm.searchText">
+      <md-card layout="column" ng-class="card.class" class="browse-card md-primary" md-theme="{{ color? card.type : 'default' }}" > -->
+     
+
 <h2 ng-show="vm.cardService.pirateverse">You've entered the pirateverse, matey, take care now!</h2>
-<md-content class="md-padding" layout-wrap layout="row">
-    <md-card layout="column" ng-repeat="card in vm.storyCards.list" md-theme="{{ color? card.type : 'default' }}" md-theme-watch>
+<md-content  layout-wrap layout="row" flex>
+    <div flex="30" ng-repeat="card in vm.storyCards.list" layout-sm="column" layout-xs="column">
+        <md-card  ng-class='card.class' layout="column" md-theme="{{ color? card.type : 'default' }}" md-theme-watch>
 
-        <md-card-title>
-            <md-card-title-text>
-                <span class="md-headline">Type: {{ card.type }}</span>
-                <span class="md-subhead">Description: {{ card.description }}</span>
-            </md-card-title-text>
-        </md-card-title>
-        <md-card-title-media>
-            <!-- <div class="md-media-md card-media"></div> -->
-            <img ng-hide="!card.url" class="card-image" ng-src="{{card.url}}" style="height: 200px; max-width: 200px">
-        </md-card-title-media>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">Type: {{ card.type }}</span>
+                    <span class="md-subhead">Description: {{ card.description }}</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-title>
+                <!-- <div class="md-media-md card-media"></div> -->
+                <img ng-hide="!card.url" class="card-image" ng-src="{{card.url}}" style="height: 200px; max-width: 200px">
+            </md-card-title>
 
-        <!-- <md-card-actions layout="row" layout-align="end center">
+            <!-- <md-card-actions layout="row" layout-align="end center">
             <md-button ng-click="editCard = !editCard; vm.selectedCard = card[0];"><i aria-label="edit" class="material-icons" style="font-size:24px;">mode edit</i></md-button>
             <md-button class="md-warn" ng-click="vm.deleteCard(card[0]._id)"><i aria-label="delete" class="material-icons" style="font-size:24px;">delete</i></md-button>
         </md-card-actions>
@@ -37,13 +44,6 @@
             Save to pirateverse?
         </md-checkbox> -->
 
-    </md-card>
-
-
-    <!-- I decided to use one variable 'storyCards' for both stories from one user or from the pirateverse. 
-I want to try to clear out data from this variable on page unload eventually, so there
-are no problems if the user reloads the page or something.
-
-Another option would be to use two variable names and an ng-if 
-
-Yet another option would be two views. -->
+        </md-card>
+    </div>
+</md-content>
