@@ -17,7 +17,7 @@
           <div layout="column">
             <form ng-submit="vm.setGetFromPirateverse(vm.userObject.data)">
               
-              <span class="md-no-sticky" class="radioValue">Select cards from {{vm.userObject.data.getstoryfrom}}</span>
+              <span class="md-no-sticky" class="radioValue">Create story from: <strong>{{vm.userObject.data.getstoryfrom}}</strong></span>
               <div ng-repeat="deck in vm.getcardsfrom">
                 <md-radio-group ng-model="vm.userObject.data.getstoryfrom">
                   <md-radio-button ng-model="vm.userObject.data.getstoryfrom" ng-value="deck" class="md-primary">{{deck}}</md-radio-button>

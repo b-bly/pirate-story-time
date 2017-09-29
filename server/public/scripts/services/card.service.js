@@ -177,7 +177,7 @@ myApp.service('CardService', ['$http', '$location', '$timeout', function ($http,
                 //card(s) returned
                 let cards = response.data;
                 let result = sortCards(cards);
-
+                self.storyCards.list = [];
                 result.forEach(function (obj, i) {
 
                     $timeout(function () {
