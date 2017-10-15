@@ -24,11 +24,11 @@ myApp.controller('LoginController', function($http, $location, UserService) {
             $location.path('/story'); // http://localhost:5000/#/user
           } else {
             console.log('LoginController -- login -- failure: ', response);
-            self.message = "Wrong!!";
+            self.message = "Wrong username or password.  Try again!";
           }
         }).catch(function(response){
           console.log('LoginController -- registerUser -- failure: ', response);
-          self.message = "Wrong!!";
+          self.message = "Wrong username or password.  Try again.";
         });
         self.message = '';
       }

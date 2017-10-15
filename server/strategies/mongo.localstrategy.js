@@ -27,6 +27,8 @@ passport.use('local', new localStrategy({
   passReqToCallback: true,
   usernameField: 'username'
   }, function(req, username, password, done) {
+    console.log('passport localStrategy created');
+    
     // mongoose stuff
     User.findOne({username: username}, function(err, user) {
       if(err) {
@@ -40,6 +42,8 @@ passport.use('local', new localStrategy({
       } else {
         // found user! Now check their given password against the one stored in the DB
         // comparePassword() is defined in the schema/model file!
+        console.log('comparing password');
+        
         user.comparePassword(password, function(err, isMatch) {
           if(err) {
             throw err;
