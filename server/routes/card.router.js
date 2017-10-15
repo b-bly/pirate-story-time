@@ -63,7 +63,7 @@ router.get('/morepirateverse', function (req, res) {
     let limit = parseInt(req.query.limit) || 50;
     console.log('skip, limit: ');
     console.log(skip, limit);
-    
+
     if (req.isAuthenticated()) {
         let myFavorites = req.user.mycards; //array of card ids
         Card.find({ _id: { "$nin": myFavorites } })
@@ -186,15 +186,12 @@ router.put('/mydeck/:id', function (req, res) {
 //would like to wrap this up in a function because the '/pirateverse' request is nearly identical 
 //it just lacks the username parameter in the mongoose find.
 router.get('/story', function (req, res) {
-    var j = 0;
-    console.log('story getstoryfrom: ');
-    console.log(req.body.getstoryfrom);
-
-
+    let j = 0;
     let types = ['Villain', 'Environment', 'Item', 'Creature', 'Goal'];
     let cards = [];
     if (req.isAuthenticated()) {
-        console.log('logged in');
+        console.log('story getstoryfrom: ');
+        console.log(req.user.getstoryfrom);
         if (req.user.getstoryfrom == 'myCards') { //get from users cards
             //*** change this to get from "myCards: true" 
             //criteria.username = req.user.username
@@ -225,36 +222,35 @@ router.get('/story', function (req, res) {
             types.forEach((type, i) => {
                 // console.log('type: ', type);
 
-                Card.find({ _id: { $in: data[0].mycards } }, function (err, data) {
+                // Card.find({ _id: { $in: req.user.mycards } }, function (err, data) {
+                //     if (err) {
+                //         console.log('card find error: ', err);
+                //         res.sendStatus(500);
+                //     } else {
+                //         console.log('get story > myfavorites find request data');
+                //         console.log(data);
+
+
+                //         res.send(data);
+                //     }
+                // });
+
+                Card.findRandom({ _id: { $in: req.user.mycards }, type: type }, {}, {}, function (err, data) {
                     if (err) {
-                        console.log('card find error: ', err);
                         res.sendStatus(500);
                     } else {
-                        console.log('get story > myfavorites find request data');
-                        console.log(data);
-
-
-                        //res.send(data);
+                        // console.log('findOneRandomCard data loop #', i);
+                        // console.log(data);
+                        if (data) { cards.push(data[0]) }
+                        else { // j = number of categories that don't have cards
+                            j++;
+                        }
+                        if (cards.length == 5 - j) { // we've got a card from each category that's not empty
+                            console.log('sending myFavorites story cards');
+                            res.send(cards);
+                        }
                     }
                 });
-
-                //     Card.findRandom({ username: username, type: type }, {}, {}, function (err, data) {
-                //         if (err) {
-                //             res.sendStatus(500);
-                //         } else {
-                //             // console.log('findOneRandomCard data loop #', i);
-                //             // console.log(data);
-                //             if (data) { cards.push(data[0]) }
-                //             else {
-                //                 j++;
-                //             }
-                //             if (cards.length == 5 - j) {
-                //                 console.log('sending cards');
-
-                //                 res.send(cards);
-                //             }
-                //         }
-                //     });
             });
         } else { // get from pirateverse
             types.forEach((type, i) => {

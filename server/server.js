@@ -39,19 +39,19 @@ app.use('/card', cardRouter);
 app.use('/', indexRouter);
 
 //heroku db setup
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
 
-var databaseURI = '';
-// process.env.MONGODB_URI will only be defined if you are running on Heroku
-if(process.env.MONGODB_URI != undefined) {
-    // use the string value of the environment variable
-    databaseURI = process.env.MONGODB_URI;
-} else {
-    // use the local database server
-    databaseURI = 'mongodb://localhost:27017/piratetime';
-} 
+// var databaseURI = '';
+// // process.env.MONGODB_URI will only be defined if you are running on Heroku
+// if(process.env.MONGODB_URI != undefined) {
+//     // use the string value of the environment variable
+//     databaseURI = process.env.MONGODB_URI;
+// } else {
+//     // use the local database server
+//     databaseURI = 'mongodb://localhost:27017/piratetime';
+// } 
 
-mongoose.connect(databaseURI);
+// mongoose.connect(databaseURI);
 
 // Listen //
 app.listen(port, function(){
