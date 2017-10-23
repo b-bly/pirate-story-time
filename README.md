@@ -1,30 +1,31 @@
-# Name of Project
-
-One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.
+# Pirate Storytime
+Making up stories for children on the spot is both enjoyable and challenging.  This app allows you to store story ideas for later and share them with other users.  
+Users can add ideas in five categories of story elements. They can choose to make these public or keep them private.  They can also search through the public cards and add them to their favorites.
 
 ## Built With
 
-List technologies and frameworks here
+Mongo, Express, AngularJS, Node.js, Javascript, SweetAlert2, Angular Material and Filestack. 
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+The first time you log in to Pirate Storytime it will generate cards for you from the pirateverse.  Later, you can go to settings and change the source to My Favorites or My Cards.
+
+In the "Browse" section, you can add new cards and see them in the "My Cards" section.  You can browse and search the pirateverse for cards and add them to My Favorites.
 
 ### Prerequisites
 
-Link to software that is required to install the app (e.g. node).
-
 - [Node.js](https://nodejs.org/en/)
-- List other prerequisites here
 
 
 ### Installing
 
-Steps to get the development environment running.
+Run this command in the terminal:
+npm install
+npm start
 
-## Screen Shot
+Open a browser and go to:
 
-Include one or two screen shots of your project here (optional). Remove if unused.
+localhost:5000
 
 ## Documentation
 
@@ -34,24 +35,28 @@ Link to a read-only version of your scope document or other relevant documentati
 
 High level list of items completed.
 
-- [x] Feature a
-- [x] Feature b
+- [x] CRUD functionality for cards.
+- [x] Authentication with Passport.
+- [x] Add and remove cards to My Favorites from the Pirateverse (all user's cards).
+- [x] Browse cards in three categories: "My Cards", "My Favorites", "Pirateverse".
+- [x] Select which deck of cards to use for generating a story: "My Cards", "My Favorites", "Pirateverse".
 
 ### Next Steps
 
 Features that you would like to add at some point in the future.
 
-- [ ] Feature c
+- [ ] Ability to see and follow the favorites collections of other users.
+- [ ] A card rating system based on the number of times a card is added to favorites.
+- [ ] Search based on card rating.
+- [ ] Flag a card as inappropriate.
 
-## Deployment
+## Author
 
-Add additional notes about how to deploy this on a live system
-
-## Authors
-
-* Name of author(s)
+Brendt Bly
 
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
+Thanks to Larry Price for making this Mongoose Schema plugin for finding random documents: 
+
+[a link](https://github.com/larryprice/mongoose-simple-random)
