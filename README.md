@@ -59,4 +59,4 @@ Brendt Bly
 
 Thanks to Larry Price for making this Mongoose Schema plugin for finding random documents: 
 
-[a link](https://github.com/larryprice/mongoose-simple-random)
+[mongoose-simple-random](https://github.com/larryprice/mongoose-simple-random)
